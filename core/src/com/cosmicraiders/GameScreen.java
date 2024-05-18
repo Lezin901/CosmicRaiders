@@ -21,9 +21,6 @@ public class GameScreen implements Screen {
 
     private SpriteBatch batch;
 
-
-
-
     private OrthographicCamera camera;
     private Rectangle fighter;
     private Array<Rectangle> fighterLasers;
