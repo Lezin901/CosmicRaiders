@@ -3,22 +3,28 @@ package com.cosmicraiders;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
-import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
-
 import java.util.Iterator;
 
+/**
+ * Includes the main game logic as well as most GUI elements of the game.
+ * Includes game avatars, background, movement, shooting, collision, and more.
+ */
 public class GameScreen implements Screen {
 
+    /**
+     * The Game instance which should be "CosmicRaiders" as a reference
+     */
     final CosmicRaiders game;
 
+    /**
+     * This batch includes all the textures / sprites to be rendered
+     */
     private SpriteBatch batch;
 
     private OrthographicCamera camera;
@@ -56,9 +62,6 @@ public class GameScreen implements Screen {
     public GameScreen(final CosmicRaiders game) {
         this.game = game;
 
-
-
-
         // start the playback of the background music immediately
         Assets.beepbop.setLooping(true);
         Assets.beepbop.setVolume(volume);
@@ -66,7 +69,7 @@ public class GameScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, ResolutionX, ResolutionY);
 
-        batch = game.batch; // danger danger danger encapsulation broken!!!!!!!11
+        batch = game.batch; // this ignores encapsulation as intended by LibGDX
 
         fighter = new Rectangle();
         fighter.x = ResolutionX / 2 - fighterSize / 2;
@@ -83,18 +86,27 @@ public class GameScreen implements Screen {
         spawnAsteroid();
     }
 
+    /**
+     * This method ensures a steady stream of asteroids falling from the top of the screen towards the bottom.
+     * The spawned asteroids are added to an "Array" List which is used in render().
+     * Asteroids are Circles, not Rectangles. Most other objects are Rectangles.
+     */
     private void spawnAsteroid() {
         Circle asteroid = new Circle();
         float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
         asteroid.radius = ((asteroidDiameter / 2) * randomSizeMultiplier);
-
-
         asteroid.x = MathUtils.random(fighterSize, ResolutionX - fighterSize);
         asteroid.y = ResolutionY + asteroid.radius;
         asteroids.add(asteroid);
         lastAsteroidTime = TimeUtils.nanoTime();
     }
 
+    /**
+     * This method spawns one alien ship at the top of the screen which moves diagonally.
+     * The alien is a Rectangle for collision purposes.
+     * It shoots green lasers.
+     * This method can be expanded to cause more than one alien to spawn, move and shoot.
+     */
     private void spawnAlien() {
         Rectangle alien = new Rectangle();
         alien.width = alienSize;
@@ -105,6 +117,11 @@ public class GameScreen implements Screen {
         alienDead = false;
     }
 
+    /**
+     *
+     * @param x
+     * @param y
+     */
     private void spawnAlienLaser(float x, float y) {
         Rectangle laser = new Rectangle();
         laser.width = alienLaserSize / 10;
