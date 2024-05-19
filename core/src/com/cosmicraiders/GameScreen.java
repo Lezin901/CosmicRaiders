@@ -51,7 +51,7 @@ public class GameScreen implements Screen {
     private boolean gameOver = false;
     private int score = 0;
     private int padding = ResolutionX / 100;
-    private boolean aliensMoveToRight = true;
+    private boolean aliensMoveToRight = false;
     private boolean alienDead = true;
 
     /**
