@@ -241,8 +241,8 @@ public class GameScreen implements Screen {
             if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) spawnFighterLaser();
         }
 
-        // restart the game by pressing tab
-        if(gameOver && Gdx.input.isKeyPressed(Input.Keys.TAB)) {
+        // restart the game by pressing ENTER
+        if(gameOver && Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gameOver = false;
 
             fighter.x = Config.resolutionX / 2 - Config.fighterSize / 2;
