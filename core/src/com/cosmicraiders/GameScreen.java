@@ -346,7 +346,6 @@ public class GameScreen implements Screen {
 
         }
 
-
     }
 
     private void laserHitsAsteroid(Circle asteroid) {
