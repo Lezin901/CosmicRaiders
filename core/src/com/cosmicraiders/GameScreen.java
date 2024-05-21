@@ -74,8 +74,6 @@ public class GameScreen implements Screen {
         asteroids = new Array<Circle>();
         explosions = new Array<Explosion>();
         aliens = new Array<Rectangle>();
-
-        spawnAsteroid();
     }
 
     /**
@@ -110,9 +108,11 @@ public class GameScreen implements Screen {
     }
 
     /**
-     *
-     * @param x
-     * @param y
+     * Spawns an alien laser starting from the bottom middle of the alien ship sprite.
+     * Sets lastAlienShootTime in order to set the interval between shots.
+     * Adds the laser to an Array to be rendered.
+     * @param x the horizontal coordinate of the alien ship that shoots
+     * @param y the vertical coordinate of the alien ship that shoots
      */
     private void spawnAlienLaser(float x, float y) {
         Rectangle laser = new Rectangle();
@@ -126,6 +126,11 @@ public class GameScreen implements Screen {
         lastAlienShootTime = TimeUtils.nanoTime();
     }
 
+    /**
+     * Spawns a fighter laser starting from the bottom middle of the fighter ship sprite.
+     * Sets lastFighterShootTime in order to set the interval between shots.
+     * Adds the laser to an Array to be rendered.
+     */
     private void spawnFighterLaser() {
         if (TimeUtils.nanoTime() - lastFighterShootTime > 150000000) {
             Rectangle laser = new Rectangle();
@@ -140,12 +145,15 @@ public class GameScreen implements Screen {
         }
     }
 
-
-
-
-
+    /**
+     * Renders the game. Includes movement and collision detection.
+     * LibGDX tutorial recommends not creating objects here - this method is called many times per second.
+     * @param delta The time in seconds since the last render.
+     */
     @Override
     public void render (float delta) {
+
+        // black background
         ScreenUtils.clear(0, 0, 0, 1);
         camera.update();
         batch.setProjectionMatrix(camera.combined);
@@ -179,30 +187,31 @@ public class GameScreen implements Screen {
             }
         }
 
-        // render all objects
-        if (gameOver == false) {
+        // render all objects from Arrays into batch
+        if (gameOver == false) { // fighter
             batch.draw(Assets.fighterImage, fighter.x, fighter.y, fighter.width, fighter.height);
         }
-        for(Rectangle laser: fighterLasers) {
+        for(Rectangle laser: fighterLasers) { // fighter lasers
             batch.draw(Assets.laserRedImage, laser.x, laser.y, laser.width, laser.height);
         }
-        for(Rectangle alienLaser: alienLasers) {
+        for(Rectangle alienLaser: alienLasers) { // alien lasers
             batch.draw(Assets.laserGreenImage, alienLaser.x, alienLaser.y, alienLaser.width, alienLaser.height);
         }
-        for(Circle asteroid: asteroids) {
+        for(Circle asteroid: asteroids) { // asteroids
             batch.draw(Assets.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius * 2, asteroid.radius * 2);
         }
-        for(Explosion explosion: explosions) {
+        for(Explosion explosion: explosions) { // explosions
             batch.draw(Assets.asteroidExplosionImage, explosion.getX() - explosion.getWidth() / 2, explosion.getY() - explosion.getHeight() / 2, explosion.getWidth(), explosion.getHeight());
             if(explosion.getCreationTime() < TimeUtils.nanoTime() - 500000000) {
                 explosions.removeValue(explosion, true);
             }
         }
-        for(Rectangle alien: aliens) {
+        for(Rectangle alien: aliens) { // alien ships
             batch.draw(Assets.alienImage, alien.x, alien.y, alien.width, alien.height);
         }
         batch.end();
 
+        // movement controls by player inputs
         if (gameOver == false) {
             // WASD left right movement: fighter speed
             if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
@@ -260,7 +269,6 @@ public class GameScreen implements Screen {
             for (Iterator<Circle> AsteroidIter = asteroids.iterator(); AsteroidIter.hasNext(); ) {
                 Circle asteroid = AsteroidIter.next();
                 if(Intersector.overlaps(asteroid,laser)) {
-//                    score++;
                     laserHitsAsteroid(asteroid);
                     AsteroidIter.remove();
                     LaserIter.remove();
@@ -279,8 +287,7 @@ public class GameScreen implements Screen {
 
         // check for asteroid-fighter collision
         for (Iterator<Circle> asteroidIter = asteroids.iterator(); asteroidIter.hasNext(); ) {
-            Circle asteroid = asteroidIter.next();
-
+            Circle asteroid = asteroidIter.next(); // asteroids are circles!
             if (Intersector.overlaps(asteroid, fighter) && gameOver == false) {
                 gameOver = true;
                 Explosion fighterExplosion = new Explosion(fighter.x + fighter.width / 2, fighter.y + fighter.height / 2, 256, 256);
@@ -303,6 +310,7 @@ public class GameScreen implements Screen {
             if(alienLaser.y <= 0 - Config.alienLaserSize) alienLaserIterator.remove();
         }
 
+        // throws up a "Game Over" screen
         if (gameOver == true) {
             game.batch.begin();
             game.font.draw(game.batch, "Game Over!", Config.resolutionX/2-Config.fighterSize, Config.resolutionY/2-Config.fighterSize);
@@ -348,11 +356,22 @@ public class GameScreen implements Screen {
 
     }
 
+    /**
+     * This method is called when a laser hits an asteroid.
+     * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
+     * @param asteroid the asteroid which has just been hit
+     */
     private void laserHitsAsteroid(Circle asteroid) {
         Assets.explosion.play(Config.volume/2);
         explosions.add(new Explosion(asteroid.x, asteroid.y, asteroid.radius * 2, asteroid.radius * 2));
     }
 
+    /**
+     * This method is called when a laser hits the alien ship.
+     * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
+     * It also sets the alienDead, lastAlienTime and aliensMovetoRight attributes.
+     * @param alien the alien ship which has just been hit
+     */
     private void laserHitsAlien(Rectangle alien) {
         score++;
         Assets.explosion.play(Config.volume/2);
@@ -362,18 +381,25 @@ public class GameScreen implements Screen {
         aliensMoveToRight = MathUtils.randomBoolean();
     }
 
+    /**
+     * This method is called when the fighter is hit by an asteroid or a laser.
+     * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
+     */
     private void destroyFighter() {
         gameOver = true;
+        Assets.explosion.play(Config.volume/2);
         Explosion fighterExplosion = new Explosion(fighter.x + fighter.width / 2, fighter.y + fighter.height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
         explosions.add(fighterExplosion);
     }
 
+    /**
+     * start the playback of the background music when the screen is shown
+     */
     @Override
     public void show() {
-        // start the playback of the background music
-        // when the screen is shown
         Assets.beepbop.play();
+        spawnAsteroid();
     }
 
     @Override
