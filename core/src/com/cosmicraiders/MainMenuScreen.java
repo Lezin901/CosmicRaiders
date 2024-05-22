@@ -43,11 +43,11 @@ public class MainMenuScreen implements Screen {
         game.batch.begin();
 
         game.font.draw(game.batch, "Welcome to Cosmic Raiders!!! ", 450, 500);
-        game.font.draw(game.batch, "Press ENTER to begin!", 450, 400);
+        game.font.draw(game.batch, "CLICK or press ENTER to begin!", 450, 400);
         game.batch.draw(supernovaImage, 450, 600, 400, 400);
         game.batch.end();
 
-        if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+        if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             game.setScreen(new GameScreen(game));
             dispose();
         }

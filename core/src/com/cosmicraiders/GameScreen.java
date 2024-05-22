@@ -58,17 +58,20 @@ public class GameScreen implements Screen {
         Assets.beepbop.setLooping(true);
         Assets.beepbop.setVolume(Config.volume);
 
+        // construct camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Config.resolutionX, Config.resolutionY);
 
         batch = game.batch; // this ignores encapsulation as intended by LibGDX
 
+        // construct fighter
         fighter = new Rectangle();
         fighter.x = Config.resolutionX / 2 - Config.fighterSize / 2;
         fighter.y = Config.fighterSize / 4;
         fighter.width = Config.fighterSize;
         fighter.height = Config.fighterSize * (57f / 46f);
 
+        // construct arrays
         fighterLasers = new Array<Rectangle>();
         alienLasers = new Array<Rectangle>();
         asteroids = new Array<Circle>();
@@ -238,7 +241,7 @@ public class GameScreen implements Screen {
             if(fighter.y > Config.resolutionY *2/4 - Config.fighterSize) fighter.y = Config.resolutionY *2/4 - Config.fighterSize;
 
             // shoot
-            if(Gdx.input.isKeyPressed(Input.Keys.SPACE)) spawnFighterLaser();
+            if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) spawnFighterLaser();
         }
 
         // restart the game by pressing ENTER
@@ -313,8 +316,9 @@ public class GameScreen implements Screen {
         // throws up a "Game Over" screen
         if (gameOver == true) {
             game.batch.begin();
-            game.font.draw(game.batch, "Game Over!", Config.resolutionX/2-Config.fighterSize, Config.resolutionY/2-Config.fighterSize);
-            game.font.draw(game.batch, "Score: " + score, Config.resolutionX/2-Config.fighterSize, Config.resolutionY/2-Config.fighterSize*2);
+            game.font.draw(game.batch, "Game Over!", Config.resolutionX*1/5, Config.resolutionY*3/5);
+            game.font.draw(game.batch, "Score: " + score, Config.resolutionX*1/5, Config.resolutionY*3/5-Config.fighterSize);
+            game.font.draw(game.batch, "Press ENTER to continue", Config.resolutionX*1/5, Config.resolutionY*3/5-Config.fighterSize*4);
             game.batch.end();
         }
 
