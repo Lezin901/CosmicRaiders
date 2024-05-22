@@ -21,6 +21,7 @@ public class GameScreen implements Screen {
      * The Game instance which should be "CosmicRaiders" as a reference
      */
     final CosmicRaiders game;
+    final Controls controls;
 
     /**
      * This batch includes all the textures / sprites to be rendered
@@ -29,6 +30,7 @@ public class GameScreen implements Screen {
 
     private OrthographicCamera camera;
     private Rectangle fighter;
+
     private Array<Rectangle> fighterLasers;
     private Array<Rectangle> alienLasers;
     private Array<Circle> asteroids;
@@ -53,7 +55,7 @@ public class GameScreen implements Screen {
      */
     public GameScreen(final CosmicRaiders game) {
         this.game = game;
-
+        this.controls = new Controls(this);
         // start the playback of the background music immediately
         Assets.beepbop.setLooping(true);
         Assets.beepbop.setVolume(Config.volume);
@@ -130,25 +132,6 @@ public class GameScreen implements Screen {
     }
 
     /**
-     * Spawns a fighter laser starting from the bottom middle of the fighter ship sprite.
-     * Sets lastFighterShootTime in order to set the interval between shots.
-     * Adds the laser to an Array to be rendered.
-     */
-    private void spawnFighterLaser() {
-        if (TimeUtils.nanoTime() - lastFighterShootTime > 150000000) {
-            Rectangle laser = new Rectangle();
-            laser.width = Config.fighterLaserSize / 10;
-            laser.height = Config.fighterLaserSize;
-            laser.x = fighter.x + Config.fighterSize / 2 - laser.width / 2;
-            laser.y = fighter.y + Config.fighterSize;
-
-            fighterLasers.add(laser);
-            Assets.blasterShoot.play(Config.volume);
-            lastFighterShootTime = TimeUtils.nanoTime();
-        }
-    }
-
-    /**
      * Renders the game. Includes movement and collision detection.
      * LibGDX tutorial recommends not creating objects here - this method is called many times per second.
      * @param delta The time in seconds since the last render.
@@ -214,46 +197,11 @@ public class GameScreen implements Screen {
         }
         batch.end();
 
-        // movement controls by player inputs
-        if (gameOver == false) {
-            // WASD left right movement: fighter speed
-            if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
-                fighter.x -= 1000 * Gdx.graphics.getDeltaTime();
-            }
-            if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
-                fighter.x += 1000 * Gdx.graphics.getDeltaTime();
-            }
-
-            // WASD up down movement: fighter speed
-            if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-                fighter.y -= 1000 * Gdx.graphics.getDeltaTime();
-            }
-            if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
-                fighter.y += 1000 * Gdx.graphics.getDeltaTime();
-            }
-
-            // setting movement boundaries
-            if(fighter.x < 0) fighter.x = 0;
-            if(fighter.x > Config.resolutionX - Config.fighterSize) fighter.x = Config.resolutionX - Config.fighterSize;
-
-            // setting movement boundaries
-            if(fighter.y < 0) fighter.y = 0;
-            if(fighter.y > Config.resolutionY *2/4 - Config.fighterSize) fighter.y = Config.resolutionY *2/4 - Config.fighterSize;
-
-            // shoot
-            if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) spawnFighterLaser();
-        }
-
-        // restart the game by pressing ENTER
-        if(gameOver && Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            gameOver = false;
-
-            fighter.x = Config.resolutionX / 2 - Config.fighterSize / 2;
-            fighter.y = Config.fighterSize / 4;
-
-            score = 0;
-
-            System.out.println("Game restarted. Score has been reset. ");
+        if (!gameOver) {
+            controls.moveFighter();
+            controls.shootFromFighter();
+        } else {
+            controls.checkForRestart();
         }
 
         // fighterLaser movement
@@ -305,7 +253,7 @@ public class GameScreen implements Screen {
             // move alienLaser
             alienLaser.y -= 800 * Gdx.graphics.getDeltaTime(); // alienLaser speed
             // check for alienLaser-fighter collision
-            if(Intersector.overlaps(alienLaser,fighter) && gameOver == false) {
+            if(Intersector.overlaps(alienLaser, fighter) && gameOver == false) {
                 destroyFighter();
                 alienLaserIterator.remove();
             }
@@ -429,5 +377,138 @@ public class GameScreen implements Screen {
     @Override
     public void dispose () {
 
+    }
+
+
+    public CosmicRaiders getGame() {
+        return game;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
+    }
+
+    public OrthographicCamera getCamera() {
+        return camera;
+    }
+
+    public void setCamera(OrthographicCamera camera) {
+        this.camera = camera;
+    }
+
+    public Rectangle getFighter() {
+        return fighter;
+    }
+
+    public void setFighter(Rectangle fighter) {
+        this.fighter = fighter;
+    }
+
+    public Array<Rectangle> getFighterLasers() {
+        return fighterLasers;
+    }
+
+    public void setFighterLasers(Array<Rectangle> fighterLasers) {
+        this.fighterLasers = fighterLasers;
+    }
+
+    public Array<Rectangle> getAlienLasers() {
+        return alienLasers;
+    }
+
+    public void setAlienLasers(Array<Rectangle> alienLasers) {
+        this.alienLasers = alienLasers;
+    }
+
+    public Array<Circle> getAsteroids() {
+        return asteroids;
+    }
+
+    public void setAsteroids(Array<Circle> asteroids) {
+        this.asteroids = asteroids;
+    }
+
+    public Array<Explosion> getExplosions() {
+        return explosions;
+    }
+
+    public void setExplosions(Array<Explosion> explosions) {
+        this.explosions = explosions;
+    }
+
+    public Array<Rectangle> getAliens() {
+        return aliens;
+    }
+
+    public void setAliens(Array<Rectangle> aliens) {
+        this.aliens = aliens;
+    }
+
+    public long getLastFighterShootTime() {
+        return lastFighterShootTime;
+    }
+
+    public void setLastFighterShootTime(long lastFighterShootTime) {
+        this.lastFighterShootTime = lastFighterShootTime;
+    }
+
+    public long getLastAlienShootTime() {
+        return lastAlienShootTime;
+    }
+
+    public void setLastAlienShootTime(long lastAlienShootTime) {
+        this.lastAlienShootTime = lastAlienShootTime;
+    }
+
+    public long getLastAsteroidTime() {
+        return lastAsteroidTime;
+    }
+
+    public void setLastAsteroidTime(long lastAsteroidTime) {
+        this.lastAsteroidTime = lastAsteroidTime;
+    }
+
+    public long getLastAlienTime() {
+        return lastAlienTime;
+    }
+
+    public void setLastAlienTime(long lastAlienTime) {
+        this.lastAlienTime = lastAlienTime;
+    }
+
+    public int getScore() {
+        return score;
+    }
+
+    public void setScore(int score) {
+        this.score = score;
+    }
+
+    public boolean isAliensMoveToRight() {
+        return aliensMoveToRight;
+    }
+
+    public void setAliensMoveToRight(boolean aliensMoveToRight) {
+        this.aliensMoveToRight = aliensMoveToRight;
+    }
+
+    public boolean isAlienDead() {
+        return alienDead;
+    }
+
+    public void setAlienDead(boolean alienDead) {
+        this.alienDead = alienDead;
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        this.gameOver = gameOver;
     }
 }
