@@ -3,6 +3,7 @@ package com.cosmicraiders;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.TimeUtils;
 
 /**
@@ -28,18 +29,18 @@ public class Controls {
      */
     public void moveFighter() {
         // WASD left right movement: fighter speed
-        if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || isTouchLeftOfShip()) {
             gameScreen.getFighter().x -= 1000 * Gdx.graphics.getDeltaTime();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || isTouchRightOfShip()) {
             gameScreen.getFighter().x += 1000 * Gdx.graphics.getDeltaTime();
         }
 
         // WASD up down movement: fighter speed
-        if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || isTouchBelowShip()) {
             gameScreen.getFighter().y -= 1000 * Gdx.graphics.getDeltaTime();
         }
-        if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP)) {
+        if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) || isTouchAboveShip()) {
             gameScreen.getFighter().y += 1000 * Gdx.graphics.getDeltaTime();
         }
 
@@ -51,6 +52,51 @@ public class Controls {
         if(gameScreen.getFighter().y < 0) gameScreen.getFighter().y = 0;
         if(gameScreen.getFighter().y > Config.resolutionY *2/4 - Config.fighterSize) gameScreen.getFighter().y = Config.resolutionY *2/4 - Config.fighterSize;
     }
+
+    private boolean isTouchLeftOfShip() {
+        if(Gdx.input.isTouched()) {
+            Vector3 touchPos = new Vector3();
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            gameScreen.getCamera().unproject(touchPos);
+            return touchPos.x < gameScreen.getFighter().x + gameScreen.getFighter().width / 2;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isTouchRightOfShip() {
+        if(Gdx.input.isTouched()) {
+            Vector3 touchPos = new Vector3();
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            gameScreen.getCamera().unproject(touchPos);
+            return touchPos.x > gameScreen.getFighter().x + gameScreen.getFighter().width / 2;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isTouchAboveShip() {
+        if(Gdx.input.isTouched()) {
+            Vector3 touchPos = new Vector3();
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            gameScreen.getCamera().unproject(touchPos);
+            return touchPos.y > gameScreen.getFighter().y + gameScreen.getFighter().height / 2;
+        } else {
+            return false;
+        }
+    }
+
+    private boolean isTouchBelowShip() {
+        if(Gdx.input.isTouched()) {
+            Vector3 touchPos = new Vector3();
+            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
+            gameScreen.getCamera().unproject(touchPos);
+            return touchPos.y < gameScreen.getFighter().y + gameScreen.getFighter().height / 2;
+        } else {
+            return false;
+        }
+    }
+
 
     /**
      * Spawns a fighter laser starting from the bottom middle of the fighter ship sprite.
