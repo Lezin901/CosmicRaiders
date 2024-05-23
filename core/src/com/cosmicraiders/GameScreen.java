@@ -33,7 +33,7 @@ public class GameScreen implements Screen {
 
     private Array<Rectangle> fighterLasers;
     private Array<Rectangle> alienLasers;
-    private Array<Circle> asteroids;
+    private Array<Asteroid> asteroids;
     private Array<Explosion> explosions;
     private Array<Rectangle> aliens;
 
@@ -76,7 +76,7 @@ public class GameScreen implements Screen {
         // construct arrays
         fighterLasers = new Array<Rectangle>();
         alienLasers = new Array<Rectangle>();
-        asteroids = new Array<Circle>();
+        asteroids = new Array<Asteroid>();
         explosions = new Array<Explosion>();
         aliens = new Array<Rectangle>();
     }
@@ -87,7 +87,7 @@ public class GameScreen implements Screen {
      * Asteroids are Circles, not Rectangles. Most other objects are Rectangles.
      */
     private void spawnAsteroid() {
-        Circle asteroid = new Circle();
+        Asteroid asteroid = new Asteroid();
         float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
         asteroid.radius = ((Config.asteroidDiameter / 2) * randomSizeMultiplier);
         asteroid.x = MathUtils.random(Config.fighterSize, Config.resolutionX - Config.fighterSize);
@@ -197,6 +197,7 @@ public class GameScreen implements Screen {
         }
         batch.end();
 
+        // movement or restart
         if (!gameOver) {
             controls.moveFighter();
             controls.shootFromFighter();
@@ -217,8 +218,8 @@ public class GameScreen implements Screen {
         for (Iterator<Rectangle> LaserIter = fighterLasers.iterator(); LaserIter.hasNext(); ) {
             Rectangle laser = LaserIter.next();
             // check for fighterLaser-asteroid collision
-            for (Iterator<Circle> AsteroidIter = asteroids.iterator(); AsteroidIter.hasNext(); ) {
-                Circle asteroid = AsteroidIter.next();
+            for (Iterator<Asteroid> AsteroidIter = asteroids.iterator(); AsteroidIter.hasNext(); ) {
+                Asteroid asteroid = AsteroidIter.next();
                 if(Intersector.overlaps(asteroid,laser)) {
                     laserHitsAsteroid(asteroid);
                     AsteroidIter.remove();
@@ -237,7 +238,7 @@ public class GameScreen implements Screen {
         }
 
         // check for asteroid-fighter collision
-        for (Iterator<Circle> asteroidIter = asteroids.iterator(); asteroidIter.hasNext(); ) {
+        for (Iterator<Asteroid> asteroidIter = asteroids.iterator(); asteroidIter.hasNext(); ) {
             Circle asteroid = asteroidIter.next(); // asteroids are circles!
             if (Intersector.overlaps(asteroid, fighter) && gameOver == false) {
                 gameOver = true;
@@ -274,7 +275,7 @@ public class GameScreen implements Screen {
         if(TimeUtils.nanoTime() - lastAsteroidTime > 500000000) spawnAsteroid();
 
         // move asteroids
-        for (Iterator<Circle> iter = asteroids.iterator(); iter.hasNext(); ) {
+        for (Iterator<Asteroid> iter = asteroids.iterator(); iter.hasNext(); ) {
             Circle asteroid = iter.next();
             asteroid.y -= 400 * Gdx.graphics.getDeltaTime(); // asteroid speed
             if(asteroid.y < -asteroid.radius * 2) iter.remove();
@@ -424,11 +425,11 @@ public class GameScreen implements Screen {
         this.alienLasers = alienLasers;
     }
 
-    public Array<Circle> getAsteroids() {
+    public Array<Asteroid> getAsteroids() {
         return asteroids;
     }
 
-    public void setAsteroids(Array<Circle> asteroids) {
+    public void setAsteroids(Array<Asteroid> asteroids) {
         this.asteroids = asteroids;
     }
 
