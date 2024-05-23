@@ -183,8 +183,9 @@ public class GameScreen implements Screen {
         for(Rectangle alienLaser: alienLasers) { // alien lasers
             batch.draw(Assets.laserGreenImage, alienLaser.x, alienLaser.y, alienLaser.width, alienLaser.height);
         }
-        for(Circle asteroid: asteroids) { // asteroids
-            batch.draw(Assets.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius * 2, asteroid.radius * 2);
+        for(Asteroid asteroid: asteroids) { // asteroids
+            // batch.draw(Assets.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius * 2, asteroid.radius * 2);
+            batch.draw(Assets.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius, asteroid.radius, asteroid.radius * 2, asteroid.radius * 2, 1, 1, asteroid.getRotation(), 0, 0, 59, 59, false, false);
         }
         for(Explosion explosion: explosions) { // explosions
             batch.draw(Assets.asteroidExplosionImage, explosion.getX() - explosion.getWidth() / 2, explosion.getY() - explosion.getHeight() / 2, explosion.getWidth(), explosion.getHeight());
@@ -246,6 +247,11 @@ public class GameScreen implements Screen {
                 fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
                 explosions.add(fighterExplosion);
             }
+        }
+
+        // rotate asteroids
+        for (Asteroid asteroid : asteroids) {
+            asteroid.updateRotation(Gdx.graphics.getDeltaTime());
         }
 
         // alienLaser movement
