@@ -25,11 +25,14 @@ public class Controls {
 
     /**
      * Controls the movement of the fighter.
-     * Allows keyboard inputs.
+     * Allows WASD inputs.
+     * Allows UP DOWN LEFT RIGHT inputs.
+     * Allows mouse inputs.
+     * Allows touch inputs.
+     * Uses the fighter object from gamescreen and the fighterSpeed attribute from Config.
      */
     public void moveFighter() {
-
-        // WASD left right movement: fighter speed
+        // left right movement
         if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || isTouchLeftOfShip()) {
             gameScreen.getFighter().x -= Config.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
@@ -37,7 +40,7 @@ public class Controls {
             gameScreen.getFighter().x += Config.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
 
-        // WASD up down movement: fighter speed
+        // up down movement
         if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || isTouchBelowShip()) {
             gameScreen.getFighter().y -= Config.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
@@ -54,6 +57,10 @@ public class Controls {
         if(gameScreen.getFighter().y > Config.resolutionY *2/4 - Config.fighterSize) gameScreen.getFighter().y = Config.resolutionY *2/4 - Config.fighterSize;
     }
 
+    /**
+     * checks if mouse or touch was left of the fighter
+     * @return boolean true if left
+     */
     private boolean isTouchLeftOfShip() {
         if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
@@ -65,6 +72,10 @@ public class Controls {
         }
     }
 
+    /**
+     * checks if mouse or touch was right of the fighter
+     * @return boolean true if right
+     */
     private boolean isTouchRightOfShip() {
         if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
@@ -76,6 +87,10 @@ public class Controls {
         }
     }
 
+    /**
+     * checks if mouse or touch was above the fighter
+     * @return boolean true if above
+     */
     private boolean isTouchAboveShip() {
         if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
@@ -87,6 +102,10 @@ public class Controls {
         }
     }
 
+    /**
+     * checks if mouse or touch was below the fighter
+     * @return boolean true if below
+     */
     private boolean isTouchBelowShip() {
         if(Gdx.input.isTouched()) {
             Vector3 touchPos = new Vector3();
