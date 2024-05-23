@@ -28,20 +28,21 @@ public class Controls {
      * Allows keyboard inputs.
      */
     public void moveFighter() {
+
         // WASD left right movement: fighter speed
         if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || isTouchLeftOfShip()) {
-            gameScreen.getFighter().x -= 1000 * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().x -= Config.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || isTouchRightOfShip()) {
-            gameScreen.getFighter().x += 1000 * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().x += Config.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
 
         // WASD up down movement: fighter speed
         if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || isTouchBelowShip()) {
-            gameScreen.getFighter().y -= 1000 * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().y -= Config.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) || isTouchAboveShip()) {
-            gameScreen.getFighter().y += 1000 * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().y += Config.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
 
         // setting movement boundaries

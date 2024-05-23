@@ -1,7 +1,7 @@
 package com.cosmicraiders;
 
 public class Config {
-    public static float volume = 0.3f;
+    public static float volume = 1f;
 
     public static final int resolutionX = 1920;
     public static final int resolutionY = 1080;
@@ -12,4 +12,5 @@ public class Config {
     public static final int fighterLaserSize = 80;
     public static final int alienLaserSize = 80;
     public static final int asteroidDiameter = 100;
+    public static final int fighterSpeed = 800;
 }
