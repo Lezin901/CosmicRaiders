@@ -37,7 +37,6 @@ public class GameScreen implements Screen {
     private Array<Explosion> explosions;
     private Array<Rectangle> aliens;
 
-    private long lastFighterShootTime;
     private long lastAlienShootTime = TimeUtils.nanoTime();
     private long lastAsteroidTime;
     private long lastAlienTime;
@@ -59,20 +58,20 @@ public class GameScreen implements Screen {
         this.controls = new Controls(this);
         // start the playback of the background music immediately
         Assets.beepbop.setLooping(true);
-        Assets.beepbop.setVolume(Config.volume);
+        Assets.beepbop.setVolume(Configs.volume);
 
         // construct camera
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Config.resolutionX, Config.resolutionY);
+        camera.setToOrtho(false, Configs.resolutionX, Configs.resolutionY);
 
         batch = game.batch; // this ignores encapsulation as intended by LibGDX
 
         // construct fighter
         fighter = new Rectangle();
-        fighter.x = Config.resolutionX / 2 - Config.fighterSize / 2;
-        fighter.y = Config.fighterSize / 4;
-        fighter.width = Config.fighterSize;
-        fighter.height = Config.fighterSize * (57f / 46f);
+        fighter.x = Configs.resolutionX / 2 - Configs.fighterSize / 2;
+        fighter.y = Configs.fighterSize / 4;
+        fighter.width = Configs.fighterSize;
+        fighter.height = Configs.fighterSize * (57f / 46f);
 
         // construct arrays
         fighterLasers = new Array<Rectangle>();
@@ -90,9 +89,9 @@ public class GameScreen implements Screen {
     private void spawnAsteroid() {
         Asteroid asteroid = new Asteroid();
         float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
-        asteroid.radius = ((Config.asteroidDiameter / 2) * randomSizeMultiplier);
-        asteroid.x = MathUtils.random(Config.fighterSize, Config.resolutionX - Config.fighterSize);
-        asteroid.y = Config.resolutionY + asteroid.radius;
+        asteroid.radius = ((Configs.asteroidDiameter / 2) * randomSizeMultiplier);
+        asteroid.x = MathUtils.random(Configs.fighterSize, Configs.resolutionX - Configs.fighterSize);
+        asteroid.y = Configs.resolutionY + asteroid.radius;
         asteroids.add(asteroid);
         lastAsteroidTime = TimeUtils.nanoTime();
     }
@@ -105,10 +104,10 @@ public class GameScreen implements Screen {
      */
     private void spawnAlien() {
         Rectangle alien = new Rectangle();
-        alien.width = Config.alienSize;
-        alien.height = Config.alienSize * (57f / 46f);
-        alien.x = MathUtils.random(Config.padding, Config.resolutionX - Config.alienSize - Config.padding);
-        alien.y = Config.resolutionY - alien.height - Config.padding;
+        alien.width = Configs.alienSize;
+        alien.height = Configs.alienSize * (57f / 46f);
+        alien.x = MathUtils.random(Configs.padding, Configs.resolutionX - Configs.alienSize - Configs.padding);
+        alien.y = Configs.resolutionY - alien.height - Configs.padding;
         aliens.add(alien);
         alienDead = false;
         alienChangeDirectionTime = TimeUtils.millis();
@@ -123,13 +122,13 @@ public class GameScreen implements Screen {
      */
     private void spawnAlienLaser(float x, float y) {
         Rectangle laser = new Rectangle();
-        laser.width = Config.alienLaserSize / 10;
-        laser.height = Config.alienLaserSize;
-        laser.x = x + Config.alienSize / 2 - laser.width / 2;
-        laser.y = y - Config.alienSize;
+        laser.width = Configs.alienLaserSize / 10;
+        laser.height = Configs.alienLaserSize;
+        laser.x = x + Configs.alienSize / 2 - laser.width / 2;
+        laser.y = y - Configs.alienSize;
 
         alienLasers.add(laser);
-        Assets.blasterShoot.play(Config.volume);
+        Assets.blasterShoot.play(Configs.volume);
         lastAlienShootTime = TimeUtils.nanoTime();
     }
 
@@ -150,14 +149,14 @@ public class GameScreen implements Screen {
         batch.begin();
 
         // show score in top left corner
-        game.font.draw(game.batch, "Score: " + score, 0, Config.resolutionY);
+        game.font.draw(game.batch, "Score: " + score, 0, Configs.resolutionY);
 
         // debug: show coordinates when pressing T
         if(Gdx.input.isKeyPressed(Input.Keys.T)) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             camera.unproject(touchPos);
-            batch.draw(Assets.alienImage, touchPos.x, touchPos.y, Config.fighterSize, Config.fighterSize);
+            batch.draw(Assets.alienImage, touchPos.x, touchPos.y, Configs.fighterSize, Configs.fighterSize);
             System.out.println(touchPos.x + " " + touchPos.y);
         }
 
@@ -182,9 +181,6 @@ public class GameScreen implements Screen {
         for(Rectangle laser: fighterLasers) { // fighter lasers
             batch.draw(Assets.laserRedImage, laser.x, laser.y, laser.width, laser.height);
         }
-        for(Rectangle alienLaser: alienLasers) { // alien lasers
-            batch.draw(Assets.laserGreenImage, alienLaser.x, alienLaser.y, alienLaser.width, alienLaser.height);
-        }
         for(Asteroid asteroid: asteroids) { // asteroids
             // batch.draw(Assets.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius * 2, asteroid.radius * 2);
             batch.draw(Assets.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius, asteroid.radius, asteroid.radius * 2, asteroid.radius * 2, 1, 1, asteroid.getRotation(), 0, 0, 59, 59, false, false);
@@ -197,6 +193,9 @@ public class GameScreen implements Screen {
         }
         for(Rectangle alien: aliens) { // alien ships
             batch.draw(Assets.alienImage, alien.x, alien.y, alien.width, alien.height);
+        }
+        for(Rectangle alienLaser: alienLasers) { // alien lasers
+            batch.draw(Assets.laserGreenImage, alienLaser.x, alienLaser.y, alienLaser.width, alienLaser.height);
         }
         batch.end();
 
@@ -214,7 +213,7 @@ public class GameScreen implements Screen {
             // move laser
             laser.y += 800 * Gdx.graphics.getDeltaTime(); // laser speed
 
-            if(laser.y >= Config.resolutionY) laserIterator.remove();
+            if(laser.y >= Configs.resolutionY) laserIterator.remove();
         }
 
         // check for fighterLaser collision
@@ -267,15 +266,15 @@ public class GameScreen implements Screen {
                 alienLaserIterator.remove();
             }
             // check if out of bounds
-            if(alienLaser.y <= 0 - Config.alienLaserSize) alienLaserIterator.remove();
+            if(alienLaser.y <= 0 - Configs.alienLaserSize) alienLaserIterator.remove();
         }
 
         // throws up a "Game Over" screen
         if (gameOver == true) {
             game.batch.begin();
-            game.font.draw(game.batch, "Game Over!", Config.resolutionX*1/5, Config.resolutionY*3/5);
-            game.font.draw(game.batch, "Score: " + score, Config.resolutionX*1/5, Config.resolutionY*3/5-Config.fighterSize);
-            game.font.draw(game.batch, "Press ENTER to continue", Config.resolutionX*1/5, Config.resolutionY*3/5-Config.fighterSize*4);
+            game.font.draw(game.batch, "Game Over!", Configs.resolutionX*1/5, Configs.resolutionY*3/5);
+            game.font.draw(game.batch, "Score: " + score, Configs.resolutionX*1/5, Configs.resolutionY*3/5- Configs.fighterSize);
+            game.font.draw(game.batch, "Press ENTER to continue", Configs.resolutionX*1/5, Configs.resolutionY*3/5- Configs.fighterSize*4);
             game.batch.end();
         }
 
@@ -285,7 +284,7 @@ public class GameScreen implements Screen {
         // move asteroids
         for (Iterator<Asteroid> iter = asteroids.iterator(); iter.hasNext(); ) {
             Circle asteroid = iter.next();
-            asteroid.y -= 400 * Gdx.graphics.getDeltaTime(); // asteroid speed
+            asteroid.y -= Configs.asteroidSpeed * Gdx.graphics.getDeltaTime(); // asteroid speed
             if(asteroid.y < -asteroid.radius * 2) iter.remove();
         }
 
@@ -296,7 +295,7 @@ public class GameScreen implements Screen {
         // move alien
         for (Iterator<Rectangle> iter = aliens.iterator(); iter.hasNext(); ) {
             Rectangle alien = iter.next();
-            if ((alien.x <= Config.padding) || (alien.x >= Config.resolutionX - Config.padding - Config.fighterSize)) {
+            if ((alien.x <= Configs.padding) || (alien.x >= Configs.resolutionX - Configs.padding - Configs.fighterSize)) {
                 aliensMoveToRight = !aliensMoveToRight;
             }
             if(aliensMoveToRight) {
@@ -328,7 +327,7 @@ public class GameScreen implements Screen {
      * @param asteroid the asteroid which has just been hit
      */
     private void laserHitsAsteroid(Circle asteroid) {
-        Assets.explosion.play(Config.volume/2);
+        Assets.explosion.play(Configs.volume/2);
         explosions.add(new Explosion(asteroid.x, asteroid.y, asteroid.radius * 2, asteroid.radius * 2));
     }
 
@@ -340,7 +339,7 @@ public class GameScreen implements Screen {
      */
     private void laserHitsAlien(Rectangle alien) {
         score++;
-        Assets.explosion.play(Config.volume/2);
+        Assets.explosion.play(Configs.volume/2);
         explosions.add(new Explosion(alien.x + alien.width/2 , alien.y + alien.height/2, alien.height, alien.width));
         alienDead = true;
         lastAlienTime = TimeUtils.nanoTime();
@@ -353,7 +352,7 @@ public class GameScreen implements Screen {
      */
     private void destroyFighter() {
         gameOver = true;
-        Assets.explosion.play(Config.volume/2);
+        Assets.explosion.play(Configs.volume/2);
         Explosion fighterExplosion = new Explosion(fighter.x + fighter.width / 2, fighter.y + fighter.height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
         explosions.add(fighterExplosion);
@@ -460,14 +459,6 @@ public class GameScreen implements Screen {
 
     public void setAliens(Array<Rectangle> aliens) {
         this.aliens = aliens;
-    }
-
-    public long getLastFighterShootTime() {
-        return lastFighterShootTime;
-    }
-
-    public void setLastFighterShootTime(long lastFighterShootTime) {
-        this.lastFighterShootTime = lastFighterShootTime;
     }
 
     public long getLastAlienShootTime() {

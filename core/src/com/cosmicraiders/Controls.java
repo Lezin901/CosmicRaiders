@@ -14,6 +14,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Controls {
 
     private final GameScreen gameScreen;
+    private long lastFighterShootTime;
 
     /**
      * This constructor gets a reference to the GameScreen instance.
@@ -34,27 +35,27 @@ public class Controls {
     public void moveFighter() {
         // left right movement
         if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || isTouchLeftOfShip()) {
-            gameScreen.getFighter().x -= Config.fighterSpeed * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().x -= Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || isTouchRightOfShip()) {
-            gameScreen.getFighter().x += Config.fighterSpeed * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().x += Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
 
         // up down movement
         if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || isTouchBelowShip()) {
-            gameScreen.getFighter().y -= Config.fighterSpeed * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().y -= Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) || isTouchAboveShip()) {
-            gameScreen.getFighter().y += Config.fighterSpeed * Gdx.graphics.getDeltaTime();
+            gameScreen.getFighter().y += Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
         }
 
         // setting movement boundaries
         if(gameScreen.getFighter().x < 0) gameScreen.getFighter().x = 0;
-        if(gameScreen.getFighter().x > Config.resolutionX - Config.fighterSize) gameScreen.getFighter().x = Config.resolutionX - Config.fighterSize;
+        if(gameScreen.getFighter().x > Configs.resolutionX - Configs.fighterSize) gameScreen.getFighter().x = Configs.resolutionX - Configs.fighterSize;
 
         // setting movement boundaries
         if(gameScreen.getFighter().y < 0) gameScreen.getFighter().y = 0;
-        if(gameScreen.getFighter().y > Config.resolutionY *2/4 - Config.fighterSize) gameScreen.getFighter().y = Config.resolutionY *2/4 - Config.fighterSize;
+        if(gameScreen.getFighter().y > Configs.resolutionY *2/4 - Configs.fighterSize) gameScreen.getFighter().y = Configs.resolutionY *2/4 - Configs.fighterSize;
     }
 
     /**
@@ -125,16 +126,16 @@ public class Controls {
      */
     public void shootFromFighter() {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            if (TimeUtils.nanoTime() - gameScreen.getLastFighterShootTime() > 150000000) {
+            if (TimeUtils.millis() - lastFighterShootTime > Configs.fighterRateOfFire) {
                 Rectangle laser = new Rectangle();
-                laser.width = Config.fighterLaserSize / 10;
-                laser.height = Config.fighterLaserSize;
-                laser.x = gameScreen.getFighter().x + Config.fighterSize / 2 - laser.width / 2;
-                laser.y = gameScreen.getFighter().y + Config.fighterSize;
+                laser.width = Configs.fighterLaserSize / 10;
+                laser.height = Configs.fighterLaserSize;
+                laser.x = gameScreen.getFighter().x + Configs.fighterSize / 2 - laser.width / 2;
+                laser.y = gameScreen.getFighter().y + Configs.fighterSize;
 
                 gameScreen.getFighterLasers().add(laser);
-                Assets.blasterShoot.play(Config.volume);
-                gameScreen.setLastFighterShootTime(TimeUtils.nanoTime());
+                Assets.blasterShoot.play(Configs.volume);
+                lastFighterShootTime = TimeUtils.millis();
             }
         };
     }
@@ -146,8 +147,8 @@ public class Controls {
         if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             gameScreen.setGameOver(false);
             gameScreen.setScore(0);
-            gameScreen.getFighter().x = Config.resolutionX / 2 - Config.fighterSize / 2;
-            gameScreen.getFighter().y = Config.fighterSize / 4;
+            gameScreen.getFighter().x = Configs.resolutionX / 2 - Configs.fighterSize / 2;
+            gameScreen.getFighter().y = Configs.fighterSize / 4;
         }
     }
 
