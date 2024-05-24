@@ -41,6 +41,7 @@ public class GameScreen implements Screen {
     private long lastAlienShootTime = TimeUtils.nanoTime();
     private long lastAsteroidTime;
     private long lastAlienTime;
+    private long alienChangeDirectionTime;
 
 
     public int score = 0;
@@ -110,6 +111,7 @@ public class GameScreen implements Screen {
         alien.y = Config.resolutionY - alien.height - Config.padding;
         aliens.add(alien);
         alienDead = false;
+        alienChangeDirectionTime = TimeUtils.millis();
     }
 
     /**
@@ -302,6 +304,12 @@ public class GameScreen implements Screen {
             } else {
                 alien.x += 200 * Gdx.graphics.getDeltaTime(); // alien speed
             }
+        }
+
+        if((TimeUtils.millis() - alienChangeDirectionTime > 5000)) {
+            aliensMoveToRight = !aliensMoveToRight;
+            float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
+            alienChangeDirectionTime = TimeUtils.millis();
         }
 
         // aliens shoots laser
