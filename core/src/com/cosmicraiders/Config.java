@@ -1,7 +1,7 @@
 package com.cosmicraiders;
 
 public class Config {
-    public static float volume = 1f;
+    public static float volume = 0f;
 
     public static final int resolutionX = 1920;
     public static final int resolutionY = 1080;

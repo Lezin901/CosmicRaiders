@@ -306,10 +306,9 @@ public class GameScreen implements Screen {
             }
         }
 
-        if((TimeUtils.millis() - alienChangeDirectionTime > 5000)) {
+        if (alienChangeDirectionTime <= TimeUtils.millis()) {
+            alienChangeDirectionTime = TimeUtils.millis() + MathUtils.random(3000, 5000);
             aliensMoveToRight = !aliensMoveToRight;
-            float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
-            alienChangeDirectionTime = TimeUtils.millis();
         }
 
         // aliens shoots laser
