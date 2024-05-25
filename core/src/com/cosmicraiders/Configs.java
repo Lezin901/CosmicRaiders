@@ -12,13 +12,17 @@ public class Configs {
 
     // fighter
     public static final int fighterSize = 80;
-    public static final int fighterLaserSize = 80;
     public static final int fighterSpeed = 800;
+    public static final int fighterLaserSize = 80;
+    public static final int fighterLaserSpeed = 800;
     public static final int fighterRateOfFire = 500;
 
     // aliens
     public static final int alienSize = 80;
+    public static final int alienSpeed = 200;
     public static final int alienLaserSize = 80;
+    public static final int alienLaserSpeed = 800;
+    public static final int alienRateOfFire = 500;
 
     // asteroids
     public static final int asteroidDiameter = 100;

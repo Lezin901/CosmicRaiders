@@ -16,7 +16,6 @@ public class Asteroid extends Circle {
     }
 
     public float getRotation() {
-        System.out.println(rotation);
         return this.rotation;
     }
     public float getRotationSpeed() {
@@ -27,7 +26,5 @@ public class Asteroid extends Circle {
     }
     public void updateRotation(float delta) {
         rotation = rotatesClockwise ? (rotation + delta * 100 * rotationSpeed) : (rotation - delta * 100 * rotationSpeed);
-
-        System.out.println("Rotation wurde von " + (rotation - delta * rotationSpeed) + " zu " + rotation + " geändert");
     }
 }
