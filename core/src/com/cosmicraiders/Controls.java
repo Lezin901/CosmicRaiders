@@ -2,9 +2,7 @@ package com.cosmicraiders;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.utils.TimeUtils;
 
 /**
  * This class manages the movement inputs for the fighter (player avatar).
@@ -14,7 +12,6 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Controls {
 
     private final GameScreen gameScreen;
-    private long lastFighterShootTime;
 
     /**
      * This constructor gets a reference to the GameScreen instance.
@@ -116,28 +113,6 @@ public class Controls {
         } else {
             return false;
         }
-    }
-
-
-    /**
-     * Spawns a fighter laser starting from the bottom middle of the fighter ship sprite.
-     * Sets lastFighterShootTime in order to set the interval between shots.
-     * Adds the laser to an Array to be rendered.
-     */
-    public void shootFromFighter() {
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            if (TimeUtils.millis() - lastFighterShootTime > Configs.fighterRateOfFire) {
-                Rectangle laser = new Rectangle();
-                laser.width = Configs.fighterLaserSize / 10;
-                laser.height = Configs.fighterLaserSize;
-                laser.x = gameScreen.getFighter().x + Configs.fighterSize / 2 - laser.width / 2;
-                laser.y = gameScreen.getFighter().y + Configs.fighterSize;
-
-                gameScreen.getFighterLasers().add(laser);
-                Assets.blasterShoot.play(Configs.volume);
-                lastFighterShootTime = TimeUtils.millis();
-            }
-        };
     }
 
     /**

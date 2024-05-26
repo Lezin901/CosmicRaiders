@@ -24,11 +24,24 @@ public class MovementHandler {
         this.gameScreen = gameScreen;
     }
 
+    /**
+     * Moves Asteroids downwards and deletes them when they leave the screen.
+     */
     public void moveAsteroids() {
         for(Asteroid asteroid: gameScreen.getAsteroids()) {
             asteroid.y -= Configs.asteroidSpeed * Gdx.graphics.getDeltaTime(); // asteroid speed
             if(asteroid.y < -asteroid.radius * 2) gameScreen.getAsteroids().removeValue(asteroid, true);
         }
+    }
+
+    /**
+     * Rotates asteroids.
+     */
+    public void rotateAsteroids() {
+        for (Asteroid asteroid : gameScreen.getAsteroids()) {
+            asteroid.updateRotation(Gdx.graphics.getDeltaTime());
+        }
+
     }
 
     /**

@@ -80,8 +80,8 @@ public class CollisionHandler {
         gameScreen.setScore(gameScreen.getScore() + 1);
         Assets.explosion.play(Configs.volume/2);
         gameScreen.getExplosions().add(new Explosion(alien.x + alien.width/2 , alien.y + alien.height/2, alien.height, alien.width));
-        gameScreen.setAlienDead(true);
-        gameScreen.setLastAlienTime(TimeUtils.nanoTime());
+        gameScreen.getSpawner().setAlienDead(true);
+        gameScreen.getSpawner().setLastAlienTime(TimeUtils.nanoTime());
     }
 
     /**
@@ -90,13 +90,10 @@ public class CollisionHandler {
      * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
      */
     private void destroyFighter() {
-        gameScreen.setGameOver(true);
+        gameScreen.finalizeGame();
         Assets.explosion.play(Configs.volume/2);
         Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
         gameScreen.getExplosions().add(fighterExplosion);
     }
-
-
-
 }

@@ -3,7 +3,7 @@ package com.cosmicraiders;
 public class Configs {
 
     // volume
-    public static float volume = 0f;
+    public static float volume = 0.2f;
 
     // resolution
     public static final int resolutionX = 1920;
