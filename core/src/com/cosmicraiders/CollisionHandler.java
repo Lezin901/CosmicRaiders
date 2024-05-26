@@ -88,7 +88,13 @@ public class CollisionHandler {
      * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
      */
     private void destroyFighter() {
-        gameScreen.finalizeGame();
+
+
+        gameScreen.setGameOver(true);
+        gameScreen.setExitTime(TimeUtils.millis() + Configs.waitAfterDeath);
+//        this.exitTime = TimeUtils.millis() + Configs.waitAfterDeath;
+//        gameScreen.finalizeGame();
+
         Assets.explosion.play(Configs.volume/2);
         Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);

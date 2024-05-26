@@ -9,8 +9,8 @@ public class CosmicRaiders extends Game {
 
     public SpriteBatch batch;
     public BitmapFont font;
-    private Screen mainMenuScreen;
-    private Screen gameScreen;
+    private MainMenuScreen mainMenuScreen;
+    private GameScreen gameScreen;
 
     public void create() {
         Assets.load();
@@ -34,11 +34,11 @@ public class CosmicRaiders extends Game {
         Assets.dispose();
     }
 
-    public Screen getMainMenuScreen() {
+    public MainMenuScreen getMainMenuScreen() {
         return mainMenuScreen;
     }
 
-    public Screen getGameScreen() {
+    public GameScreen getGameScreen() {
         return gameScreen;
     }
 

@@ -18,12 +18,12 @@ public class GameScreen implements Screen {
      * The Game instance which should be "CosmicRaiders" as a reference
      */
     final CosmicRaiders game;
-    final Controls controls;
-    final MovementHandler movementHandler;
-    final CollisionHandler collisionHandler;
-    final Painter painter;
-    final Spawner spawner;
-    final Debug debug;
+    private Controls controls;
+    private MovementHandler movementHandler;
+    private CollisionHandler collisionHandler;
+    private Painter painter;
+    private Spawner spawner;
+    private Debug debug;
 
     /**
      * This batch includes all the textures / sprites to be rendered
@@ -49,9 +49,13 @@ public class GameScreen implements Screen {
      * @param game; the Game instance, here: CosmicRaiders
      */
     public GameScreen(final CosmicRaiders game) {
+        this.game = game;
+        initialize();
+    }
+
+    public void initialize() {
 
         // link other program components
-        this.game = game;
         this.controls = new Controls(this);
         this.movementHandler = new MovementHandler(this);
         this.collisionHandler = new CollisionHandler(this);
@@ -82,18 +86,26 @@ public class GameScreen implements Screen {
         asteroids = new Array<Asteroid>();
         explosions = new Array<Explosion>();
         aliens = new Array<Rectangle>();
-
     }
 
     /**
      * Is called when the game is over because the figher was destroyed.
      * Is called by the destroyFighter() method in CollisionHandler.
      */
-    public void finalizeGame() {
-        gameOver = true;
-
-        this.exitTime = TimeUtils.millis() + Configs.waitAfterDeath;
-
+    public void checkGameOver() {
+       if  (gameOver && exitTime <= TimeUtils.millis() ) {
+           System.out.println("debug checkGameOver");
+           // clean up
+//           fighterLasers.clear();
+//           alienLasers.clear();
+//           asteroids.clear();
+//           explosions.clear();
+//           aliens.clear();
+           // exit
+           Scores.setLastScore(score);
+           game.setScreen(game.getMainMenuScreen());
+           this.pause();
+       }
     }
 
     /**
@@ -104,14 +116,16 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render (float delta) {
+        System.out.println("debug render");
+        System.out.println(gameOver);
 
         // go to MainMenu screen if game is over
-        if (exitTime <= TimeUtils.millis() && gameOver) {
-            Scores.setLastScore(score);
-            game.setScreen(game.getMainMenuScreen());
-            this.pause();
-
-        }
+        checkGameOver();
+//        if (exitTime <= TimeUtils.millis() && gameOver) {
+//            Scores.setLastScore(score);
+//            game.setScreen(game.getMainMenuScreen());
+//            this.pause();
+//        }
 
         // black background
         ScreenUtils.clear(0, 0, 0, 1);
@@ -163,6 +177,7 @@ public class GameScreen implements Screen {
     @Override
     public void show() {
         Assets.beepbop.play();
+        initialize();
     }
 
     @Override
@@ -173,6 +188,7 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         Assets.beepbop.stop();
+//        gameOver = false;
     }
 
     @Override
@@ -280,5 +296,13 @@ public class GameScreen implements Screen {
 
     public Spawner getSpawner() {
         return spawner;
+    }
+
+    public long getExitTime() {
+        return exitTime;
+    }
+
+    public void setExitTime(long exitTime) {
+        this.exitTime = exitTime;
     }
 }
