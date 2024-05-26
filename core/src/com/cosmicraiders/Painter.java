@@ -42,7 +42,7 @@ public class Painter {
      */
     public void renderObjects() {
         // render all objects from Arrays into batch
-        if (!gameScreen.isGameOver()) { // fighter
+        if (gameScreen.getFighter() != null) { // fighter
             batch.draw(Assets.fighterImage, gameScreen.getFighter().x, gameScreen.getFighter().y, gameScreen.getFighter().width, gameScreen.getFighter().height);
         }
         for(Rectangle laser: gameScreen.getFighterLasers()) { // fighter lasers

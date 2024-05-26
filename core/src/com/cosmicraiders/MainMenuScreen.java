@@ -48,17 +48,9 @@ public class MainMenuScreen implements Screen {
         game.batch.end();
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            game.setScreen(new GameScreen(game));
-            dispose();
+            game.setScreen(game.getGameScreen());
         }
 
-        // debug: show coordinates when pressing T
-        if(Gdx.input.isKeyPressed(Input.Keys.T)) {
-            Vector3 touchPos = new Vector3();
-            touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
-            camera.unproject(touchPos);
-            System.out.println(touchPos.x + " " + touchPos.y);
-        }
     }
 
     @Override

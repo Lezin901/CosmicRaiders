@@ -1,16 +1,12 @@
 package com.cosmicraiders;
 
 public class Scores {
-    private static int highscore;
+    private static int highScore;
     private static int lastScore;
 
 
     public static int getHighscore() {
-        return highscore;
-    }
-
-    public static void setHighscore(int highscore) {
-        Scores.highscore = highscore;
+        return highScore;
     }
 
     public static int getLastScore() {
@@ -19,5 +15,8 @@ public class Scores {
 
     public static void setLastScore(int lastScore) {
         Scores.lastScore = lastScore;
+        if (lastScore > highScore) {
+            Scores.highScore = lastScore;
+        }
     }
 }

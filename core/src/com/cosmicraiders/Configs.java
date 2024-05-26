@@ -2,8 +2,9 @@ package com.cosmicraiders;
 
 public class Configs {
 
-    // volume
+    // general game settings
     public static float volume = 0.2f;
+    public static int waitAfterDeath = 4000;
 
     // resolution
     public static final int resolutionX = 1920;

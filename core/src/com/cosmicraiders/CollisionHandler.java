@@ -19,16 +19,14 @@ public class CollisionHandler {
      */
     public void handleFighterCollisions() {
         Rectangle fighter = gameScreen.getFighter();
+        if (gameScreen.isGameOver()) return;
         for(Asteroid asteroid: gameScreen.getAsteroids()) {
-            if(Intersector.overlaps(asteroid, fighter) && !gameScreen.isGameOver()) {
-                gameScreen.setGameOver(true);
-                Explosion fighterExplosion = new Explosion(fighter.x + fighter.width / 2, fighter.y + fighter.height / 2, 256, 256);
-                fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
-                gameScreen.getExplosions().add(fighterExplosion);
+            if(Intersector.overlaps(asteroid, fighter)) {
+                destroyFighter();
             }
         }
         for(Rectangle alienLaser: gameScreen.getAlienLasers()) {
-            if(Intersector.overlaps(alienLaser, fighter) && !gameScreen.isGameOver()) {
+            if(Intersector.overlaps(alienLaser, fighter)) {
                 destroyFighter();
                 gameScreen.getAlienLasers().removeValue(alienLaser, true);
             }
@@ -95,5 +93,6 @@ public class CollisionHandler {
         Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
         gameScreen.getExplosions().add(fighterExplosion);
+        gameScreen.setFighter(null);
     }
 }

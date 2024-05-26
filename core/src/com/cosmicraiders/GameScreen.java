@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.TimeUtils;
 
 /**
  * Includes the main game logic as well as most GUI elements of the game.
@@ -40,6 +41,7 @@ public class GameScreen implements Screen {
 
     private int score = 0;
     private boolean gameOver = false;
+    private long exitTime;
 
     /**
      * using the constructor instead of the create() method
@@ -80,6 +82,7 @@ public class GameScreen implements Screen {
         asteroids = new Array<Asteroid>();
         explosions = new Array<Explosion>();
         aliens = new Array<Rectangle>();
+
     }
 
     /**
@@ -88,6 +91,8 @@ public class GameScreen implements Screen {
      */
     public void finalizeGame() {
         gameOver = true;
+
+        this.exitTime = TimeUtils.millis() + Configs.waitAfterDeath;
 
     }
 
@@ -99,6 +104,14 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render (float delta) {
+
+        // go to MainMenu screen if game is over
+        if (exitTime <= TimeUtils.millis() && gameOver) {
+            Scores.setLastScore(score);
+            game.setScreen(game.getMainMenuScreen());
+            this.pause();
+
+        }
 
         // black background
         ScreenUtils.clear(0, 0, 0, 1);
@@ -131,8 +144,6 @@ public class GameScreen implements Screen {
         if (gameOver == true) {
             game.batch.begin();
             game.font.draw(game.batch, "Game Over!", Configs.resolutionX*1/5, Configs.resolutionY*3/5);
-            game.font.draw(game.batch, "Score: " + score, Configs.resolutionX*1/5, Configs.resolutionY*3/5- Configs.fighterSize);
-            game.font.draw(game.batch, "Press ENTER to continue", Configs.resolutionX*1/5, Configs.resolutionY*3/5- Configs.fighterSize*4);
             game.batch.end();
         }
 
@@ -140,9 +151,10 @@ public class GameScreen implements Screen {
         if (!gameOver) {
             controls.moveFighter();
             spawner.spawnFighterLaser();
-        } else {
-            controls.checkForRestart();
         }
+//        else {
+//            controls.checkForRestart();
+//        }
     }
 
     /**
@@ -160,7 +172,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-
+        Assets.beepbop.stop();
     }
 
     @Override
@@ -174,7 +186,7 @@ public class GameScreen implements Screen {
     }
 
     @Override
-    public void dispose () {
+    public void dispose() {
 
     }
 
