@@ -4,6 +4,9 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
+/**
+ * A Painter draws all the assets in the batch.
+ */
 public class Painter {
     private GameScreen gameScreen;
     private Batch batch;

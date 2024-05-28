@@ -4,6 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Vector3;
 
+/**
+ * This is a helper class which contains a method to show the coordinates of the mouse / touch pointer for debugging.
+ */
 public class Debug {
     GameScreen gameScreen;
 
@@ -11,8 +14,10 @@ public class Debug {
         this.gameScreen = gameScreen;
     }
 
+    /**
+     * Debug: show coordinates when pressing T, also display an alien at the coordinates pointed to.
+     */
     public void showCoordinates() {
-        // debug: show coordinates when pressing T
         if(Gdx.input.isKeyPressed(Input.Keys.T)) {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);

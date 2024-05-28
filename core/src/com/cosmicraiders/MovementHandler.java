@@ -1,12 +1,9 @@
 package com.cosmicraiders;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
-
-import java.util.Iterator;
 
 
 /**

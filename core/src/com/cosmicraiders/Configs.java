@@ -1,5 +1,10 @@
 package com.cosmicraiders;
 
+/**
+ * This class saves general game settings as static attributes.
+ * It serves to centralize these settings and make them more accessible.
+ * These attributes are called upon by game logic to make decisions like "how fast does this laser go".
+ */
 public class Configs {
 
     // general game settings
@@ -28,5 +33,4 @@ public class Configs {
     // asteroids
     public static final int asteroidDiameter = 100;
     public static final int asteroidSpeed = 200;
-
 }

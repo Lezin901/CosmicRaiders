@@ -46,6 +46,7 @@ public class GameScreen implements Screen {
     /**
      * using the constructor instead of the create() method
      * this builds a GameScreen instance using the Game instance
+     * it uses an auxiliary method called initialize() to construct objects
      * @param game; the Game instance, here: CosmicRaiders
      */
     public GameScreen(final CosmicRaiders game) {
@@ -55,6 +56,13 @@ public class GameScreen implements Screen {
         initialize();
     }
 
+    /**
+     * This auxiliary method constructs objects needed for the game.
+     * It is called each time a new round starts.
+     * It builds NEW arrays and new auxiliary objects like Painter and Spawner.
+     * The old arrays and objects from the last round are not emptied,
+     * they are de-referenced and removed by the garbage collector.
+     */
     public void initialize() {
 
         // link other program components
@@ -97,17 +105,9 @@ public class GameScreen implements Screen {
     public void checkGameOver() {
        if  (gameOver && exitTime <= TimeUtils.millis() ) {
            System.out.println("debug checkGameOver");
-           // clean up
-//           fighterLasers.clear();
-//           alienLasers.clear();
-//           asteroids.clear();
-//           explosions.clear();
-//           aliens.clear();
-           // exit
            Scores.setLastScore(score);
            Scores.increaseRoundsPlayed();
            score = 0;
-
            game.setScreen(game.getMainMenuScreen());
            this.pause();
        }
@@ -126,11 +126,6 @@ public class GameScreen implements Screen {
 
         // go to MainMenu screen if game is over
         checkGameOver();
-//        if (exitTime <= TimeUtils.millis() && gameOver) {
-//            Scores.setLastScore(score);
-//            game.setScreen(game.getMainMenuScreen());
-//            this.pause();
-//        }
 
         // black background
         ScreenUtils.clear(0, 0, 0, 1);
@@ -155,6 +150,12 @@ public class GameScreen implements Screen {
         movementHandler.moveAsteroids();
         movementHandler.rotateAsteroids();
 
+        // fighter movement
+        if (!gameOver) {
+            controls.moveFighter();
+            spawner.spawnFighterLaser();
+        }
+
         // collisions
         collisionHandler.handleFighterLaserCollisions();
         collisionHandler.handleFighterCollisions();
@@ -166,14 +167,7 @@ public class GameScreen implements Screen {
             game.batch.end();
         }
 
-        // movement or restart
-        if (!gameOver) {
-            controls.moveFighter();
-            spawner.spawnFighterLaser();
-        }
-//        else {
-//            controls.checkForRestart();
-//        }
+
     }
 
     /**
@@ -193,7 +187,6 @@ public class GameScreen implements Screen {
     @Override
     public void pause() {
         Assets.beepbop.stop();
-//        gameOver = false;
     }
 
     @Override

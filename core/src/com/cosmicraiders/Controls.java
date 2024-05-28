@@ -115,17 +115,18 @@ public class Controls {
         }
     }
 
-    /**
-     * Restart the game by pressing ENTER.
-     */
-    public void checkForRestart() {
-        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
-            gameScreen.setGameOver(false);
-            gameScreen.setScore(0);
-            gameScreen.getFighter().x = Configs.resolutionX / 2 - Configs.fighterSize / 2;
-            gameScreen.getFighter().y = Configs.fighterSize / 4;
-        }
-    }
+    // old code: the game can be restarted now from the main menu after death
+//    /**
+//     * Restart the game by pressing ENTER.
+//     */
+//    public void checkForRestart() {
+//        if(Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+//            gameScreen.setGameOver(false);
+//            gameScreen.setScore(0);
+//            gameScreen.getFighter().x = Configs.resolutionX / 2 - Configs.fighterSize / 2;
+//            gameScreen.getFighter().y = Configs.fighterSize / 4;
+//        }
+//    }
 
 
 }

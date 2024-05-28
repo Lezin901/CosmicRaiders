@@ -5,8 +5,11 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import java.util.Iterator;
-
+/**
+ * This class handles all collisions of objects which are rendered.
+ * It mostly deletes them upon collision and creates a new Explosion there.
+ * It also ends the game if the fighter collides with an asteroid or a laser.
+ */
 public class CollisionHandler {
     private final GameScreen gameScreen;
 
@@ -88,13 +91,8 @@ public class CollisionHandler {
      * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
      */
     private void destroyFighter() {
-
-
         gameScreen.setGameOver(true);
         gameScreen.setExitTime(TimeUtils.millis() + Configs.waitAfterDeath);
-//        this.exitTime = TimeUtils.millis() + Configs.waitAfterDeath;
-//        gameScreen.finalizeGame();
-
         Assets.explosion.play(Configs.volume/2);
         Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
