@@ -31,7 +31,8 @@ public class MainMenuScreen implements Screen {
 
         supernovaImage = new Texture(Gdx.files.internal("supernovas.png"));
 
-        game.font.getData().setScale(5);
+        game.font.getData().setScale(1);
+        game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
     }
 

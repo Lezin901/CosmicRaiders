@@ -1,6 +1,7 @@
 package com.cosmicraiders;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
@@ -25,7 +26,7 @@ public class CosmicRaiders extends Game {
     public void create() {
         Assets.load();
         batch = new SpriteBatch();
-        font = new BitmapFont(); // use libGDX's default Arial font
+        font = new BitmapFont(Gdx.files.internal("fonts/myFont.fnt"), Gdx.files.internal("fonts/myFont.png"), false); // use libGDX's default Arial font
 
         // initialize screens
         mainMenuScreen = new MainMenuScreen(this);
