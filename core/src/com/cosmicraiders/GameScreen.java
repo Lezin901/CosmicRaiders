@@ -135,9 +135,9 @@ public class GameScreen implements Screen {
         //SpriteBatch rendering code
         batch.begin();
         debug.showCoordinates();
-        game.font.draw(game.batch, "Score: " + score, 0, Configs.resolutionY);
         painter.renderStarLayers();
         painter.renderObjects();
+        game.font.draw(game.batch, "Score: " + score, 0, Configs.resolutionY);
         batch.end();
 
         // spawning
