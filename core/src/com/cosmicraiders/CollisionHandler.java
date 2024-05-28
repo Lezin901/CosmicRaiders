@@ -100,5 +100,6 @@ public class CollisionHandler {
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
         gameScreen.getExplosions().add(fighterExplosion);
         gameScreen.setFighter(null);
+
     }
 }

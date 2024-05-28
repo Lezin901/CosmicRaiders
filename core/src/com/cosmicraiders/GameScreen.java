@@ -49,6 +49,8 @@ public class GameScreen implements Screen {
      * @param game; the Game instance, here: CosmicRaiders
      */
     public GameScreen(final CosmicRaiders game) {
+
+        // link other program components
         this.game = game;
         initialize();
     }
@@ -103,6 +105,9 @@ public class GameScreen implements Screen {
 //           aliens.clear();
            // exit
            Scores.setLastScore(score);
+           Scores.increaseRoundsPlayed();
+           score = 0;
+
            game.setScreen(game.getMainMenuScreen());
            this.pause();
        }

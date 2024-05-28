@@ -3,6 +3,7 @@ package com.cosmicraiders;
 public class Scores {
     private static int highScore;
     private static int lastScore;
+    private static int roundsPlayed = 0;
 
 
     public static int getHighscore() {
@@ -18,5 +19,12 @@ public class Scores {
         if (lastScore > highScore) {
             Scores.highScore = lastScore;
         }
+    }
+    public static void increaseRoundsPlayed() {
+        roundsPlayed++;
+    }
+
+    public static int getRoundsPlayed() {
+        return Scores.roundsPlayed;
     }
 }
