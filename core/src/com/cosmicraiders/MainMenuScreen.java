@@ -55,15 +55,15 @@ public class MainMenuScreen implements Screen {
 
         game.batch.begin();
 
-        game.font.draw(game.batch, "Welcome to Cosmic Raiders!!! ", 450, 500);
-        game.font.draw(game.batch, "CLICK or press ENTER to begin!", 450, 400);
+        game.font.draw(game.batch, "Welcome to Cosmic Raiders!!! ", 450, 600);
+        game.font.draw(game.batch, "CLICK or press ENTER to begin!", 450, 500);
         game.batch.draw(supernovaImage, 450, 600, 400, 400);
 
 
         if (Scores.getRoundsPlayed() > 0) {
             game.font.draw(game.batch, "Highscore: " + Scores.getHighscore(), 450, 300);
             game.font.draw(game.batch, "Last Score: " + Scores.getLastScore(), 450, 200);
-            game.font.draw(game.batch, "Rounds played: " + Scores.getRoundsPlayed(), 450, 100);
+//            game.font.draw(game.batch, "Rounds played: " + Scores.getRoundsPlayed(), 450, 100);
         }
 
         game.batch.end();

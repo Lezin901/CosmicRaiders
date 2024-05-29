@@ -121,8 +121,6 @@ public class GameScreen implements Screen {
      */
     @Override
     public void render (float delta) {
-        System.out.println("debug render");
-        System.out.println(gameOver);
 
         // go to MainMenu screen if game is over
         checkGameOver();
@@ -137,7 +135,7 @@ public class GameScreen implements Screen {
         debug.showCoordinates();
         painter.renderStarLayers();
         painter.renderObjects();
-        game.font.draw(game.batch, "Score: " + score, 0, Configs.resolutionY);
+        game.font.draw(game.batch, "Score: " + score, 0, 80);
         batch.end();
 
         // spawning
@@ -175,7 +173,7 @@ public class GameScreen implements Screen {
      */
     @Override
     public void show() {
-        Assets.beepbop.play();
+        Assets.neonNoir.play();
         initialize();
     }
 
@@ -186,7 +184,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-        Assets.beepbop.stop();
+        Assets.neonNoir.stop();
     }
 
     @Override

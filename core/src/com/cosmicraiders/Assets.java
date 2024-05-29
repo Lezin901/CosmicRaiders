@@ -21,6 +21,10 @@ public class Assets {
     public static Sound blasterShoot;
     public static Sound explosion;
     public static Music beepbop;
+    public static Music neonNoir;
+
+    // more sounds on https://www.weloveindies.com/en/sounds-for-games
+    // Neon Noir: Music by Karl Casey @ White Bat Audio
 
     /**
      * This method converts a file to a Texture object.
@@ -49,6 +53,7 @@ public class Assets {
         blasterShoot = Gdx.audio.newSound(Gdx.files.internal("blasterShoot.mp3"));
         explosion = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
         beepbop = Gdx.audio.newMusic(Gdx.files.internal("beepbop.mp3"));
+        neonNoir = beepbop = Gdx.audio.newMusic(Gdx.files.internal("NeonNoir.mp3"));
     }
 
     /**

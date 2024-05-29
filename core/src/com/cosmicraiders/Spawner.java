@@ -6,15 +6,27 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
+/**
+ * A Spawner creates objects in the game: aliens, alien lasers and fighter lasers.
+ * Its attributes also track the timing of past and future spawns.
+ */
 public class Spawner {
     private final GameScreen gameScreen;
-    private boolean alienDead = true;
+    /** tracks how long ago the alien shot a laser  */
     private long lastAlienShootTime = TimeUtils.nanoTime();
-    private long lastAsteroidTime;
-    private long lastAlienTime;
+    /** tracks how long ago the fighter shot a laser  */
     private long lastFighterShootTime;
+    /** tracks how long ago the last asteroid spawned  */
+    private long lastAsteroidTime;
+    /** tracks how long ago the last alien was destroyed  */
+    private long lastAlienTime;
+    /** is the alien currently dead? */
+    private boolean alienDead = true;
 
-
+    /**
+     * The constructor gets a reference to the GameScreen in order to refer back to it.
+     * @param gameScreen the main game environment
+     */
     public Spawner(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
