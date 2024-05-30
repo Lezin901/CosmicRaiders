@@ -62,17 +62,18 @@ public class Assets {
         nebulaImage = loadTexture("nebula.png");
         supernovaImage = loadTexture("supernovas.png");
 
-        blasterShoot = Gdx.audio.newSound(Gdx.files.internal("blasterShoot.mp3"));
-        explosion = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
-        beepbop = Gdx.audio.newMusic(Gdx.files.internal("beepbop.mp3"));
-        neonNoir = beepbop = Gdx.audio.newMusic(Gdx.files.internal("NeonNoir.mp3"));
+        blasterShoot = Gdx.audio.newSound(Gdx.files.internal("sounds/blasterShoot.mp3"));
+        explosion = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
+        beepbop = Gdx.audio.newMusic(Gdx.files.internal("sounds/beepbop.mp3"));
+        neonNoir = beepbop = Gdx.audio.newMusic(Gdx.files.internal("sounds/NeonNoir.mp3"));
 
-        openUp = Gdx.audio.newMusic(Gdx.files.internal("beepbop.mp3"));
-        alienSpawn = Gdx.audio.newSound(Gdx.files.internal("alienSpawn.wav"));
-        alienLaser = Gdx.audio.newSound(Gdx.files.internal("alienLaser.wav"));
-        alienExplosion = Gdx.audio.newSound(Gdx.files.internal("alienExplosion.wav"));
-        fighterLaser = Gdx.audio.newSound(Gdx.files.internal("fighterLaser.wav"));
-        fighterExplosion = Gdx.audio.newSound(Gdx.files.internal("fighterExplosion.wav"));
+        openUp = Gdx.audio.newMusic(Gdx.files.internal("sounds/openUp.wav"));
+        asteroidExplosion = Gdx.audio.newSound(Gdx.files.internal("sounds/asteroidExplosion.wav"));
+        alienSpawn = Gdx.audio.newSound(Gdx.files.internal("sounds/alienSpawn.wav"));
+        alienLaser = Gdx.audio.newSound(Gdx.files.internal("sounds/alienLaser.wav"));
+        alienExplosion = Gdx.audio.newSound(Gdx.files.internal("sounds/alienExplosion.wav"));
+        fighterLaser = Gdx.audio.newSound(Gdx.files.internal("sounds/fighterLaser.wav"));
+        fighterExplosion = Gdx.audio.newSound(Gdx.files.internal("sounds/fighterExplosion.wav"));
     }
 
     /**

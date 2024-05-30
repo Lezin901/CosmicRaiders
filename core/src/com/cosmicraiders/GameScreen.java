@@ -2,6 +2,7 @@ package com.cosmicraiders;
 
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
 import com.badlogic.gdx.utils.Array;
@@ -39,9 +40,13 @@ public class GameScreen implements Screen {
     private Array<Explosion> explosions;
     private Array<Rectangle> aliens;
 
-    private int score = 0;
+    private int score;
     private boolean gameOver = false;
     private long exitTime;
+
+
+    private GlyphLayout scoreText;
+    private HorizontalCenteredGlyphLayout gameOverText;
 
     /**
      * using the constructor instead of the create() method
@@ -96,6 +101,13 @@ public class GameScreen implements Screen {
         asteroids = new Array<Asteroid>();
         explosions = new Array<Explosion>();
         aliens = new Array<Rectangle>();
+
+        // construct GlyphLayouts
+        scoreText = new GlyphLayout(game.font, "");
+        gameOverText = new HorizontalCenteredGlyphLayout(game.font, "Game Over!");
+
+        // initialize score
+        setScore(0);
     }
 
     /**
@@ -135,7 +147,7 @@ public class GameScreen implements Screen {
         debug.showCoordinates();
         painter.renderStarLayers();
         painter.renderObjects();
-        game.font.draw(game.batch, "Score: " + score, 0, 80);
+        game.font.draw(game.batch, scoreText, 60, 80);
         batch.end();
 
         // spawning
@@ -161,7 +173,7 @@ public class GameScreen implements Screen {
         // throws up a "Game Over" screen
         if (gameOver == true) {
             game.batch.begin();
-            game.font.draw(game.batch, "Game Over!", Configs.resolutionX*1/5, Configs.resolutionY*3/5);
+            game.font.draw(game.batch, gameOverText, gameOverText.getX(), Configs.resolutionY / 2 - gameOverText.height / 2);
             game.batch.end();
         }
 
@@ -276,6 +288,7 @@ public class GameScreen implements Screen {
 
     public void setScore(int score) {
         this.score = score;
+        this.scoreText.setText(game.font, "Score: " + score);
     }
 
     public boolean isGameOver() {
