@@ -44,7 +44,9 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-
+        Assets.neonNoir.setVolume(Configs.volume);
+        Assets.neonNoir.play();
+        Assets.neonNoir.setLooping(true);
     }
 
     /**

@@ -93,7 +93,7 @@ public class CollisionHandler {
     private void destroyFighter() {
         gameScreen.setGameOver(true);
         gameScreen.setExitTime(TimeUtils.millis() + Configs.waitAfterDeath);
-        Assets.fighterExplosion.play(Configs.volume);
+        Assets.fighterExplosion.play(Configs.volume*3);
         Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
         gameScreen.getExplosions().add(fighterExplosion);

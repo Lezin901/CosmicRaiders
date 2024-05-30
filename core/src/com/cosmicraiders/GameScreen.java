@@ -185,7 +185,7 @@ public class GameScreen implements Screen {
      */
     @Override
     public void show() {
-        Assets.neonNoir.play();
+//        Assets.openUp.play();
         initialize();
     }
 
@@ -196,7 +196,7 @@ public class GameScreen implements Screen {
 
     @Override
     public void pause() {
-        Assets.neonNoir.stop();
+//        Assets.neonNoir.stop();
     }
 
     @Override
