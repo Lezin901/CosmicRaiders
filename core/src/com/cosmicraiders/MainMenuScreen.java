@@ -55,8 +55,8 @@ public class MainMenuScreen implements Screen {
 
         game.batch.begin();
 
-        game.font.draw(game.batch, "Welcome to Cosmic Raiders!!! ", 450, 600);
-        game.font.draw(game.batch, "CLICK or press ENTER to begin!", 450, 500);
+        game.font.draw(game.batch, "Welcome to Cosmic Raiders ", 450, 600);
+        game.font.draw(game.batch, "CLICK to begin or C for credits", 450, 500);
         game.batch.draw(supernovaImage, 450, 600, 400, 400);
 
 
