@@ -93,7 +93,8 @@ public class GameScreen implements Screen {
         fighter.x = Configs.resolutionX / 2 - Configs.fighterSize / 2;
         fighter.y = Configs.fighterSize / 4;
         fighter.width = Configs.fighterSize;
-        fighter.height = Configs.fighterSize * (57f / 46f);
+        fighter.height = Configs.fighterSize;
+        //fighter.height = Configs.fighterSize * (57f / 46f);
 
         // construct arrays
         fighterLasers = new Array<Rectangle>();

@@ -66,8 +66,10 @@ public class MainMenuScreen implements Screen {
         painter.renderStarLayers();
 
 
+        float logoWidth = 700;
+        game.batch.draw(Assets.cosmicRaidersLogoImage, Configs.resolutionX / 2 - logoWidth/2, 600, logoWidth, 300);
 
-        game.font.draw(game.batch, welcomeText, welcomeText.getX(), 600);
+        //game.font.draw(game.batch, welcomeText, welcomeText.getX(), 600);
         game.font.draw(game.batch, instructionsText, instructionsText.getX(), 500);
 
 

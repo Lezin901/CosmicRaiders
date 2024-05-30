@@ -17,7 +17,7 @@ public class Configs {
     public static final int padding = resolutionX / 100;
 
     // fighter
-    public static final int fighterSize = 80;
+    public static final int fighterSize = 120;
     public static final int fighterSpeed = 800;
     public static final int fighterLaserSize = 80;
     public static final int fighterLaserSpeed = 800;

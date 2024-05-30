@@ -23,7 +23,7 @@ public class Painter {
         // first star layer rendering
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
-                batch.draw(Assets.starBackgroundImage, i * 512, j * 512  - ((TimeUtils.nanoTime() / 10000000) % 512), 512, 512);
+                batch.draw(Assets.starBackgroundImage, i * 512, j * 512  - ((TimeUtils.nanoTime() / 8000000) % 512), 512, 512);
             }
         }
         // second star layer rendering

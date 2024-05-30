@@ -18,6 +18,7 @@ public class Assets {
     public static Texture starBackgroundImage;
     public static Texture supernovaImage;
     public static Texture nebulaImage;
+    public static Texture cosmicRaidersLogoImage;
 
 
     public static Music beepbop;
@@ -61,6 +62,7 @@ public class Assets {
         starBackgroundImage = loadTexture("stars.png");
         nebulaImage = loadTexture("nebula.png");
         supernovaImage = loadTexture("supernovas.png");
+        cosmicRaidersLogoImage = loadTexture("cosmicRaidersLogo.png");
 
         blasterShoot = Gdx.audio.newSound(Gdx.files.internal("sounds/blasterShoot.mp3"));
         explosion = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
@@ -90,6 +92,7 @@ public class Assets {
         starBackgroundImage.dispose();
         supernovaImage.dispose();
         nebulaImage.dispose();
+        cosmicRaidersLogoImage.dispose();
 
         blasterShoot.dispose();
         explosion.dispose();
