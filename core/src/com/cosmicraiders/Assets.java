@@ -18,10 +18,22 @@ public class Assets {
     public static Texture starBackgroundImage;
     public static Texture supernovaImage;
     public static Texture nebulaImage;
-    public static Sound blasterShoot;
-    public static Sound explosion;
+
+
     public static Music beepbop;
     public static Music neonNoir;
+    public static Music openUp;
+
+    public static Sound blasterShoot;
+    public static Sound explosion;
+    public static Sound alienSpawn;
+    public static Sound alienLaser;
+    public static Sound alienExplosion;
+    public static Sound asteroidExplosion;
+    public static Sound fighterLaser;
+    public static Sound fighterExplosion;
+
+
 
     // more sounds on https://www.weloveindies.com/en/sounds-for-games
     // Neon Noir: Music by Karl Casey @ White Bat Audio
@@ -54,6 +66,13 @@ public class Assets {
         explosion = Gdx.audio.newSound(Gdx.files.internal("explosion.mp3"));
         beepbop = Gdx.audio.newMusic(Gdx.files.internal("beepbop.mp3"));
         neonNoir = beepbop = Gdx.audio.newMusic(Gdx.files.internal("NeonNoir.mp3"));
+
+        openUp = Gdx.audio.newMusic(Gdx.files.internal("beepbop.mp3"));
+        alienSpawn = Gdx.audio.newSound(Gdx.files.internal("alienSpawn.wav"));
+        alienLaser = Gdx.audio.newSound(Gdx.files.internal("alienLaser.wav"));
+        alienExplosion = Gdx.audio.newSound(Gdx.files.internal("alienExplosion.wav"));
+        fighterLaser = Gdx.audio.newSound(Gdx.files.internal("fighterLaser.wav"));
+        fighterExplosion = Gdx.audio.newSound(Gdx.files.internal("fighterExplosion.wav"));
     }
 
     /**
@@ -74,6 +93,13 @@ public class Assets {
         blasterShoot.dispose();
         explosion.dispose();
         beepbop.dispose();
+
+        openUp.dispose();
+        alienSpawn.dispose();
+        alienLaser.dispose();
+        alienExplosion.dispose();
+        fighterLaser.dispose();
+        fighterExplosion.dispose();
     }
 }
 

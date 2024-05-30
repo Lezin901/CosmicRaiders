@@ -66,7 +66,7 @@ public class CollisionHandler {
      * @param asteroid the asteroid which has just been hit
      */
     private void laserHitsAsteroid(Circle asteroid) {
-        Assets.explosion.play(Configs.volume/2);
+        Assets.asteroidExplosion.play(Configs.volume);
         gameScreen.getExplosions().add(new Explosion(asteroid.x, asteroid.y, asteroid.radius * 2, asteroid.radius * 2));
     }
 
@@ -79,7 +79,7 @@ public class CollisionHandler {
      */
     private void laserHitsAlien(Rectangle alien) {
         gameScreen.setScore(gameScreen.getScore() + 1);
-        Assets.explosion.play(Configs.volume/2);
+        Assets.alienExplosion.play(Configs.volume);
         gameScreen.getExplosions().add(new Explosion(alien.x + alien.width/2 , alien.y + alien.height/2, alien.height, alien.width));
         gameScreen.getSpawner().setAlienDead(true);
         gameScreen.getSpawner().setLastAlienTime(TimeUtils.nanoTime());
@@ -93,7 +93,7 @@ public class CollisionHandler {
     private void destroyFighter() {
         gameScreen.setGameOver(true);
         gameScreen.setExitTime(TimeUtils.millis() + Configs.waitAfterDeath);
-        Assets.explosion.play(Configs.volume/2);
+        Assets.fighterExplosion.play(Configs.volume);
         Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
         fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
         gameScreen.getExplosions().add(fighterExplosion);

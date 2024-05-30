@@ -75,6 +75,7 @@ public class Spawner {
      */
     public void spawnAlien() {
         if(alienDead && (TimeUtils.nanoTime() - lastAlienTime > 2000000000)) {
+            Assets.alienSpawn.play(Configs.volume);
             Rectangle alien = new Rectangle();
             alien.width = Configs.alienSize;
             alien.height = Configs.alienSize * (57f / 46f);
@@ -94,6 +95,7 @@ public class Spawner {
      * @param y the vertical coordinate of the alien ship that shoots
      */
     public void spawnAlienLaser(float x, float y) {
+        Assets.alienLaser.play(Configs.volume);
         Rectangle laser = new Rectangle();
         laser.width = Configs.alienLaserSize / 10;
         laser.height = Configs.alienLaserSize;
@@ -101,7 +103,6 @@ public class Spawner {
         laser.y = y - Configs.alienSize;
 
         gameScreen.getAlienLasers().add(laser);
-        Assets.blasterShoot.play(Configs.volume);
         lastAlienShootTime = TimeUtils.nanoTime();
     }
 
@@ -113,6 +114,7 @@ public class Spawner {
     public void spawnFighterLaser() {
         if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             if (TimeUtils.millis() - lastFighterShootTime > Configs.fighterRateOfFire) {
+                Assets.fighterLaser.play(Configs.volume);
                 Rectangle laser = new Rectangle();
                 laser.width = Configs.fighterLaserSize / 10;
                 laser.height = Configs.fighterLaserSize;
@@ -120,7 +122,6 @@ public class Spawner {
                 laser.y = gameScreen.getFighter().y + Configs.fighterSize;
 
                 gameScreen.getFighterLasers().add(laser);
-                Assets.blasterShoot.play(Configs.volume);
                 lastFighterShootTime = TimeUtils.millis();
             }
         };
