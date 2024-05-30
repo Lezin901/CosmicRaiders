@@ -34,7 +34,7 @@ public class MainMenuScreen implements Screen {
         camera.setToOrtho(false, 1920, 1080);
 
         welcomeText = new HorizontalCenteredGlyphLayout(game.font, "Welcome to Cosmic Raiders");
-        instructionsText = new HorizontalCenteredGlyphLayout(game.font, "CLICK to begin or C for credits");
+        instructionsText = new HorizontalCenteredGlyphLayout(game.font, "CLICK to begin");
         highscoreText = new HorizontalCenteredGlyphLayout(game.font, "");
         lastScoreText = new HorizontalCenteredGlyphLayout(game.font, "");
 
