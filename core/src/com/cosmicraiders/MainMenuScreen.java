@@ -16,7 +16,11 @@ public class MainMenuScreen implements Screen {
 
     final CosmicRaiders game;
     final OrthographicCamera camera;
-    final Texture supernovaImage;
+
+    HorizontalCenteredGlyphLayout welcomeText;
+    HorizontalCenteredGlyphLayout instructionsText;
+    HorizontalCenteredGlyphLayout highscoreText;
+    HorizontalCenteredGlyphLayout lastScoreText;
 
     /**
      * Constructs the main menu screen which is the first thing the player sees.
@@ -29,8 +33,10 @@ public class MainMenuScreen implements Screen {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
 
-        supernovaImage = new Texture(Gdx.files.internal("supernovas.png"));
-
+        welcomeText = new HorizontalCenteredGlyphLayout(game.font, "Welcome to Cosmic Raiders");
+        instructionsText = new HorizontalCenteredGlyphLayout(game.font, "CLICK to begin or C for credits");
+        highscoreText = new HorizontalCenteredGlyphLayout(game.font, "");
+        lastScoreText = new HorizontalCenteredGlyphLayout(game.font, "");
 
         game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
@@ -54,15 +60,20 @@ public class MainMenuScreen implements Screen {
         game.batch.setProjectionMatrix(camera.combined);
 
         game.batch.begin();
+        Painter painter = game.getGameScreen().getPainter();
+        painter.renderStarLayers();
 
-        game.font.draw(game.batch, "Welcome to Cosmic Raiders ", 450, 600);
-        game.font.draw(game.batch, "CLICK to begin or C for credits", 450, 500);
-        game.batch.draw(supernovaImage, 450, 600, 400, 400);
+
+
+        game.font.draw(game.batch, welcomeText, welcomeText.getX(), 600);
+        game.font.draw(game.batch, instructionsText, instructionsText.getX(), 500);
 
 
         if (Scores.getRoundsPlayed() > 0) {
-            game.font.draw(game.batch, "Highscore: " + Scores.getHighscore(), 450, 300);
-            game.font.draw(game.batch, "Last Score: " + Scores.getLastScore(), 450, 200);
+            highscoreText.setText("Highscore: " + Scores.getHighscore());
+            lastScoreText.setText("Last Score: " + Scores.getLastScore());
+            game.font.draw(game.batch, highscoreText, highscoreText.getX(), 300);
+            game.font.draw(game.batch, lastScoreText, lastScoreText.getX(), 200);
 //            game.font.draw(game.batch, "Rounds played: " + Scores.getRoundsPlayed(), 450, 100);
         }
 

@@ -26,8 +26,8 @@ public class CosmicRaiders extends Game {
     public void create() {
         Assets.load();
         batch = new SpriteBatch();
-        font = new BitmapFont(Gdx.files.internal("fonts/myFont.fnt"), Gdx.files.internal("fonts/myFont.png"), false); // use libGDX's default Arial font
-        font.getData().setScale(1);
+        font = new BitmapFont(Gdx.files.internal("fonts/CaveStoryGreen.fnt"), Gdx.files.internal("fonts/CaveStoryGreen.png"), false); // use libGDX's default Arial font
+        font.getData().setScale(2);
 
         // initialize screens
         mainMenuScreen = new MainMenuScreen(this);

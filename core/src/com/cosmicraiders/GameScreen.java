@@ -301,4 +301,8 @@ public class GameScreen implements Screen {
     public void setExitTime(long exitTime) {
         this.exitTime = exitTime;
     }
+
+    public Painter getPainter() {
+        return this.painter;
+    }
 }

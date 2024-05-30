@@ -8,7 +8,7 @@ package com.cosmicraiders;
 public class Configs {
 
     // general game settings
-    public static float volume = 0.2f;
+    public static float volume = 0.05f;
     public static int waitAfterDeath = 4000;
 
     // resolution
