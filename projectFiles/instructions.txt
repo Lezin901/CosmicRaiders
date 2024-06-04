@@ -1,0 +1,7 @@
+Um den Reload-Button aus der HTML-Version zu entfernen:
+-> https://www.youtube.com/watch?v=I_85usDvJvQ
+-> <a class="superdev" ...> muss entfernt werden aus index.html Datei
+
+Um Mikrofon-Berechtigungs-Anfrage zu verhindern:
+-> Nicht LibGDX 1.12.2-SNAPSHOT-Version nutzen (Änderbar in build.gradle)
+-> Stattdessen 1.12.1 Version nutzen und in build.gradle von html-Projekt gwt 2.8.2 anstelle von 2.10.0 nutzen
