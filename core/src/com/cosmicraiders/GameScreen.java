@@ -188,6 +188,7 @@ public class GameScreen implements Screen {
     public void show() {
 //        Assets.openUp.play();
         initialize();
+        Assets.neonNoir.play();
     }
 
     @Override
