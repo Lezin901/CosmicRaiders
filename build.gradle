@@ -13,6 +13,8 @@ buildscript {
         classpath 'org.gretty:gretty:3.1.0'
         classpath 'com.android.tools.build:gradle:8.1.2'
         classpath 'com.mobidevelop.robovm:robovm-gradle-plugin:2.3.20'
+        //
+        classpath group: 'org.mini2Dx', name: 'parcl', version: '1.8.0'
         
 
     }
@@ -46,6 +48,14 @@ allprojects {
 project(":desktop") {
     apply plugin: "java-library"
 
+    //
+    apply plugin: "java"
+    apply plugin: "application"
+    apply plugin: "org.mini2Dx.parcl"
+
+    mainClassName = "desktop/src/com.cosmicraiders.DesktopLauncher"
+    // project.getConvention().getPlugin(ApplicationPluginConvention.class).setMainClassName("com.cosmicraiders.DesktopLauncher")
+
 
     dependencies {
         implementation project(":core")
@@ -56,6 +66,24 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-tools:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
         
+    }
+
+    parcl {
+        exe {
+            exeName = "CosmicRaiders"
+        }
+        app {
+            appName = "My Application"
+            // icon = "relative/path/to/icon.icns"
+            applicationCategory = "public.app-category.adventure-games"
+            displayName = 'My Application'
+            identifier = 'com.example.my.apple.identifier'
+            copyright = 'Copyright 2015 Your Name Here'
+        }
+
+        linux {
+            binName = "myapplication"
+        }
     }
 }
 
