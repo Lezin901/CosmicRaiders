@@ -1,0 +1,10 @@
+{
+  "jrePath": "jre",
+  "classPath": [
+    "desktop-1.0.jar"
+  ],
+  "mainClass": "com.cosmicraiders.DesktopLauncher",
+  "useZgcIfSupportedOs": true,
+  "vmArgs": [
+  ]
+}

@@ -5,3 +5,16 @@ Um den Reload-Button aus der HTML-Version zu entfernen:
 Um Mikrofon-Berechtigungs-Anfrage zu verhindern:
 -> Nicht LibGDX 1.12.2-SNAPSHOT-Version nutzen (Änderbar in build.gradle)
 -> Stattdessen 1.12.1 Version nutzen und in build.gradle von html-Projekt gwt 2.8.2 anstelle von 2.10.0 nutzen
+
+
+Um ausführbare Datei zu erzeugen (mit Runtime Environment)
+java -jar packr-all-4.0.0.jar \
+     --platform mac \
+     --jdk OpenJDK11U-jre_x64_mac_hotspot_11.0.10_9.tar.gz \
+     --useZgcIfSupportedOs \
+     --executable myapp \
+     --classpath desktop/build/libs/desktop-1.0.jar \
+     --mainclass com.cosmicraiders.DesktopLauncher \
+     --vmargs -Xmx1G \
+     --resources assets \
+     --output out-mac
