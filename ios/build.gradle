@@ -14,6 +14,10 @@ createIPA.dependsOn build
 
 robovm {
 	archs = "arm64"
+	// iosSignIdentity = "[Signing identity name]"
+	// iosProvisioningProfile = "[provisioning profile name]"
+	// iosSkipSigning = false
+	// archs = "thumbv7:arm64"
 }
 
 eclipse.project.name = appName + "-ios"

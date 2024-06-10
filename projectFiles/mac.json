@@ -1,0 +1,20 @@
+{
+  "platform": "mac",
+  "jdk": "/Users/levin/IdeaProjects/jdk-22_macos-aarch64_bin.tar.gz",
+  "executable": "CosmicRaiders",
+  "classpath": [
+    "/desktop/build/libs/desktop-1.0.jar.jar"
+  ],
+  "removelibs": [
+    "myjar.jar"
+  ],
+  "mainclass": "com.cosmicraiders.DesktopLauncher",
+  "vmargs": [
+    "-XstartOnFirstThread"
+  ],
+  "resources": [
+    "assets"
+  ],
+  "minimizejre": "soft",
+  "output": "out-mac"
+}

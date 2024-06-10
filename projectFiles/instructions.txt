@@ -6,8 +6,11 @@ Um Mikrofon-Berechtigungs-Anfrage zu verhindern:
 -> Nicht LibGDX 1.12.2-SNAPSHOT-Version nutzen (Änderbar in build.gradle)
 -> Stattdessen 1.12.1 Version nutzen und in build.gradle von html-Projekt gwt 2.8.2 anstelle von 2.10.0 nutzen
 
+java -jar packr-all-4.0.0.jar mac.json
+java -jar packr-all-4.0.0.jar win.json
 
-Um ausführbare Datei zu erzeugen (mit Runtime Environment)
+Um ausführbare Dateien auf einem Mac zu erzeugen (mit Runtime Environment):
+
 java -jar packr-all-4.0.0.jar \
      --platform mac \
      --jdk OpenJDK11U-jre_x64_mac_hotspot_11.0.10_9.tar.gz \
@@ -19,16 +22,15 @@ java -jar packr-all-4.0.0.jar \
      --resources assets \
      --output out-mac
 
+ Für Windows:
 
-     Für Windows:
-
-     java -jar packr-all-4.0.0.jar \
-          --platform windows64 \
-          --jdk openjdk-22.0.1_windows-x64_bin.zip \
-          --useZgcIfSupportedOs \
-          --executable CosmicRaiders \
-          --classpath desktop/build/libs/desktop-1.0.jar \
-          --mainclass com.cosmicraiders.DesktopLauncher \
-          --vmargs -Xmx1G \
-          --resources assets \
-          --output out-windows
+ java -jar packr-all-4.0.0.jar \
+      --platform windows64 \
+      --jdk openjdk-22.0.1_windows-x64_bin.zip \
+      --useZgcIfSupportedOs \
+      --executable CosmicRaiders \
+      --classpath desktop/build/libs/desktop-1.0.jar \
+      --mainclass com.cosmicraiders.DesktopLauncher \
+      --vmargs -Xmx1G \
+      --resources assets \
+      --output out-windows
