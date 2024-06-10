@@ -78,10 +78,6 @@ public class GameScreen implements Screen {
         this.spawner = new Spawner(this);
         this.debug = new Debug(this);
 
-        // start the playback of the background music immediately
-        Assets.beepbop.setLooping(true);
-        Assets.beepbop.setVolume(Configs.volume);
-
         // construct camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, Configs.resolutionX, Configs.resolutionY);

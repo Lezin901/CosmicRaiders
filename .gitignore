@@ -115,4 +115,6 @@ Thumbs.db
 local.properties
 
 ## Custom
-/assets/pixelmatorFiles
+/pixelmatorFiles/
+/assets/unusedGraphics/
+/assets/pixelmatorFiles/

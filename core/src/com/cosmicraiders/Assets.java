@@ -16,14 +16,9 @@ public class Assets {
     public static Texture asteroidImage;
     public static Texture asteroidExplosionImage;
     public static Texture starBackgroundImage;
-    public static Texture supernovaImage;
-    public static Texture nebulaImage;
     public static Texture cosmicRaidersLogoImage;
 
-
-    public static Music beepbop;
     public static Music neonNoir;
-    public static Music openUp;
 
     public static Sound blasterShoot;
     public static Sound explosion;
@@ -60,16 +55,12 @@ public class Assets {
         asteroidImage = loadTexture("asteroid.png");
         asteroidExplosionImage = loadTexture("asteroidExplosion.png");
         starBackgroundImage = loadTexture("stars.png");
-        nebulaImage = loadTexture("nebula.png");
-        supernovaImage = loadTexture("supernovas.png");
         cosmicRaidersLogoImage = loadTexture("cosmicRaidersLogo.png");
 
         blasterShoot = Gdx.audio.newSound(Gdx.files.internal("sounds/blasterShoot.mp3"));
         explosion = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
-        beepbop = Gdx.audio.newMusic(Gdx.files.internal("sounds/beepbop.mp3"));
-        neonNoir = beepbop = Gdx.audio.newMusic(Gdx.files.internal("sounds/NeonNoir.mp3"));
+        neonNoir = Gdx.audio.newMusic(Gdx.files.internal("sounds/NeonNoir.mp3"));
 
-        openUp = Gdx.audio.newMusic(Gdx.files.internal("sounds/openUp.wav"));
         asteroidExplosion = Gdx.audio.newSound(Gdx.files.internal("sounds/asteroidExplosion.wav"));
         alienSpawn = Gdx.audio.newSound(Gdx.files.internal("sounds/alienSpawn.wav"));
         alienLaser = Gdx.audio.newSound(Gdx.files.internal("sounds/alienLaser.wav"));
@@ -90,15 +81,10 @@ public class Assets {
         asteroidImage.dispose();
         asteroidExplosionImage.dispose();
         starBackgroundImage.dispose();
-        supernovaImage.dispose();
-        nebulaImage.dispose();
         cosmicRaidersLogoImage.dispose();
 
         blasterShoot.dispose();
         explosion.dispose();
-        beepbop.dispose();
-
-        openUp.dispose();
         alienSpawn.dispose();
         alienLaser.dispose();
         alienExplosion.dispose();
