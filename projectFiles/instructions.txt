@@ -24,6 +24,9 @@ java -jar packr-all-4.0.0.jar \
 
  Für Windows:
 
+ PS D:\CosmicRaiders\projectFiles> java -jar packr-all-4.0.0.jar win.json
+
+
  java -jar packr-all-4.0.0.jar \
       --platform windows64 \
       --jdk openjdk-22.0.1_windows-x64_bin.zip \

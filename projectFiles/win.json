@@ -2,19 +2,16 @@
   "platform": "windows64",
   "jdk": "openjdk-22.0.1_windows-x64_bin.zip",
   "executable": "CosmicRaiders",
+  "useZgcIfSupportedOs": true,
   "classpath": [
-    "desktop/build/libs/desktop-1.0.jar"
-  ],
-  "removelibs": [
-    "desktop/build/libs/desktop-1.0.jar"
+    "../desktop/build/libs/desktop-1.0.jar"
   ],
   "mainclass": "com.cosmicraiders.DesktopLauncher",
   "vmargs": [
     "-Xmx1G"
   ],
   "resources": [
-    "assets"
+    "../assets"
   ],
-  "minimizejre": "soft",
   "output": "out-windows"
 }
