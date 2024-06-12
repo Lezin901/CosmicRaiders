@@ -20,7 +20,6 @@ public class Controls {
         this.gameScreen = gameScreen;
     }
 
-
     /**
      * Controls the movement of the fighter.
      * Allows WASD inputs.
@@ -29,7 +28,7 @@ public class Controls {
      * Allows touch inputs.
      * Uses the fighter object from gamescreen and the fighterSpeed attribute from Config.
      */
-    public void moveFighter() {
+    public void handleFighterControls() {
         // left right movement
         if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || isTouchLeftOfShip()) {
             gameScreen.getFighter().x -= Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
@@ -112,6 +111,23 @@ public class Controls {
             return touchPos.y < gameScreen.getFighter().y + gameScreen.getFighter().height / 2;
         } else {
             return false;
+        }
+    }
+
+    public void handleControls() {
+        if (!gameScreen.isGameOver()) {
+            handleGodmodeControls();
+            handleFighterControls();
+            gameScreen.getSpawner().spawnFighterLaser();
+        }
+    }
+
+    private void handleGodmodeControls() {
+        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+            Configs.godMode = true;
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
+            Configs.godMode = false;
         }
     }
 

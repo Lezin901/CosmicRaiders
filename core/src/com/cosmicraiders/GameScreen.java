@@ -144,7 +144,9 @@ public class GameScreen implements Screen {
         debug.showCoordinates();
         painter.renderStarLayers();
         painter.renderObjects();
-        game.font.draw(game.batch, scoreText, 60, 80);
+        painter.renderText();
+
+
         batch.end();
 
         // spawning
@@ -158,10 +160,8 @@ public class GameScreen implements Screen {
         movementHandler.rotateAsteroids();
 
         // fighter movement
-        if (!gameOver) {
-            controls.moveFighter();
-            spawner.spawnFighterLaser();
-        }
+        controls.handleControls();
+
 
         // collisions
         collisionHandler.handleFighterLaserCollisions();
@@ -286,7 +286,8 @@ public class GameScreen implements Screen {
 
     public void setScore(int score) {
         this.score = score;
-        this.scoreText.setText(game.font, "Score: " + score);
+        painter.setScoreText("Score: " + score);
+//        this.scoreText.setText(game.font, "Score: " + score);
     }
 
     public boolean isGameOver() {

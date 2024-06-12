@@ -5,6 +5,8 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.io.ObjectInputFilter;
+
 
 /**
  * This class handles all movement for aliens, asteroids and lasers.
@@ -76,7 +78,7 @@ public class MovementHandler {
             }
         }
         if (alienChangeDirectionTime <= TimeUtils.millis()) {
-            alienChangeDirectionTime = TimeUtils.millis() + MathUtils.random(3000, 5000);
+            alienChangeDirectionTime = TimeUtils.millis() + MathUtils.random(Configs.alienChangeDirectionTimeMinimum, Configs.alienChangeDirectionTimeMaximum);
             aliensMoveToRight = !aliensMoveToRight;
         }
     }

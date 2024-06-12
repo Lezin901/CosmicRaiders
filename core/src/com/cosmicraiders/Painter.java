@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.TimeUtils;
 public class Painter {
     private GameScreen gameScreen;
     private Batch batch;
+    private String scoreText;
 
     public Painter(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
@@ -68,5 +69,16 @@ public class Painter {
             batch.draw(Assets.laserGreenImage, alienLaser.x, alienLaser.y, alienLaser.width, alienLaser.height);
         }
 
+    }
+
+    public void renderText() {
+        gameScreen.getGame().font.draw(gameScreen.getGame().batch, scoreText, 60, 80);
+        if (Configs.godMode == true) {
+            gameScreen.getGame().font.draw(gameScreen.getGame().batch, "Godmode activated!!!", 60, Configs.resolutionY - 60);
+        }
+    }
+
+    public void setScoreText(String scoreText) {
+        this.scoreText = scoreText;
     }
 }

@@ -23,13 +23,13 @@ public class CollisionHandler {
     public void handleFighterCollisions() {
         Rectangle fighter = gameScreen.getFighter();
         if (gameScreen.isGameOver()) return;
-        for(Asteroid asteroid: gameScreen.getAsteroids()) {
-            if(Intersector.overlaps(asteroid, fighter)) {
+        for (Asteroid asteroid : gameScreen.getAsteroids()) {
+            if (Intersector.overlaps(asteroid, fighter)) {
                 destroyFighter();
             }
         }
-        for(Rectangle alienLaser: gameScreen.getAlienLasers()) {
-            if(Intersector.overlaps(alienLaser, fighter)) {
+        for (Rectangle alienLaser : gameScreen.getAlienLasers()) {
+            if (Intersector.overlaps(alienLaser, fighter)) {
                 destroyFighter();
                 gameScreen.getAlienLasers().removeValue(alienLaser, true);
             }
@@ -40,16 +40,16 @@ public class CollisionHandler {
      * Checks if fighter lasers hit an alien or an asteroid and handle the collision accordingly.
      */
     public void handleFighterLaserCollisions() {
-        for(Rectangle fighterLaser: gameScreen.getFighterLasers()) {
-            for(Asteroid asteroid: gameScreen.getAsteroids()) {
-                if(Intersector.overlaps(asteroid, fighterLaser)) {
+        for (Rectangle fighterLaser : gameScreen.getFighterLasers()) {
+            for (Asteroid asteroid : gameScreen.getAsteroids()) {
+                if (Intersector.overlaps(asteroid, fighterLaser)) {
                     laserHitsAsteroid(asteroid);
                     gameScreen.getAsteroids().removeValue(asteroid, true);
                     gameScreen.getFighterLasers().removeValue(fighterLaser, true);
                 }
             }
-            for(Rectangle alien: gameScreen.getAliens()) {
-                if(Intersector.overlaps(alien, fighterLaser)) {
+            for (Rectangle alien : gameScreen.getAliens()) {
+                if (Intersector.overlaps(alien, fighterLaser)) {
                     laserHitsAlien(alien);
                     gameScreen.getAliens().removeValue(alien, true);
                     gameScreen.getFighterLasers().removeValue(fighterLaser, true);
@@ -63,6 +63,7 @@ public class CollisionHandler {
      * Auxiliary method.
      * This method is called when a laser hits an asteroid.
      * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
+     *
      * @param asteroid the asteroid which has just been hit
      */
     private void laserHitsAsteroid(Circle asteroid) {
@@ -75,12 +76,13 @@ public class CollisionHandler {
      * This method is called when a laser hits the alien ship.
      * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
      * It also sets the alienDead, lastAlienTime and aliensMovetoRight attributes.
+     *
      * @param alien the alien ship which has just been hit
      */
     private void laserHitsAlien(Rectangle alien) {
         gameScreen.setScore(gameScreen.getScore() + 1);
         Assets.alienExplosion.play(Configs.volume);
-        gameScreen.getExplosions().add(new Explosion(alien.x + alien.width/2 , alien.y + alien.height/2, alien.height, alien.width));
+        gameScreen.getExplosions().add(new Explosion(alien.x + alien.width / 2, alien.y + alien.height / 2, alien.height, alien.width));
         gameScreen.getSpawner().setAlienDead(true);
         gameScreen.getSpawner().setLastAlienTime(TimeUtils.nanoTime());
     }
@@ -91,13 +93,15 @@ public class CollisionHandler {
      * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
      */
     private void destroyFighter() {
-        gameScreen.setGameOver(true);
-        gameScreen.setExitTime(TimeUtils.millis() + Configs.waitAfterDeath);
-        Assets.fighterExplosion.play(Configs.volume*3);
-        Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
-        fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
-        gameScreen.getExplosions().add(fighterExplosion);
-        gameScreen.setFighter(null);
+        if (Configs.godMode == false) {
+            gameScreen.setGameOver(true);
+            gameScreen.setExitTime(TimeUtils.millis() + Configs.waitAfterDeath);
+            Assets.fighterExplosion.play(Configs.volume * 3);
+            Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
+            fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
+            gameScreen.getExplosions().add(fighterExplosion);
+            gameScreen.setFighter(null);
+        }
 
     }
 }

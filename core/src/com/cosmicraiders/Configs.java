@@ -10,6 +10,7 @@ public class Configs {
     // general game settings
     public static float volume = 0.05f;
     public static int waitAfterDeath = 4000;
+    public static boolean godMode = false;
 
     // resolution
     public static final int resolutionX = 1920;
@@ -25,12 +26,15 @@ public class Configs {
 
     // aliens
     public static final int alienSize = 80;
-    public static final int alienSpeed = 200;
+    public static int alienSpeed = 200; // changing difficulty
     public static final int alienLaserSize = 80;
     public static final int alienLaserSpeed = 800;
     public static final int alienRateOfFire = 500;
+    public static int alienChangeDirectionTimeMinimum = 3000;
+    public static int alienChangeDirectionTimeMaximum = 10000;
 
     // asteroids
     public static final int asteroidDiameter = 100;
-    public static final int asteroidSpeed = 200;
+    public static int asteroidSpeed = 200; // changing difficulty
+
 }
