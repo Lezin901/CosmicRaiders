@@ -67,7 +67,7 @@ public class CollisionHandler {
      * @param asteroid the asteroid which has just been hit
      */
     private void laserHitsAsteroid(Circle asteroid) {
-        Assets.asteroidExplosion.play(Configs.volume);
+        Assets.asteroidExplosion.play(gameScreen.getConfigSet().getVolume());
         gameScreen.getExplosions().add(new Explosion(asteroid.x, asteroid.y, asteroid.radius * 2, asteroid.radius * 2));
     }
 
@@ -81,7 +81,7 @@ public class CollisionHandler {
      */
     private void laserHitsAlien(Rectangle alien) {
         gameScreen.setScore(gameScreen.getScore() + 1);
-        Assets.alienExplosion.play(Configs.volume);
+        Assets.alienExplosion.play(gameScreen.getConfigSet().getVolume());
         gameScreen.getExplosions().add(new Explosion(alien.x + alien.width / 2, alien.y + alien.height / 2, alien.height, alien.width));
         gameScreen.getSpawner().setAlienDead(true);
         gameScreen.getSpawner().setLastAlienTime(TimeUtils.nanoTime());
@@ -93,10 +93,10 @@ public class CollisionHandler {
      * It plays an explosion sound and adds an Explosion object to the explosions array to be rendered.
      */
     private void destroyFighter() {
-        if (Configs.godMode == false) {
+        if (gameScreen.getConfigSet().isGodMode() == false) {
             gameScreen.setGameOver(true);
-            gameScreen.setExitTime(TimeUtils.millis() + Configs.waitAfterDeath);
-            Assets.fighterExplosion.play(Configs.volume * 3);
+            gameScreen.setExitTime(TimeUtils.millis() + gameScreen.getConfigSet().getWaitAfterDeath());
+            Assets.fighterExplosion.play(gameScreen.getConfigSet().getVolume() * 3);
             Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
             fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
             gameScreen.getExplosions().add(fighterExplosion);

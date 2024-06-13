@@ -18,7 +18,8 @@ public class GameScreen implements Screen {
     /**
      * The Game instance which should be "CosmicRaiders" as a reference
      */
-    final CosmicRaiders game;
+    private CosmicRaiders game;
+    private ConfigSet configSet;
     private Controls controls;
     private MovementHandler movementHandler;
     private CollisionHandler collisionHandler;
@@ -78,18 +79,19 @@ public class GameScreen implements Screen {
         this.spawner = new Spawner(this);
         this.debug = new Debug(this);
 
+        batch = game.getBatch();
+        configSet = game.getConfigSet();
+
         // construct camera
         camera = new OrthographicCamera();
-        camera.setToOrtho(false, Configs.resolutionX, Configs.resolutionY);
-
-        batch = game.batch; // this ignores encapsulation as intended by LibGDX
+        camera.setToOrtho(false, configSet.getResolutionX(), configSet.getResolutionY());
 
         // construct fighter
         fighter = new Rectangle();
-        fighter.x = Configs.resolutionX / 2 - Configs.fighterSize / 2;
-        fighter.y = Configs.fighterSize / 4;
-        fighter.width = Configs.fighterSize;
-        fighter.height = Configs.fighterSize;
+        fighter.x = configSet.getResolutionX() / 2 - configSet.getFighterSize() / 2;
+        fighter.y = configSet.getFighterSize() / 4;
+        fighter.width = configSet.getFighterSize();
+        fighter.height = configSet.getFighterSize();
         //fighter.height = Configs.fighterSize * (57f / 46f);
 
         // construct arrays
@@ -100,8 +102,8 @@ public class GameScreen implements Screen {
         aliens = new Array<Rectangle>();
 
         // construct GlyphLayouts
-        scoreText = new GlyphLayout(game.font, "");
-        gameOverText = new HorizontalCenteredGlyphLayout(game.font, "Game Over!");
+        scoreText = new GlyphLayout(game.getFont(), "");
+        gameOverText = new HorizontalCenteredGlyphLayout(game.getFont(), "Game Over!", configSet.getResolutionX());
 
         // initialize score
         setScore(0);
@@ -169,9 +171,9 @@ public class GameScreen implements Screen {
 
         // throws up a "Game Over" screen
         if (gameOver == true) {
-            game.batch.begin();
-            game.font.draw(game.batch, gameOverText, gameOverText.getX(), Configs.resolutionY / 2 - gameOverText.height / 2);
-            game.batch.end();
+            game.getBatch().begin();
+            game.getFont().draw(game.getBatch(), gameOverText, gameOverText.getX(), configSet.getResolutionY() / 2 - gameOverText.height / 2);
+            game.getBatch().end();
         }
 
 
@@ -316,5 +318,17 @@ public class GameScreen implements Screen {
 
     public Painter getPainter() {
         return this.painter;
+    }
+
+    public void setGame(CosmicRaiders game) {
+        this.game = game;
+    }
+
+    public ConfigSet getConfigSet() {
+        return configSet;
+    }
+
+    public void setConfigSet(ConfigSet configSet) {
+        this.configSet = configSet;
     }
 }

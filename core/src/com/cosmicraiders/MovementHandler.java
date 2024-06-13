@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import java.io.ObjectInputFilter;
-
 
 /**
  * This class handles all movement for aliens, asteroids and lasers.
@@ -28,7 +26,7 @@ public class MovementHandler {
      */
     public void moveAsteroids() {
         for(Asteroid asteroid: gameScreen.getAsteroids()) {
-            asteroid.y -= Configs.asteroidSpeed * Gdx.graphics.getDeltaTime(); // asteroid speed
+            asteroid.y -= gameScreen.getConfigSet().getAsteroidSpeed() * Gdx.graphics.getDeltaTime(); // asteroid speed
             if(asteroid.y < -asteroid.radius * 2) gameScreen.getAsteroids().removeValue(asteroid, true);
         }
     }
@@ -48,8 +46,8 @@ public class MovementHandler {
      */
     public void moveAlienLasers() {
         for(Rectangle alienLaser: gameScreen.getAlienLasers()) {
-            alienLaser.y -= Configs.alienLaserSpeed * Gdx.graphics.getDeltaTime();
-            if(alienLaser.y <= 0 - Configs.alienLaserSize) gameScreen.getAlienLasers().removeValue(alienLaser, true);
+            alienLaser.y -= gameScreen.getConfigSet().getAlienLaserSpeed() * Gdx.graphics.getDeltaTime();
+            if(alienLaser.y <= 0 - gameScreen.getConfigSet().getAlienLaserSize()) gameScreen.getAlienLasers().removeValue(alienLaser, true);
         }
     }
 
@@ -58,8 +56,8 @@ public class MovementHandler {
      */
     public void moveFighterLasers() {
         for(Rectangle laser: gameScreen.getFighterLasers()) {
-            laser.y += Configs.fighterLaserSpeed * Gdx.graphics.getDeltaTime();
-            if(laser.y >= Configs.resolutionY) gameScreen.getFighterLasers().removeValue(laser, true);
+            laser.y += gameScreen.getConfigSet().getFighterLaserSpeed() * Gdx.graphics.getDeltaTime();
+            if(laser.y >= gameScreen.getConfigSet().getResolutionY()) gameScreen.getFighterLasers().removeValue(laser, true);
         }
     }
 
@@ -68,17 +66,17 @@ public class MovementHandler {
      */
     public void moveAliens() {
         for (Rectangle alien: gameScreen.getAliens()) {
-            if ((alien.x <= Configs.padding) || (alien.x >= Configs.resolutionX - Configs.padding - Configs.fighterSize)) {
+            if ((alien.x <= gameScreen.getConfigSet().getPadding()) || (alien.x >= gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getPadding() - gameScreen.getConfigSet().getFighterSize())) {
                 aliensMoveToRight = !aliensMoveToRight;
             }
             if (aliensMoveToRight) {
-                alien.x -= Configs.alienSpeed * Gdx.graphics.getDeltaTime(); // alien speed
+                alien.x -= gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // alien speed
             } else {
-                alien.x += Configs.alienSpeed * Gdx.graphics.getDeltaTime(); // alien speed
+                alien.x += gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // alien speed
             }
         }
         if (alienChangeDirectionTime <= TimeUtils.millis()) {
-            alienChangeDirectionTime = TimeUtils.millis() + MathUtils.random(Configs.alienChangeDirectionTimeMinimum, Configs.alienChangeDirectionTimeMaximum);
+            alienChangeDirectionTime = TimeUtils.millis() + MathUtils.random(gameScreen.getConfigSet().getAlienChangeDirectionTimeMinimum(), gameScreen.getConfigSet().getAlienChangeDirectionTimeMaximum());
             aliensMoveToRight = !aliensMoveToRight;
         }
     }

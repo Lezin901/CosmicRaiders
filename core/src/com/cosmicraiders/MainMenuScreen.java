@@ -14,13 +14,14 @@ import com.badlogic.gdx.utils.ScreenUtils;
  */
 public class MainMenuScreen implements Screen {
 
-    final CosmicRaiders game;
-    final OrthographicCamera camera;
+    private final CosmicRaiders game;
+    private final OrthographicCamera camera;
+    private ConfigSet configSet;
 
-    HorizontalCenteredGlyphLayout welcomeText;
-    HorizontalCenteredGlyphLayout instructionsText;
-    HorizontalCenteredGlyphLayout highscoreText;
-    HorizontalCenteredGlyphLayout lastScoreText;
+    private HorizontalCenteredGlyphLayout welcomeText;
+    private HorizontalCenteredGlyphLayout instructionsText;
+    private HorizontalCenteredGlyphLayout highscoreText;
+    private HorizontalCenteredGlyphLayout lastScoreText;
 
     /**
      * Constructs the main menu screen which is the first thing the player sees.
@@ -29,22 +30,23 @@ public class MainMenuScreen implements Screen {
      */
     public MainMenuScreen(final CosmicRaiders game) {
         this.game = game;
+        configSet = game.getConfigSet();
 
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 1920, 1080);
 
-        welcomeText = new HorizontalCenteredGlyphLayout(game.font, "Welcome to Cosmic Raiders");
-        instructionsText = new HorizontalCenteredGlyphLayout(game.font, "CLICK to begin");
-        highscoreText = new HorizontalCenteredGlyphLayout(game.font, "");
-        lastScoreText = new HorizontalCenteredGlyphLayout(game.font, "");
+        welcomeText = new HorizontalCenteredGlyphLayout(game.getFont(), "Welcome to Cosmic Raiders", configSet.getResolutionX());
+        instructionsText = new HorizontalCenteredGlyphLayout(game.getFont(), "CLICK to begin", configSet.getResolutionX());
+        highscoreText = new HorizontalCenteredGlyphLayout(game.getFont(), "", configSet.getResolutionX());
+        lastScoreText = new HorizontalCenteredGlyphLayout(game.getFont(), "", configSet.getResolutionX());
 
-        game.font.getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
+        game.getFont().getRegion().getTexture().setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
     }
 
     @Override
     public void show() {
-        Assets.neonNoir.setVolume(Configs.volume);
+        Assets.neonNoir.setVolume(configSet.getVolume());
         Assets.neonNoir.play();
         Assets.neonNoir.setLooping(true);
     }
@@ -59,29 +61,29 @@ public class MainMenuScreen implements Screen {
         ScreenUtils.clear(Color.BLACK);
 
         camera.update();
-        game.batch.setProjectionMatrix(camera.combined);
+        game.getBatch().setProjectionMatrix(camera.combined);
 
-        game.batch.begin();
+        game.getBatch().begin();
         Painter painter = game.getGameScreen().getPainter();
         painter.renderStarLayers();
 
 
         float logoWidth = 700;
-        game.batch.draw(Assets.cosmicRaidersLogoImage, Configs.resolutionX / 2 - logoWidth/2, 600, logoWidth, 300);
+        game.getBatch().draw(Assets.cosmicRaidersLogoImage, configSet.getResolutionX() / 2 - logoWidth/2, 600, logoWidth, 300);
 
         //game.font.draw(game.batch, welcomeText, welcomeText.getX(), 600);
-        game.font.draw(game.batch, instructionsText, instructionsText.getX(), 500);
+        game.getFont().draw(game.getBatch(), instructionsText, instructionsText.getX(), 500);
 
 
         if (Scores.getRoundsPlayed() > 0) {
             highscoreText.setText("Highscore: " + Scores.getHighscore());
             lastScoreText.setText("Last Score: " + Scores.getLastScore());
-            game.font.draw(game.batch, highscoreText, highscoreText.getX(), 300);
-            game.font.draw(game.batch, lastScoreText, lastScoreText.getX(), 200);
+            game.getFont().draw(game.getBatch(), highscoreText, highscoreText.getX(), 300);
+            game.getFont().draw(game.getBatch(), lastScoreText, lastScoreText.getX(), 200);
 //            game.font.draw(game.batch, "Rounds played: " + Scores.getRoundsPlayed(), 450, 100);
         }
 
-        game.batch.end();
+        game.getBatch().end();
 
         if (Gdx.input.isButtonPressed(Input.Buttons.LEFT) || Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
             System.out.println("1");

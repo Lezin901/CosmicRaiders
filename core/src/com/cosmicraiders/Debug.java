@@ -22,7 +22,7 @@ public class Debug {
             Vector3 touchPos = new Vector3();
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             gameScreen.getCamera().unproject(touchPos);
-            gameScreen.getGame().batch.draw(Assets.alienImage, touchPos.x, touchPos.y, Configs.fighterSize, Configs.fighterSize);
+            gameScreen.getGame().getBatch().draw(Assets.alienImage, touchPos.x, touchPos.y, gameScreen.getConfigSet().getFighterSize(), gameScreen.getConfigSet().getFighterSize());
             System.out.println(touchPos.x + " " + touchPos.y);
         }
     }

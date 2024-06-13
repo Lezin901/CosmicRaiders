@@ -2,6 +2,7 @@ package com.cosmicraiders;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
 
 /**
@@ -29,29 +30,33 @@ public class Controls {
      * Uses the fighter object from gamescreen and the fighterSpeed attribute from Config.
      */
     public void handleFighterControls() {
+        int speed = gameScreen.getConfigSet().getFighterSpeed();
+        Rectangle fighter = gameScreen.getFighter();
+
         // left right movement
         if(Gdx.input.isKeyPressed(Input.Keys.A) || Gdx.input.isKeyPressed(Input.Keys.LEFT) || isTouchLeftOfShip()) {
-            gameScreen.getFighter().x -= Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
+            fighter.x -= speed * Gdx.graphics.getDeltaTime();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.D) || Gdx.input.isKeyPressed(Input.Keys.RIGHT) || isTouchRightOfShip()) {
-            gameScreen.getFighter().x += Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
+            fighter.x += speed * Gdx.graphics.getDeltaTime();
         }
 
         // up down movement
         if(Gdx.input.isKeyPressed(Input.Keys.S) || Gdx.input.isKeyPressed(Input.Keys.DOWN) || isTouchBelowShip()) {
-            gameScreen.getFighter().y -= Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
+            fighter.y -= speed * Gdx.graphics.getDeltaTime();
         }
         if(Gdx.input.isKeyPressed(Input.Keys.W) || Gdx.input.isKeyPressed(Input.Keys.UP) || isTouchAboveShip()) {
-            gameScreen.getFighter().y += Configs.fighterSpeed * Gdx.graphics.getDeltaTime();
+            fighter.y += speed * Gdx.graphics.getDeltaTime();
         }
 
         // setting movement boundaries
-        if(gameScreen.getFighter().x < 0) gameScreen.getFighter().x = 0;
-        if(gameScreen.getFighter().x > Configs.resolutionX - Configs.fighterSize) gameScreen.getFighter().x = Configs.resolutionX - Configs.fighterSize;
+        if(fighter.x < 0) fighter.x = 0;
+        if(fighter.x > gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getFighterSize())
+            fighter.x = gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getFighterSize();
 
         // setting movement boundaries
-        if(gameScreen.getFighter().y < 0) gameScreen.getFighter().y = 0;
-        if(gameScreen.getFighter().y > Configs.resolutionY *2/4 - Configs.fighterSize) gameScreen.getFighter().y = Configs.resolutionY *2/4 - Configs.fighterSize;
+        if(fighter.y < 0) fighter.y = 0;
+        if(fighter.y > gameScreen.getConfigSet().getResolutionY() *2/4 - gameScreen.getConfigSet().getFighterSize()) fighter.y = gameScreen.getConfigSet().getResolutionY() *2/4 - gameScreen.getConfigSet().getFighterSize();
     }
 
     /**
@@ -124,10 +129,10 @@ public class Controls {
 
     private void handleGodmodeControls() {
         if (Gdx.input.isKeyPressed(Input.Keys.O)) {
-            Configs.godMode = true;
+            gameScreen.getConfigSet().setGodMode(true);
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
-            Configs.godMode = false;
+            gameScreen.getConfigSet().setGodMode(false);
         }
     }
 

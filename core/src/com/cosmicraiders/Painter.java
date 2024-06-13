@@ -14,7 +14,7 @@ public class Painter {
 
     public Painter(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
-        this.batch = gameScreen.getGame().batch;
+        this.batch = gameScreen.getGame().getBatch();
     }
 
     /**
@@ -72,9 +72,9 @@ public class Painter {
     }
 
     public void renderText() {
-        gameScreen.getGame().font.draw(gameScreen.getGame().batch, scoreText, 60, 80);
-        if (Configs.godMode == true) {
-            gameScreen.getGame().font.draw(gameScreen.getGame().batch, "Godmode activated!!!", 60, Configs.resolutionY - 60);
+        gameScreen.getGame().getFont().draw(gameScreen.getGame().getBatch(), scoreText, 60, 80);
+        if (gameScreen.getConfigSet().isGodMode() == true) {
+            gameScreen.getGame().getFont().draw(gameScreen.getGame().getBatch(), "Godmode activated!!!", 60, gameScreen.getConfigSet().getResolutionY() - 60);
         }
     }
 

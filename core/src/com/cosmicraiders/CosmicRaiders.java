@@ -15,10 +15,11 @@ public class CosmicRaiders extends Game {
     /**
      * This batch contains the textures (sprites) which are rendered each frame. An important libGDX concept.
      */
-    public SpriteBatch batch;
-    public BitmapFont font;
+    private SpriteBatch batch;
+    private BitmapFont font;
     private MainMenuScreen mainMenuScreen;
     private GameScreen gameScreen;
+    private ConfigSet configSet;
 
     /**
      * This method constructs the necessary objects to start the game.
@@ -26,8 +27,10 @@ public class CosmicRaiders extends Game {
     public void create() {
         Assets.load();
         batch = new SpriteBatch();
+        configSet = new ConfigSet();
         font = new BitmapFont(Gdx.files.internal("fonts/CaveStoryGreen.fnt"), Gdx.files.internal("fonts/CaveStoryGreen.png"), false); // use libGDX's default Arial font
         font.getData().setScale(2);
+
 
         // initialize screens
         mainMenuScreen = new MainMenuScreen(this);
@@ -57,4 +60,27 @@ public class CosmicRaiders extends Game {
         return gameScreen;
     }
 
+    public ConfigSet getConfigSet() {
+        return configSet;
+    }
+
+    public void setConfigSet(ConfigSet configSet) {
+        this.configSet = configSet;
+    }
+
+    public BitmapFont getFont() {
+        return font;
+    }
+
+    public void setFont(BitmapFont font) {
+        this.font = font;
+    }
+
+    public SpriteBatch getBatch() {
+        return batch;
+    }
+
+    public void setBatch(SpriteBatch batch) {
+        this.batch = batch;
+    }
 }
