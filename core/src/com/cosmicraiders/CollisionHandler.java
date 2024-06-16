@@ -84,7 +84,7 @@ public class CollisionHandler {
         AssetSet.alienExplosion.play(gameScreen.getConfigSet().getVolume());
         gameScreen.getExplosions().add(new Explosion(alien.x + alien.width / 2, alien.y + alien.height / 2, alien.height, alien.width));
         gameScreen.getSpawner().setAlienDead(true);
-        gameScreen.getSpawner().setLastAlienTime(TimeUtils.nanoTime());
+        gameScreen.getSpawner().setLastAlienTime(TimeUtils.millis());
     }
 
     /**
@@ -98,7 +98,7 @@ public class CollisionHandler {
             gameScreen.setExitTime(TimeUtils.millis() + gameScreen.getConfigSet().getWaitAfterDeath());
             AssetSet.fighterExplosion.play(gameScreen.getConfigSet().getVolume() * 3);
             Explosion fighterExplosion = new Explosion(gameScreen.getFighter().x + gameScreen.getFighter().width / 2, gameScreen.getFighter().y + gameScreen.getFighter().height / 2, 256, 256);
-            fighterExplosion.setCreationTime(TimeUtils.nanoTime() + 1000000000);
+            fighterExplosion.setCreationTime(TimeUtils.millis() + 5000);
             gameScreen.getExplosions().add(fighterExplosion);
             gameScreen.setFighter(null);
         }

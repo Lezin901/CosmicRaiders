@@ -28,7 +28,7 @@ public class Explosion {
         this.y = y;
         this.height = height;
         this.width = width;
-        this.creationTime = TimeUtils.nanoTime();
+        this.creationTime = TimeUtils.millis();
     }
 
     public float getX() {

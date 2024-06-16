@@ -15,7 +15,7 @@ public class Spawner {
     /**
      * tracks how long ago the alien shot a laser
      */
-    private long lastAlienShootTime = TimeUtils.nanoTime();
+    private long lastAlienShootTime = TimeUtils.millis();
     /**
      * tracks how long ago the fighter shot a laser
      */
@@ -46,16 +46,17 @@ public class Spawner {
      * Checks the timing and spawns asteroids, aliens, and alien lasers if conditions are met.
      */
     public void handleSpawning() {
-        if (TimeUtils.nanoTime() - lastAsteroidTime > 500000000) {
+        if (TimeUtils.millis() - lastAsteroidTime > 500) {
             spawnAsteroid();
         }
 
-        if (alienDead && (TimeUtils.nanoTime() - lastAlienTime > 2000000000)) {
+        System.out.println(TimeUtils.millis() - lastAlienTime);
+        if (alienDead && (TimeUtils.millis() - lastAlienTime > 2000)) {
             spawnAlien();
         }
 
         for (Rectangle alien : gameScreen.getAliens()) {
-            if (TimeUtils.nanoTime() - lastAlienShootTime > 1000000000) {
+            if (TimeUtils.millis() - lastAlienShootTime > gameScreen.getConfigSet().getAlienRateOfFire()) {
                 spawnAlienLaser(alien.x, alien.y);
             }
         }
@@ -73,7 +74,7 @@ public class Spawner {
         asteroid.x = MathUtils.random(gameScreen.getConfigSet().getFighterSize(), gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getFighterSize());
         asteroid.y = gameScreen.getConfigSet().getResolutionY() + asteroid.radius;
         gameScreen.getAsteroids().add(asteroid);
-        lastAsteroidTime = TimeUtils.nanoTime();
+        lastAsteroidTime = TimeUtils.millis();
     }
 
     /**
@@ -111,7 +112,7 @@ public class Spawner {
         laser.y = y - gameScreen.getConfigSet().getAlienSize();
 
         gameScreen.getAlienLasers().add(laser);
-        lastAlienShootTime = TimeUtils.nanoTime();
+        lastAlienShootTime = TimeUtils.millis();
     }
 
     /**

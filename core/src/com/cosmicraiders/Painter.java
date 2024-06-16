@@ -58,7 +58,7 @@ public class Painter {
         }
         for(Explosion explosion: gameScreen.getExplosions()) { // explosions
             batch.draw(AssetSet.asteroidExplosionImage, explosion.getX() - explosion.getWidth() / 2, explosion.getY() - explosion.getHeight() / 2, explosion.getWidth(), explosion.getHeight());
-            if(explosion.getCreationTime() < TimeUtils.nanoTime() - 500000000) {
+            if(explosion.getCreationTime() < TimeUtils.millis() - 500) {
                 gameScreen.getExplosions().removeValue(explosion, true);
             }
         }

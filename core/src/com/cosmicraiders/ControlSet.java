@@ -142,16 +142,39 @@ public class ControlSet {
                 lastGodModeInputTime = TimeUtils.millis();
             }
             if (gameScreen.getConfigSet().isGodMode()) {
-                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1) && !Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    gameScreen.getConfigSet().increaseAsteroidSpeed();
-                    lastGodModeInputTime = TimeUtils.millis();
-                }
-                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-                    gameScreen.getConfigSet().decreaseAsteroidSpeed();
-                    lastGodModeInputTime = TimeUtils.millis();
-                }
+                handleAsteroidControls();
+                handleAlienControls();
             }
 
+        }
+    }
+
+    private void handleAlienControls() {
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_2) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            gameScreen.getConfigSet().decreaseAlienSpeed();
+            lastGodModeInputTime = TimeUtils.millis();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_2)) {
+            gameScreen.getConfigSet().increaseAlienSpeed();
+            lastGodModeInputTime = TimeUtils.millis();
+        }
+
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_3) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            gameScreen.getConfigSet().decreaseAlienRateOfFire();
+            lastGodModeInputTime = TimeUtils.millis();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_3)) {
+            gameScreen.getConfigSet().increaseAlienRateOfFire();
+            lastGodModeInputTime = TimeUtils.millis();
+        }
+    }
+
+    private void handleAsteroidControls() {
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_1) && !Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            gameScreen.getConfigSet().increaseAsteroidSpeed();
+            lastGodModeInputTime = TimeUtils.millis();
+        }
+        else if (Gdx.input.isKeyPressed(Input.Keys.NUM_1) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            gameScreen.getConfigSet().decreaseAsteroidSpeed();
+            lastGodModeInputTime = TimeUtils.millis();
         }
     }
 

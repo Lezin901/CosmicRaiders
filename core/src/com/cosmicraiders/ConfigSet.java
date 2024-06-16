@@ -17,6 +17,8 @@ public class ConfigSet {
     private int resolutionY = 1080;
     private int padding = resolutionX / 100;
 
+
+
     // fighter
     private int fighterSize = 120;
     private int fighterSpeed = 800;
@@ -26,16 +28,18 @@ public class ConfigSet {
 
     // aliens
     private int alienSize = 80;
-    private int alienSpeed = 200; // changing difficulty
+    private int alienSpeed = 200; // changing difficulty (Godmode: 3)
     private int alienLaserSize = 80;
     private int alienLaserSpeed = 800;
-    private int alienRateOfFire = 500;
+    private int alienRateOfFire = 1000; // (Godmode: 2)
     private int alienChangeDirectionTimeMinimum = 3000;
     private int alienChangeDirectionTimeMaximum = 10000;
+    private int alienRespawnDelay = 2000;
 
     // asteroids
     private int asteroidDiameter = 100;
-    private int asteroidSpeed = 200; // changing difficulty
+    private int asteroidSpeed = 200; // changing difficulty (Godmode: 1)
+
 
     /**
      * Change asteroid movement speed by 50.
@@ -60,8 +64,29 @@ public class ConfigSet {
         changeAsteroidSpeed(-50);
     }
 
+    private void changeAlienSpeed(int change) {
+        if (alienSpeed + change >= 0) alienSpeed += change;
+    }
 
+    public void increaseAlienSpeed() {
+        changeAlienSpeed(50);
+    }
 
+    public void decreaseAlienSpeed() {
+        changeAlienSpeed(-50);
+    }
+
+    private void changeAlienRateOfFire(int change) {
+        if (alienRateOfFire + change >= 0) alienRateOfFire += change;
+        System.out.println("Alien Rate of Fire: " + alienRateOfFire);
+    }
+    public void increaseAlienRateOfFire() {
+        changeAlienRateOfFire(50);
+    }
+
+    public void decreaseAlienRateOfFire() {
+        changeAlienRateOfFire(-50);
+    }
 
     public float getVolume() {
         return volume;
@@ -221,5 +246,12 @@ public class ConfigSet {
 
     public void setAsteroidSpeed(int asteroidSpeed) {
         this.asteroidSpeed = asteroidSpeed;
+    }
+
+    public void setAlienRespawnDelay(int alienRespawnDelay) {
+        this.alienRespawnDelay = alienRespawnDelay;
+    }
+    public int getAlienRespawnDelay() {
+        return alienRespawnDelay;
     }
 }
