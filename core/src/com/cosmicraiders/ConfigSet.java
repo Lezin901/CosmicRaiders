@@ -37,6 +37,32 @@ public class ConfigSet {
     private int asteroidDiameter = 100;
     private int asteroidSpeed = 200; // changing difficulty
 
+    /**
+     * Change asteroid movement speed by 50.
+     * @param change the value by which the speed is increased or decreased
+     */
+    private void changeAsteroidSpeed(int change) {
+        if (asteroidSpeed + change >= 0) asteroidSpeed += change;
+        System.out.println("Asteroid Speed: " + asteroidSpeed);
+    }
+
+    /**
+     * Add 50 to the speed of all asteroids.
+     */
+    public void increaseAsteroidSpeed() {
+        changeAsteroidSpeed(50);
+    }
+
+    /**
+     * Subtract 50 from the speed of all asteroids.
+     */
+    public void decreaseAsteroidSpeed() {
+        changeAsteroidSpeed(-50);
+    }
+
+
+
+
     public float getVolume() {
         return volume;
     }

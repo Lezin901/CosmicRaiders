@@ -12,19 +12,30 @@ import com.badlogic.gdx.utils.TimeUtils;
  */
 public class Spawner {
     private final GameScreen gameScreen;
-    /** tracks how long ago the alien shot a laser  */
+    /**
+     * tracks how long ago the alien shot a laser
+     */
     private long lastAlienShootTime = TimeUtils.nanoTime();
-    /** tracks how long ago the fighter shot a laser  */
+    /**
+     * tracks how long ago the fighter shot a laser
+     */
     private long lastFighterShootTime;
-    /** tracks how long ago the last asteroid spawned  */
+    /**
+     * tracks how long ago the last asteroid spawned
+     */
     private long lastAsteroidTime;
-    /** tracks how long ago the last alien was destroyed  */
+    /**
+     * tracks how long ago the last alien was destroyed
+     */
     private long lastAlienTime;
-    /** is the alien currently dead? */
+    /**
+     * is the alien currently dead?
+     */
     private boolean alienDead = true;
 
     /**
      * The constructor gets a reference to the GameScreen in order to refer back to it.
+     *
      * @param gameScreen the main game environment
      */
     public Spawner(GameScreen gameScreen) {
@@ -35,11 +46,11 @@ public class Spawner {
      * Checks the timing and spawns asteroids, aliens, and alien lasers if conditions are met.
      */
     public void handleSpawning() {
-        if(TimeUtils.nanoTime() - lastAsteroidTime > 500000000) {
+        if (TimeUtils.nanoTime() - lastAsteroidTime > 500000000) {
             spawnAsteroid();
         }
 
-        if(alienDead && (TimeUtils.nanoTime() - lastAlienTime > 2000000000)) {
+        if (alienDead && (TimeUtils.nanoTime() - lastAlienTime > 2000000000)) {
             spawnAlien();
         }
 
@@ -56,15 +67,13 @@ public class Spawner {
      * Asteroids are Circles, not Rectangles. Most other objects are Rectangles.
      */
     public void spawnAsteroid() {
-        if(TimeUtils.nanoTime() - lastAsteroidTime > 500000000) {
-            Asteroid asteroid = new Asteroid();
-            float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
-            asteroid.radius = ((gameScreen.getConfigSet().getAsteroidDiameter() / 2) * randomSizeMultiplier);
-            asteroid.x = MathUtils.random(gameScreen.getConfigSet().getFighterSize(), gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getFighterSize());
-            asteroid.y = gameScreen.getConfigSet().getResolutionY() + asteroid.radius;
-            gameScreen.getAsteroids().add(asteroid);
-            lastAsteroidTime = TimeUtils.nanoTime();
-        }
+        Asteroid asteroid = new Asteroid();
+        float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
+        asteroid.radius = ((gameScreen.getConfigSet().getAsteroidDiameter() / 2) * randomSizeMultiplier);
+        asteroid.x = MathUtils.random(gameScreen.getConfigSet().getFighterSize(), gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getFighterSize());
+        asteroid.y = gameScreen.getConfigSet().getResolutionY() + asteroid.radius;
+        gameScreen.getAsteroids().add(asteroid);
+        lastAsteroidTime = TimeUtils.nanoTime();
     }
 
     /**
@@ -74,28 +83,27 @@ public class Spawner {
      * This method can be expanded to cause more than one alien to spawn, move and shoot.
      */
     public void spawnAlien() {
-        if(alienDead && (TimeUtils.nanoTime() - lastAlienTime > 2000000000)) {
-            Assets.alienSpawn.play(gameScreen.getConfigSet().getVolume());
-            Rectangle alien = new Rectangle();
-            alien.width = gameScreen.getConfigSet().getAlienSize();
-            alien.height = gameScreen.getConfigSet().getAlienSize() * (57f / 46f);
-            alien.x = MathUtils.random(gameScreen.getConfigSet().getPadding(), gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getAlienSize() - gameScreen.getConfigSet().getPadding());
-            alien.y = gameScreen.getConfigSet().getResolutionY() - alien.height - gameScreen.getConfigSet().getPadding();
-            gameScreen.getAliens().add(alien);
-            alienDead = false;
-            gameScreen.getMovementHandler().setAlienChangeDirectionTime(TimeUtils.millis());
-        }
+        AssetSet.alienSpawn.play(gameScreen.getConfigSet().getVolume());
+        Rectangle alien = new Rectangle();
+        alien.width = gameScreen.getConfigSet().getAlienSize();
+        alien.height = gameScreen.getConfigSet().getAlienSize() * (57f / 46f);
+        alien.x = MathUtils.random(gameScreen.getConfigSet().getPadding(), gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getAlienSize() - gameScreen.getConfigSet().getPadding());
+        alien.y = gameScreen.getConfigSet().getResolutionY() - alien.height - gameScreen.getConfigSet().getPadding();
+        gameScreen.getAliens().add(alien);
+        alienDead = false;
+        gameScreen.getMovementHandler().setAlienChangeDirectionTime(TimeUtils.millis());
     }
 
     /**
      * Spawns an alien laser starting from the bottom middle of the alien ship sprite.
      * Sets lastAlienShootTime in order to set the interval between shots.
      * Adds the laser to an Array to be rendered.
+     *
      * @param x the horizontal coordinate of the alien ship that shoots
      * @param y the vertical coordinate of the alien ship that shoots
      */
     public void spawnAlienLaser(float x, float y) {
-        Assets.alienLaser.play(gameScreen.getConfigSet().getVolume());
+        AssetSet.alienLaser.play(gameScreen.getConfigSet().getVolume());
         Rectangle laser = new Rectangle();
         laser.width = gameScreen.getConfigSet().getAlienLaserSize() / 10;
         laser.height = gameScreen.getConfigSet().getAlienLaserSize();
@@ -112,9 +120,9 @@ public class Spawner {
      * Adds the laser to an Array to be rendered.
      */
     public void spawnFighterLaser() {
-        if(Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
+        if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
             if (TimeUtils.millis() - lastFighterShootTime > gameScreen.getConfigSet().getFighterRateOfFire()) {
-                Assets.fighterLaser.play(gameScreen.getConfigSet().getVolume());
+                AssetSet.fighterLaser.play(gameScreen.getConfigSet().getVolume());
                 Rectangle laser = new Rectangle();
                 laser.width = gameScreen.getConfigSet().getFighterLaserSize() / 10;
                 laser.height = gameScreen.getConfigSet().getFighterLaserSize();
@@ -124,7 +132,8 @@ public class Spawner {
                 gameScreen.getFighterLasers().add(laser);
                 lastFighterShootTime = TimeUtils.millis();
             }
-        };
+        }
+        ;
     }
 
 

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.Texture;
 /**
  * This class saves textures, sounds and music as static attributes.
  */
-public class Assets {
+public class AssetSet {
     public static Texture alienImage;
     public static Texture fighterImage;
     public static Texture laserRedImage;

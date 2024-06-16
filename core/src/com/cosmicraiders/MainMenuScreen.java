@@ -46,9 +46,9 @@ public class MainMenuScreen implements Screen {
 
     @Override
     public void show() {
-        Assets.neonNoir.setVolume(configSet.getVolume());
-        Assets.neonNoir.play();
-        Assets.neonNoir.setLooping(true);
+        AssetSet.neonNoir.setVolume(configSet.getVolume());
+        AssetSet.neonNoir.play();
+        AssetSet.neonNoir.setLooping(true);
     }
 
     /**
@@ -69,7 +69,7 @@ public class MainMenuScreen implements Screen {
 
 
         float logoWidth = 700;
-        game.getBatch().draw(Assets.cosmicRaidersLogoImage, configSet.getResolutionX() / 2 - logoWidth/2, 600, logoWidth, 300);
+        game.getBatch().draw(AssetSet.cosmicRaidersLogoImage, configSet.getResolutionX() / 2 - logoWidth/2, 600, logoWidth, 300);
 
         //game.font.draw(game.batch, welcomeText, welcomeText.getX(), 600);
         game.getFont().draw(game.getBatch(), instructionsText, instructionsText.getX(), 500);

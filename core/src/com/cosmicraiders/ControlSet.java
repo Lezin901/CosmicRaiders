@@ -4,20 +4,22 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.utils.TimeUtils;
 
 /**
  * This class manages the movement inputs for the fighter (player avatar).
  * It also restarts the game if the fighter has exploded.
  * It is currently implemented in a static way, since there is only one fighter.
  */
-public class Controls {
+public class ControlSet {
 
     private final GameScreen gameScreen;
+    private long lastGodModeInputTime = TimeUtils.millis();
 
     /**
      * This constructor gets a reference to the GameScreen instance.
      */
-    public Controls(GameScreen gameScreen) {
+    public ControlSet(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
     }
 
@@ -119,6 +121,9 @@ public class Controls {
         }
     }
 
+    /**
+     * This method handles all inputs from the player and calls the required methods.
+     */
     public void handleControls() {
         if (!gameScreen.isGameOver()) {
             handleGodmodeControls();
@@ -127,12 +132,26 @@ public class Controls {
         }
     }
 
+    /**
+     * This is for developers and cheaters. It allows invulnerability and difficulty changes.
+     */
     private void handleGodmodeControls() {
-        if (Gdx.input.isKeyPressed(Input.Keys.O)) {
-            gameScreen.getConfigSet().setGodMode(true);
-        }
-        else if (Gdx.input.isKeyPressed(Input.Keys.P)) {
-            gameScreen.getConfigSet().setGodMode(false);
+        if (TimeUtils.millis() > lastGodModeInputTime + 200) {
+            if (Gdx.input.isKeyPressed(Input.Keys.O)) {
+                gameScreen.getConfigSet().setGodMode(!gameScreen.getConfigSet().isGodMode());
+                lastGodModeInputTime = TimeUtils.millis();
+            }
+            if (gameScreen.getConfigSet().isGodMode()) {
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1) && !Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    gameScreen.getConfigSet().increaseAsteroidSpeed();
+                    lastGodModeInputTime = TimeUtils.millis();
+                }
+                if (Gdx.input.isKeyPressed(Input.Keys.NUM_1) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+                    gameScreen.getConfigSet().decreaseAsteroidSpeed();
+                    lastGodModeInputTime = TimeUtils.millis();
+                }
+            }
+
         }
     }
 

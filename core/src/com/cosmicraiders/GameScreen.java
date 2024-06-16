@@ -20,7 +20,7 @@ public class GameScreen implements Screen {
      */
     private CosmicRaiders game;
     private ConfigSet configSet;
-    private Controls controls;
+    private ControlSet controlSet;
     private MovementHandler movementHandler;
     private CollisionHandler collisionHandler;
     private Painter painter;
@@ -72,7 +72,7 @@ public class GameScreen implements Screen {
     public void initialize() {
 
         // link other program components
-        this.controls = new Controls(this);
+        this.controlSet = new ControlSet(this);
         this.movementHandler = new MovementHandler(this);
         this.collisionHandler = new CollisionHandler(this);
         this.painter = new Painter(this);
@@ -162,7 +162,7 @@ public class GameScreen implements Screen {
         movementHandler.rotateAsteroids();
 
         // fighter movement
-        controls.handleControls();
+        controlSet.handleControls();
 
 
         // collisions
@@ -186,7 +186,7 @@ public class GameScreen implements Screen {
     public void show() {
 //        Assets.openUp.play();
         initialize();
-        Assets.neonNoir.play();
+        AssetSet.neonNoir.play();
     }
 
     @Override

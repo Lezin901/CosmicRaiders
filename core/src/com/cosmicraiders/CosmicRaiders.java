@@ -25,7 +25,7 @@ public class CosmicRaiders extends Game {
      * This method constructs the necessary objects to start the game.
      */
     public void create() {
-        Assets.load();
+        AssetSet.load();
         batch = new SpriteBatch();
         configSet = new ConfigSet();
         font = new BitmapFont(Gdx.files.internal("fonts/CaveStoryGreen.fnt"), Gdx.files.internal("fonts/CaveStoryGreen.png"), false); // use libGDX's default Arial font
@@ -49,7 +49,7 @@ public class CosmicRaiders extends Game {
     public void dispose() {
         batch.dispose();
         font.dispose();
-        Assets.dispose();
+        AssetSet.dispose();
     }
 
     public MainMenuScreen getMainMenuScreen() {
