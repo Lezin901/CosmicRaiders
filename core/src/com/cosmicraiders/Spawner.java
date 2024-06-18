@@ -46,15 +46,14 @@ public class Spawner {
      * Checks the timing and spawns asteroids, aliens, and alien lasers if conditions are met.
      */
     public void handleSpawning() {
-        if (TimeUtils.millis() - lastAsteroidTime > 500) {
+        if (TimeUtils.millis() - lastAsteroidTime > gameScreen.getConfigSet().getAsteroidSpawnDelay()) {
             spawnAsteroid();
         }
         if (alienDead && (TimeUtils.millis() - lastAlienTime > 2000)) {
             spawnAlien();
         }
-
         for (Rectangle alien : gameScreen.getAliens()) {
-            if (TimeUtils.millis() - lastAlienShootTime > gameScreen.getConfigSet().getAlienRateOfFire()) {
+            if (TimeUtils.millis() - lastAlienShootTime > gameScreen.getConfigSet().getAlienFireDelay()) {
                 spawnAlienLaser(alien.x, alien.y);
             }
         }
@@ -67,7 +66,7 @@ public class Spawner {
      */
     public void spawnAsteroid() {
         Asteroid asteroid = new Asteroid();
-        float randomSizeMultiplier = MathUtils.random(0.5f, 1.5f);
+        float randomSizeMultiplier = MathUtils.random(1.0f, 2.0f);
         asteroid.radius = ((gameScreen.getConfigSet().getAsteroidDiameter() / 2) * randomSizeMultiplier);
         asteroid.x = MathUtils.random(gameScreen.getConfigSet().getFighterSize(), gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getFighterSize());
         asteroid.y = gameScreen.getConfigSet().getResolutionY() + asteroid.radius;
@@ -120,7 +119,7 @@ public class Spawner {
      */
     public void spawnFighterLaser() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            if (TimeUtils.millis() - lastFighterShootTime > gameScreen.getConfigSet().getFighterRateOfFire()) {
+            if (TimeUtils.millis() - lastFighterShootTime > gameScreen.getConfigSet().getFighterFireDelay()) {
                 AssetSet.fighterLaser.play(gameScreen.getConfigSet().getVolume());
                 Rectangle laser = new Rectangle();
                 laser.width = gameScreen.getConfigSet().getFighterLaserSize() / 10;

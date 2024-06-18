@@ -115,7 +115,6 @@ public class GameScreen implements Screen {
      */
     public void checkGameOver() {
        if  (gameOver && exitTime <= TimeUtils.millis() ) {
-           System.out.println("debug checkGameOver");
            Scores.setLastScore(score);
            Scores.increaseRoundsPlayed();
            score = 0;
@@ -288,6 +287,7 @@ public class GameScreen implements Screen {
 
     public void setScore(int score) {
         this.score = score;
+        configSet.increaseDifficulty();
         painter.setScoreText("Score: " + score);
 //        this.scoreText.setText(game.font, "Score: " + score);
     }
