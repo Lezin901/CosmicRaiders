@@ -47,7 +47,6 @@ public class ConfigSet {
      */
     private void changeAsteroidSpeed(int change) {
         if (asteroidSpeed + change >= 0) asteroidSpeed += change;
-        System.out.println("Asteroid Speed: " + asteroidSpeed);
     }
 
     /**
@@ -78,7 +77,6 @@ public class ConfigSet {
 
     private void changeAlienRateOfFire(int change) {
         if (alienRateOfFire + change >= 0) alienRateOfFire += change;
-        System.out.println("Alien Rate of Fire: " + alienRateOfFire);
     }
     public void increaseAlienRateOfFire() {
         changeAlienRateOfFire(50);

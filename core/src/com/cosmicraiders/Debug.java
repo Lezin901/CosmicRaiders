@@ -23,7 +23,6 @@ public class Debug {
             touchPos.set(Gdx.input.getX(), Gdx.input.getY(), 0);
             gameScreen.getCamera().unproject(touchPos);
             gameScreen.getGame().getBatch().draw(AssetSet.alienImage, touchPos.x, touchPos.y, gameScreen.getConfigSet().getFighterSize(), gameScreen.getConfigSet().getFighterSize());
-            System.out.println(touchPos.x + " " + touchPos.y);
         }
     }
 }

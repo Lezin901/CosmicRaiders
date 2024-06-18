@@ -49,8 +49,6 @@ public class Spawner {
         if (TimeUtils.millis() - lastAsteroidTime > 500) {
             spawnAsteroid();
         }
-
-        System.out.println(TimeUtils.millis() - lastAlienTime);
         if (alienDead && (TimeUtils.millis() - lastAlienTime > 2000)) {
             spawnAlien();
         }
