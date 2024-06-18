@@ -287,7 +287,6 @@ public class GameScreen implements Screen {
 
     public void setScore(int score) {
         this.score = score;
-        configSet.increaseDifficulty();
         painter.setScoreText("Score: " + score);
 //        this.scoreText.setText(game.font, "Score: " + score);
     }

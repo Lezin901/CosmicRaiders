@@ -180,10 +180,10 @@ public class ControlSet {
 
     private void handleFighterGodmodeControls() {
         if (Gdx.input.isKeyPressed(Input.Keys.NUM_4) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
-            gameScreen.getConfigSet().decreaseFighterRateOfFire();
+            gameScreen.getConfigSet().decreaseFighterShotsPerSecond();
             lastGodModeInputTime = TimeUtils.millis();
         } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
-            gameScreen.getConfigSet().increaseFighterRateOfFire();
+            gameScreen.getConfigSet().increaseFighterShotsPerSecond();
             lastGodModeInputTime = TimeUtils.millis();
         }
     }

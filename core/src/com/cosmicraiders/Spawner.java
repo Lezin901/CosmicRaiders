@@ -53,7 +53,8 @@ public class Spawner {
             spawnAlien();
         }
         for (Rectangle alien : gameScreen.getAliens()) {
-            if (TimeUtils.millis() - lastAlienShootTime > gameScreen.getConfigSet().getAlienFireDelay()) {
+            if (TimeUtils.millis() - lastAlienShootTime > 1000 / (gameScreen.getConfigSet().getAlienShotsPerSecond())) {
+                System.out.println((gameScreen.getConfigSet().getAlienShotsPerSecond()));
                 spawnAlienLaser(alien.x, alien.y);
             }
         }
@@ -119,7 +120,7 @@ public class Spawner {
      */
     public void spawnFighterLaser() {
         if (Gdx.input.isKeyPressed(Input.Keys.SPACE) || Gdx.input.isButtonPressed(Input.Buttons.LEFT)) {
-            if (TimeUtils.millis() - lastFighterShootTime > gameScreen.getConfigSet().getFighterFireDelay()) {
+            if (TimeUtils.millis() - lastFighterShootTime > 1000 / (gameScreen.getConfigSet().getFighterShotsPerSecond())) {
                 AssetSet.fighterLaser.play(gameScreen.getConfigSet().getVolume());
                 Rectangle laser = new Rectangle();
                 laser.width = gameScreen.getConfigSet().getFighterLaserSize() / 10;

@@ -2,7 +2,6 @@ Höchst wahrscheinlich:
 
 
 Demnächst:
-- Refactoring fortsetzen (Controls, Assets)?
 - Dynamische Schwierigkeit
 - Alien Positions Bug beheben
 - Dokumentieren

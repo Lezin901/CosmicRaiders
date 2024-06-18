@@ -23,14 +23,14 @@ public class ConfigSet {
     private int fighterSpeed = 800;
     private int fighterLaserSize = 80;
     private int fighterLaserSpeed = 800;
-    private int fighterFireDelay = 500; // Godmode: 4
+    private double fighterShotsPerSecond = 2; // Godmode: 4
 
     // aliens
     private int alienSize = 80;
     private int alienSpeed = 200; // changing difficulty (Godmode: 3)
     private int alienLaserSize = 80;
     private int alienLaserSpeed = 800;
-    private int alienFireDelay = 2000; // (Godmode: 2)
+    private double alienShotsPerSecond = 0.5; // describes how many times per second the alien ship shoots (Godmode: 2)
     private int alienChangeDirectionTimeMinimum = 3000;
     private int alienChangeDirectionTimeMaximum = 10000;
     private int alienRespawnDelay = 2000;
@@ -47,6 +47,7 @@ public class ConfigSet {
         increaseAlienSpeed();
         increaseAlienRateOfFire();
         increaseAsteroidSpeed();
+        System.out.println("Difficulty Increased");
     }
 
     /**
@@ -87,9 +88,10 @@ public class ConfigSet {
      * Change fighter's rate of fire by a specified amount.
      * @param change the value by which the rate of fire is increased or decreased
      */
-    private void changeAlienRateOfFire(int change) {
-        if (alienFireDelay - change >= 0) {
-            alienFireDelay -= change;
+    private void changeAlienRateOfFire(float change) {
+        if (alienShotsPerSecond + change >= 0) {
+            alienShotsPerSecond += change;
+            System.out.println(alienShotsPerSecond);
         }
     }
 
@@ -97,38 +99,38 @@ public class ConfigSet {
      * Increase the rate of fire of the alien.
      */
     public void increaseAlienRateOfFire() {
-        changeAlienRateOfFire(50);
+        changeAlienRateOfFire(0.1f);
     }
 
     /**
      * Decrease the rate of fire of the alien.
      */
     public void decreaseAlienRateOfFire() {
-        changeAlienRateOfFire(-50);
+        changeAlienRateOfFire(-0.1f);
     }
 
     /**
      * Change fighter's rate of fire by a specified amount.
      * @param change the value by which the rate of fire is increased or decreased
      */
-    private void changeFighterRateOfFire(int change) {
-        if (fighterFireDelay - change >= 0) {
-            fighterFireDelay -= change;
+    private void changeFighterShotsPerSecond(double change) {
+        if (fighterShotsPerSecond + change >= 0) {
+            fighterShotsPerSecond += change;
         }
     }
 
     /**
      * Increase the rate of fire of the fighter.
      */
-    public void increaseFighterRateOfFire() {
-        changeFighterRateOfFire(50);
+    public void increaseFighterShotsPerSecond() {
+        changeFighterShotsPerSecond(0.2);
     }
 
     /**
      * Decrease the rate of fire of the fighter.
      */
-    public void decreaseFighterRateOfFire() {
-        changeFighterRateOfFire(-50);
+    public void decreaseFighterShotsPerSecond() {
+        changeFighterShotsPerSecond(-0.2);
     }
 
     public float getVolume() {
@@ -211,12 +213,12 @@ public class ConfigSet {
         this.fighterLaserSpeed = fighterLaserSpeed;
     }
 
-    public int getFighterFireDelay() {
-        return fighterFireDelay;
+    public double getFighterShotsPerSecond() {
+        return fighterShotsPerSecond;
     }
 
-    public void setFighterFireDelay(int fighterFireDelay) {
-        this.fighterFireDelay = fighterFireDelay;
+    public void setFighterShotsPerSecond(int fighterShotsPerSecond) {
+        this.fighterShotsPerSecond = fighterShotsPerSecond;
     }
 
     public int getAlienSize() {
@@ -251,12 +253,12 @@ public class ConfigSet {
         this.alienLaserSpeed = alienLaserSpeed;
     }
 
-    public int getAlienFireDelay() {
-        return alienFireDelay;
+    public double getAlienShotsPerSecond() {
+        return alienShotsPerSecond;
     }
 
-    public void setAlienFireDelay(int alienFireDelay) {
-        this.alienFireDelay = alienFireDelay;
+    public void setAlienShotsPerSecond(float alienShotsPerSecond) {
+        this.alienShotsPerSecond = alienShotsPerSecond;
     }
 
     public int getAlienChangeDirectionTimeMinimum() {
