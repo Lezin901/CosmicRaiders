@@ -88,6 +88,30 @@ public class ConfigSet {
         changeAlienRateOfFire(-50);
     }
 
+    /**
+     * Change fighter's rate of fire by a specified amount.
+     * @param change the value by which the rate of fire is increased or decreased
+     */
+    private void changeFighterRateOfFire(int change) {
+        if (fighterRateOfFire - change >= 0) {
+            fighterRateOfFire -= change;
+        }
+    }
+
+    /**
+     * Increase the rate of fire of the fighter.
+     */
+    public void increaseFighterRateOfFire() {
+        changeFighterRateOfFire(-50);
+    }
+
+    /**
+     * Decrease the rate of fire of the fighter.
+     */
+    public void decreaseFighterRateOfFire() {
+        changeFighterRateOfFire(50);
+    }
+
     public float getVolume() {
         return volume;
     }

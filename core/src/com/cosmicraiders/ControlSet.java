@@ -144,8 +144,8 @@ public class ControlSet {
             if (gameScreen.getConfigSet().isGodMode()) {
                 handleAsteroidControls();
                 handleAlienControls();
+                handleFighterGodmodeControls();
             }
-
         }
     }
 
@@ -174,6 +174,16 @@ public class ControlSet {
         }
         else if (Gdx.input.isKeyPressed(Input.Keys.NUM_1) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
             gameScreen.getConfigSet().decreaseAsteroidSpeed();
+            lastGodModeInputTime = TimeUtils.millis();
+        }
+    }
+
+    private void handleFighterGodmodeControls() {
+        if (Gdx.input.isKeyPressed(Input.Keys.NUM_4) && Gdx.input.isKeyPressed(Input.Keys.SHIFT_LEFT)) {
+            gameScreen.getConfigSet().decreaseFighterRateOfFire();
+            lastGodModeInputTime = TimeUtils.millis();
+        } else if (Gdx.input.isKeyPressed(Input.Keys.NUM_4)) {
+            gameScreen.getConfigSet().increaseFighterRateOfFire();
             lastGodModeInputTime = TimeUtils.millis();
         }
     }
