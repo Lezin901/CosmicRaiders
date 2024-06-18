@@ -66,15 +66,22 @@ public class MovementHandler {
      */
     public void moveAliens() {
         for (Rectangle alien: gameScreen.getAliens()) {
-            if ((alien.x <= gameScreen.getConfigSet().getPadding()) || (alien.x >= gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getPadding() - gameScreen.getConfigSet().getFighterSize())) {
-                aliensMoveToRight = !aliensMoveToRight;
+            //check if alien has arrived at the LEFT border of the screen
+            if (alien.x <= gameScreen.getConfigSet().getPadding()) {
+                aliensMoveToRight = true;
             }
+            //check if the alien has arrived at the RIGHT border of screen
+            if (alien.x >= gameScreen.getConfigSet().getResolutionX() - gameScreen.getConfigSet().getPadding() - gameScreen.getConfigSet().getFighterSize()) {
+                aliensMoveToRight = false;
+            }
+            //move right or left
             if (aliensMoveToRight) {
-                alien.x -= gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // alien speed
-            } else {
                 alien.x += gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // alien speed
+            } else {
+                alien.x -= gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // alien speed
             }
         }
+        //randomly change direction
         if (alienChangeDirectionTime <= TimeUtils.millis()) {
             alienChangeDirectionTime = TimeUtils.millis() + MathUtils.random(gameScreen.getConfigSet().getAlienChangeDirectionTimeMinimum(), gameScreen.getConfigSet().getAlienChangeDirectionTimeMaximum());
             aliensMoveToRight = !aliensMoveToRight;
