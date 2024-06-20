@@ -2,9 +2,8 @@ Höchst wahrscheinlich:
 
 
 Demnächst:
-- Dynamische Schwierigkeit
-- Alien Positions Bug beheben
 - Dokumentieren
+- StarLayer Geschwindigkeit anpassen
 - Power Ups
 - Godmode mehr Funktionen einbauen
 
@@ -16,9 +15,9 @@ Langfristig / Vielleicht:
   - APK erstellen
 - Backend
 - Refactoring von spawnFighterLaser -> In Controls-Klasse auslagern?
+- Anpassen von Schwierigkeitsgrad?
 
 Refactoring:
 - Configs objektorientiert
 - nanoTime auf ms umsteigen
 - Godmode in eigene Klasse auslagern
-- StarLayer Geschwindigkeit anpassen

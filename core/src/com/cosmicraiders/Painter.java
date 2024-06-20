@@ -1,8 +1,11 @@
 package com.cosmicraiders;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import java.util.Date;
 
 /**
  * A Painter draws all the assets in the batch.
@@ -11,28 +14,87 @@ public class Painter {
     private GameScreen gameScreen;
     private Batch batch;
     private String scoreText;
+    private Rectangle[][] backgroundStarLayerImages = new Rectangle[4][3];
+    private Rectangle[][] middlegroundStarLayerImages = new Rectangle[4][3];
+
+    private int backgroundStarLayerImageSize = 512;
+    private int middlegroundStarLayerImageSize = 700;
 
     public Painter(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         this.batch = gameScreen.getGame().getBatch();
+        System.out.println("Konstruktor von Painter aufgerufen ");
+        // Initialize positions of the backgroundStarLayerImages
+        for (int i = 0; i < backgroundStarLayerImages.length; i++) {
+            for (int j = 0; j < backgroundStarLayerImages[i].length; j++) {
+                backgroundStarLayerImages[i][j] = new Rectangle();
+                backgroundStarLayerImages[i][j].x = i * backgroundStarLayerImageSize;
+                backgroundStarLayerImages[i][j].y = j * backgroundStarLayerImageSize;
+            }
+        }
+        // Initialize positions of the middlegroundStarLayerImages
+        for (int i = 0; i < middlegroundStarLayerImages.length; i++) {
+            for (int j = 0; j < middlegroundStarLayerImages[i].length; j++) {
+                middlegroundStarLayerImages[i][j] = new Rectangle();
+                middlegroundStarLayerImages[i][j].x = i * middlegroundStarLayerImageSize;
+                middlegroundStarLayerImages[i][j].y = j * middlegroundStarLayerImageSize;
+            }
+        }
     }
 
     /**
      * Draws the two star layers as a background for the game.
      */
-    public void renderStarLayers() {
-        // first star layer rendering
-        for (int i = 0; i < 4; i++) {
-            for (int j = 0; j < 4; j++) {
-                batch.draw(AssetSet.starBackgroundImage, i * 512, j * 512  - ((TimeUtils.nanoTime() / 8000000) % 512), 512, 512);
+    public void renderStarLayers(double speedMultiplier) {
+
+        for (int i = 0; i < backgroundStarLayerImages.length; i++) {
+            for (int j = 0; j < backgroundStarLayerImages[i].length; j++) {
+                batch.draw(AssetSet.starBackgroundImage, backgroundStarLayerImages[i][j].x, backgroundStarLayerImages[i][j].y, backgroundStarLayerImageSize, backgroundStarLayerImageSize);
+
+                // set movement speed of the backgroundStarLayerImages
+                backgroundStarLayerImages[i][j].y -= gameScreen.getConfigSet().getAsteroidSpeed() * Gdx.graphics.getDeltaTime() * 0.4d * speedMultiplier; // asteroid speed
+
+
+                if (backgroundStarLayerImages[i][j].y <= (j-1) * backgroundStarLayerImageSize) {
+                    backgroundStarLayerImages[i][j].y = j * backgroundStarLayerImageSize;
+                }
             }
         }
-        // second star layer rendering
-        for (int i = 0; i < 2; i++) {
-            for (int j = 0; j < 3; j++) {
-                batch.draw(AssetSet.starBackgroundImage, i * 1024, j * 1024  - ((TimeUtils.nanoTime() / 5000000) % 1024), 1024, 1024);
+        for (int i = 0; i < middlegroundStarLayerImages.length; i++) {
+            for (int j = 0; j < middlegroundStarLayerImages[i].length; j++) {
+                batch.draw(AssetSet.starBackgroundImage, middlegroundStarLayerImages[i][j].x, middlegroundStarLayerImages[i][j].y, middlegroundStarLayerImageSize, middlegroundStarLayerImageSize);
+
+                // set movement speed of the middlegroundStarLayer
+                middlegroundStarLayerImages[i][j].y -= gameScreen.getConfigSet().getAsteroidSpeed() * Gdx.graphics.getDeltaTime() * 0.5f * speedMultiplier;
+
+
+                if (middlegroundStarLayerImages[i][j].y <= (j-1) * middlegroundStarLayerImageSize) {
+                    middlegroundStarLayerImages[i][j].y = j * middlegroundStarLayerImageSize;
+                }
             }
         }
+
+
+
+
+
+
+//        // first star layer rendering
+//        for (int i = 0; i < 4; i++) {
+//            for (int j = 0; j < 4; j++) {
+//                batch.draw(AssetSet.starBackgroundImage, i * 512,
+//                        j * 512 - (((gameScreen.getConfigSet().getAsteroidSpeed() * TimeUtils.millis() / 2000)) % 512 ),
+//                        512, 512);
+//            }
+//        }
+//        // second star layer rendering
+//        for (int i = 0; i < 2; i++) {
+//            for (int j = 0; j < 3; j++) {
+//                batch.draw(AssetSet.starBackgroundImage, i * 1024,
+//                        j * 1024  - (((gameScreen.getConfigSet().getAsteroidSpeed() * TimeUtils.millis() / 1600)) % 1024),
+//                        1024, 1024);
+//            }
+//        }
     }
 
     /**

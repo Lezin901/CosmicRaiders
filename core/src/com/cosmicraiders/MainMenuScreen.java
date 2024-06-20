@@ -65,7 +65,7 @@ public class MainMenuScreen implements Screen {
 
         game.getBatch().begin();
         Painter painter = game.getGameScreen().getPainter();
-        painter.renderStarLayers();
+        painter.renderStarLayers(0.3f);
 
 
         float logoWidth = 700;

@@ -75,7 +75,10 @@ public class GameScreen implements Screen {
         this.controlSet = new ControlSet(this);
         this.movementHandler = new MovementHandler(this);
         this.collisionHandler = new CollisionHandler(this);
-        this.painter = new Painter(this);
+        if (painter == null) {
+            this.painter = new Painter(this);
+        }
+
         this.spawner = new Spawner(this);
         this.debug = new Debug(this);
 
@@ -143,7 +146,7 @@ public class GameScreen implements Screen {
         //SpriteBatch rendering code
         batch.begin();
         debug.showCoordinates();
-        painter.renderStarLayers();
+        painter.renderStarLayers(1);
         painter.renderObjects();
         painter.renderText();
 
