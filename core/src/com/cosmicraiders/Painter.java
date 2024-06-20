@@ -52,7 +52,8 @@ public class Painter {
                 batch.draw(AssetSet.starBackgroundImage, backgroundStarLayerImages[i][j].x, backgroundStarLayerImages[i][j].y, backgroundStarLayerImageSize, backgroundStarLayerImageSize);
 
                 // set movement speed of the backgroundStarLayerImages
-                backgroundStarLayerImages[i][j].y -= gameScreen.getConfigSet().getAsteroidSpeed() * Gdx.graphics.getDeltaTime() * 0.4d * speedMultiplier; // asteroid speed
+                // using Math.min() to prevent stuttering due to delta time
+                backgroundStarLayerImages[i][j].y -= gameScreen.getConfigSet().getAsteroidSpeed() * Math.min(Gdx.graphics.getDeltaTime(), 1.0 / 30.0 ) * 0.4d * speedMultiplier; // asteroid speed
 
 
                 if (backgroundStarLayerImages[i][j].y <= (j-1) * backgroundStarLayerImageSize) {
@@ -65,7 +66,7 @@ public class Painter {
                 batch.draw(AssetSet.starBackgroundImage, middlegroundStarLayerImages[i][j].x, middlegroundStarLayerImages[i][j].y, middlegroundStarLayerImageSize, middlegroundStarLayerImageSize);
 
                 // set movement speed of the middlegroundStarLayer
-                middlegroundStarLayerImages[i][j].y -= gameScreen.getConfigSet().getAsteroidSpeed() * Gdx.graphics.getDeltaTime() * 0.5f * speedMultiplier;
+                middlegroundStarLayerImages[i][j].y -= gameScreen.getConfigSet().getAsteroidSpeed() * Math.min(Gdx.graphics.getDeltaTime(), 1.0 / 30.0 ) * 0.5f * speedMultiplier;
 
 
                 if (middlegroundStarLayerImages[i][j].y <= (j-1) * middlegroundStarLayerImageSize) {

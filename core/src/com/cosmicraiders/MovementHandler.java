@@ -26,7 +26,8 @@ public class MovementHandler {
      */
     public void moveAsteroids() {
         for(Asteroid asteroid: gameScreen.getAsteroids()) {
-            asteroid.y -= gameScreen.getConfigSet().getAsteroidSpeed() * Gdx.graphics.getDeltaTime(); // asteroid speed
+            // using Math.min() to prevent stuttering due to delta time
+            asteroid.y -= gameScreen.getConfigSet().getAsteroidSpeed() * Math.min(Gdx.graphics.getDeltaTime(), 1.0 / 30.0 ); // asteroid speed
             if(asteroid.y < -asteroid.radius * 2) gameScreen.getAsteroids().removeValue(asteroid, true);
         }
     }

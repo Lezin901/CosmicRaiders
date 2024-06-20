@@ -6,6 +6,9 @@ Demnächst:
 - StarLayer Geschwindigkeit anpassen
 - Power Ups
 - Godmode mehr Funktionen einbauen
+- Stottern verhindern durch DeltaTime
+  - MovementHandler und Painter
+  - DeltaTime durch Multiplikator ersetzen? (0.02d)
 
 Langfristig / Vielleicht:
 - Endgegner
