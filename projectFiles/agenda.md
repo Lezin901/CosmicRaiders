@@ -19,8 +19,23 @@ Langfristig / Vielleicht:
 - Backend
 - Refactoring von spawnFighterLaser -> In Controls-Klasse auslagern?
 - Anpassen von Schwierigkeitsgrad?
+- Touch-Steuerung verbessern -> 
 
 Refactoring:
 - Configs objektorientiert
 - nanoTime auf ms umsteigen
 - Godmode in eigene Klasse auslagern
+
+
+PowerUp-Ideen:
+- Aufsammeln von PowerUp
+- Painter
+  - Farbakzent für Schiff nach Aufsammeln
+  - Hintergrundfarbe verändern
+  - Alternative Laser (Textur, Farbe, etc.)
+  - Farbiges Overlay
+- Schrifteinblendung
+- PowerUp-Handler-Klasse
+  - Gültigkeitszeit von PowerUp verwalten
+  - Aufruf von Config-Methoden um Effekte zu verwalten
+  - 

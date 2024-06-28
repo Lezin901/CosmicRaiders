@@ -17,6 +17,7 @@ public class AssetSet {
     public static Texture asteroidExplosionImage;
     public static Texture starBackgroundImage;
     public static Texture cosmicRaidersLogoImage;
+    public static Texture powerUpImage;
 
     public static Music neonNoir;
 
@@ -56,6 +57,7 @@ public class AssetSet {
         asteroidExplosionImage = loadTexture("asteroidExplosion.png");
         starBackgroundImage = loadTexture("stars.png");
         cosmicRaidersLogoImage = loadTexture("cosmicRaidersLogo.png");
+        powerUpImage = loadTexture("powerUp.png");
 
         blasterShoot = Gdx.audio.newSound(Gdx.files.internal("sounds/blasterShoot.mp3"));
         explosion = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.mp3"));
@@ -82,6 +84,7 @@ public class AssetSet {
         asteroidExplosionImage.dispose();
         starBackgroundImage.dispose();
         cosmicRaidersLogoImage.dispose();
+        powerUpImage.dispose();
 
         blasterShoot.dispose();
         explosion.dispose();

@@ -21,8 +21,11 @@ public class GameScreen implements Screen {
     private CosmicRaiders game;
     private ConfigSet configSet;
     private ControlSet controlSet;
+
     private MovementHandler movementHandler;
     private CollisionHandler collisionHandler;
+    private PowerUpHandler powerUpHandler;
+
     private Painter painter;
     private Spawner spawner;
     private Debug debug;
@@ -41,6 +44,7 @@ public class GameScreen implements Screen {
     private Array<Explosion> explosions;
     private Array<Rectangle> aliens;
     private Array<PowerUp> powerUps;
+    private PowerUp activePowerUp;
 
     private int score;
     private boolean gameOver = false;
@@ -76,6 +80,8 @@ public class GameScreen implements Screen {
         this.controlSet = new ControlSet(this);
         this.movementHandler = new MovementHandler(this);
         this.collisionHandler = new CollisionHandler(this);
+        this.powerUpHandler = new PowerUpHandler(this);
+
         if (painter == null) {
             this.painter = new Painter(this);
         }
@@ -148,6 +154,7 @@ public class GameScreen implements Screen {
         //SpriteBatch rendering code
         batch.begin();
         debug.showCoordinates();
+        painter.renderBackground(40,0,0);
         painter.renderStarLayers(1);
         painter.renderObjects();
         painter.renderText();
@@ -339,5 +346,21 @@ public class GameScreen implements Screen {
 
     public Array<PowerUp> getPowerUps() {
         return powerUps;
+    }
+
+    public PowerUp getActivePowerUp() {
+        return activePowerUp;
+    }
+
+    public void setActivePowerUp(PowerUp activePowerUp) {
+        this.activePowerUp = activePowerUp;
+    }
+
+    public PowerUpHandler getPowerUpHandler() {
+        return powerUpHandler;
+    }
+
+    public void setPowerUpHandler(PowerUpHandler powerUpHandler) {
+        this.powerUpHandler = powerUpHandler;
     }
 }

@@ -29,6 +29,8 @@ public class CollisionHandler {
         }
         for (PowerUp powerUp : gameScreen.getPowerUps()) {
             if (Intersector.overlaps(powerUp, fighter)) {
+                gameScreen.setActivePowerUp(powerUp);
+                gameScreen.getPowerUps().removeValue(powerUp, true);
                 gameScreen.getConfigSet().setFighterShotsPerSecond(5);
             }
         }

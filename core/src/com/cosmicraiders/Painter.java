@@ -3,6 +3,7 @@ package com.cosmicraiders;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
 import java.util.Date;
@@ -137,7 +138,7 @@ public class Painter {
         }
         for (PowerUp powerUp : gameScreen.getPowerUps()) {
             System.out.println("PowerUp gezeichnet...");
-            batch.draw(AssetSet.alienImage,  powerUp.x - powerUp.radius, powerUp.y - powerUp.radius, powerUp.radius * 2, powerUp.radius * 2);
+            batch.draw(AssetSet.powerUpImage,  powerUp.x - powerUp.radius, powerUp.y - powerUp.radius, powerUp.radius * 2, powerUp.radius * 2);
         }
 
     }
@@ -151,5 +152,12 @@ public class Painter {
 
     public void setScoreText(String scoreText) {
         this.scoreText = scoreText;
+    }
+
+    public void renderBackground(float r, float g, float b) {
+        r = r/255;
+        g = g/255;
+        b = b/255;
+        ScreenUtils.clear(r, g, b, 1);
     }
 }
