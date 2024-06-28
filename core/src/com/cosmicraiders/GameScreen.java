@@ -40,6 +40,7 @@ public class GameScreen implements Screen {
     private Array<Asteroid> asteroids;
     private Array<Explosion> explosions;
     private Array<Rectangle> aliens;
+    private Array<PowerUp> powerUps;
 
     private int score;
     private boolean gameOver = false;
@@ -103,6 +104,7 @@ public class GameScreen implements Screen {
         asteroids = new Array<Asteroid>();
         explosions = new Array<Explosion>();
         aliens = new Array<Rectangle>();
+        powerUps = new Array<PowerUp>();
 
         // construct GlyphLayouts
         scoreText = new GlyphLayout(game.getFont(), "");
@@ -162,6 +164,7 @@ public class GameScreen implements Screen {
         movementHandler.moveAlienLasers();
         movementHandler.moveAsteroids();
         movementHandler.rotateAsteroids();
+        movementHandler.movePowerUps();
 
         // fighter movement
         controlSet.handleControls();
@@ -332,5 +335,9 @@ public class GameScreen implements Screen {
 
     public void setConfigSet(ConfigSet configSet) {
         this.configSet = configSet;
+    }
+
+    public Array<PowerUp> getPowerUps() {
+        return powerUps;
     }
 }

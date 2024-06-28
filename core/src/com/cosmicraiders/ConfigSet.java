@@ -40,6 +40,10 @@ public class ConfigSet {
     private int asteroidSpeed = 100; // changing difficulty (Godmode: 1)
     private int asteroidSpawnDelay = 1000;
 
+    // power ups
+    private int powerUpSpeed = 100;
+    private float powerUpDiameter = 100;
+
     /**
      * Increase game difficulty by changing values.
      */
@@ -307,5 +311,13 @@ public class ConfigSet {
 
     public void setAsteroidSpawnDelay(int asteroidSpawnDelay) {
         this.asteroidSpawnDelay = asteroidSpawnDelay;
+    }
+
+    public int getPowerUpSpeed() {
+        return powerUpSpeed;
+    }
+
+    public float getPowerUpDiameter() {
+        return powerUpDiameter;
     }
 }

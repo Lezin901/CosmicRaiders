@@ -103,4 +103,12 @@ public class MovementHandler {
     public void setAlienChangeDirectionTime(long alienChangeDirectionTime) {
         this.alienChangeDirectionTime = alienChangeDirectionTime;
     }
+
+    public void movePowerUps() {
+        for(PowerUp powerUp: gameScreen.getPowerUps()) {
+            // using Math.min() to prevent stuttering due to delta time
+            powerUp.y -= gameScreen.getConfigSet().getPowerUpSpeed() * Math.min(Gdx.graphics.getDeltaTime(), 1.0f / 30.0f ); // PowerUp speed
+            if(powerUp.y < -powerUp.radius * 2) gameScreen.getPowerUps().removeValue(powerUp, true);
+        }
+    }
 }

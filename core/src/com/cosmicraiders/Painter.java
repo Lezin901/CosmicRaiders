@@ -117,7 +117,11 @@ public class Painter {
         }
         for(Asteroid asteroid: gameScreen.getAsteroids()) { // asteroids
             // batch.draw(Assets.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius * 2, asteroid.radius * 2);
-            batch.draw(AssetSet.asteroidImage, asteroid.x - asteroid.radius, asteroid.y - asteroid.radius, asteroid.radius, asteroid.radius, asteroid.radius * 2, asteroid.radius * 2, 1, 1, asteroid.getRotation(), 0, 0, 59, 59, false, false);
+            batch.draw(AssetSet.asteroidImage, asteroid.x - asteroid.radius,
+                    asteroid.y - asteroid.radius, asteroid.radius, asteroid.radius,
+                    asteroid.radius * 2, asteroid.radius * 2,
+                    1, 1, asteroid.getRotation(),
+                    0, 0, 59, 59, false, false);
         }
         for(Explosion explosion: gameScreen.getExplosions()) { // explosions
             batch.draw(AssetSet.asteroidExplosionImage, explosion.getX() - explosion.getWidth() / 2, explosion.getY() - explosion.getHeight() / 2, explosion.getWidth(), explosion.getHeight());
@@ -130,6 +134,10 @@ public class Painter {
         }
         for(Rectangle alienLaser: gameScreen.getAlienLasers()) { // alien lasers
             batch.draw(AssetSet.laserGreenImage, alienLaser.x, alienLaser.y, alienLaser.width, alienLaser.height);
+        }
+        for (PowerUp powerUp : gameScreen.getPowerUps()) {
+            System.out.println("PowerUp gezeichnet...");
+            batch.draw(AssetSet.alienImage,  powerUp.x - powerUp.radius, powerUp.y - powerUp.radius, powerUp.radius * 2, powerUp.radius * 2);
         }
 
     }

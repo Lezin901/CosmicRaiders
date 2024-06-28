@@ -135,6 +135,50 @@ public class Spawner {
         ;
     }
 
+    public void attemptPowerUpSpawn(float x, float y) {
+
+        System.out.println("PowerUpSpawn attempted.");
+        float randomFloat = MathUtils.random(0.0f, 1.0f);
+        if (randomFloat <= 0.5) {
+            PowerUp powerUp = new PowerUp();
+            powerUp.radius = gameScreen.getConfigSet().getPowerUpDiameter() / 2;
+            powerUp.x = x;
+            powerUp.y = y;
+            gameScreen.getPowerUps().add(powerUp);
+
+//            System.out.println("PowerUpArray: " + gameScreen.getPowerUps().toString());
+//            System.out.println("PowerUp erzeugt bei " + x + " " + y);
+//            System.out.println("PowerUp-Koordinaten bei " + powerUp.x + " " + powerUp.y);
+            System.out.println("Erstes PowerUp im Array: " + gameScreen.getPowerUps().get(0).x);
+        }
+    }
+
+//    /**
+//     * Attempts to spawn a power-up at the given location with a higher chance for a specific type.
+//     *
+//     * @param x The x-coordinate where the power-up should spawn.
+//     * @param y The y-coordinate where the power-up should spawn.
+//     */
+//    public void attemptPowerUpSpawn(float x, float y) {
+//        float spawnProbability = 0.2f; // 20% chance to spawn a power-up
+//        if (MathUtils.random() < spawnProbability) {
+//            float typeProbability = MathUtils.random(); // Random value between 0 and 1
+//            PowerUp powerUp;
+//
+//            if (typeProbability < 0.5f) {
+//                // 50% chance for TYPE1
+//                powerUp = new PowerUp(x, y, PowerUpType.TYPE1);
+//            } else if (typeProbability < 0.75f) {
+//                // 25% chance for TYPE2
+//                powerUp = new PowerUp(x, y, PowerUpType.TYPE2);
+//            } else {
+//                // 25% chance for TYPE3
+//                powerUp = new PowerUp(x, y, PowerUpType.TYPE3);
+//            }
+//
+//            gameScreen.getPowerUps().add(powerUp);
+//        }
+//    }
 
     public GameScreen getGameScreen() {
         return gameScreen;
@@ -171,4 +215,5 @@ public class Spawner {
     public void setLastAlienTime(long lastAlienTime) {
         this.lastAlienTime = lastAlienTime;
     }
+
 }

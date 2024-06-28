@@ -1,6 +1,5 @@
 package com.cosmicraiders;
 
-import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.TimeUtils;
@@ -18,7 +17,7 @@ public class CollisionHandler {
     }
 
     /**
-     * Checks if an asteroid or alien laser hits the fighter and ends the game.
+     * Checks if an asteroid, power up or alien laser hits the fighter and ends the game.
      */
     public void handleFighterCollisions() {
         Rectangle fighter = gameScreen.getFighter();
@@ -26,6 +25,11 @@ public class CollisionHandler {
         for (Asteroid asteroid : gameScreen.getAsteroids()) {
             if (Intersector.overlaps(asteroid, fighter)) {
                 destroyFighter();
+            }
+        }
+        for (PowerUp powerUp : gameScreen.getPowerUps()) {
+            if (Intersector.overlaps(powerUp, fighter)) {
+                gameScreen.getConfigSet().setFighterShotsPerSecond(5);
             }
         }
         for (Rectangle alienLaser : gameScreen.getAlienLasers()) {
@@ -43,17 +47,12 @@ public class CollisionHandler {
         for (Rectangle fighterLaser : gameScreen.getFighterLasers()) {
             for (Asteroid asteroid : gameScreen.getAsteroids()) {
                 if (Intersector.overlaps(asteroid, fighterLaser)) {
-                    laserHitsAsteroid(asteroid);
-                    gameScreen.getAsteroids().removeValue(asteroid, true);
-                    gameScreen.getFighterLasers().removeValue(fighterLaser, true);
+                    laserHitsAsteroid(asteroid, fighterLaser);
                 }
             }
             for (Rectangle alien : gameScreen.getAliens()) {
                 if (Intersector.overlaps(alien, fighterLaser)) {
-                    laserHitsAlien(alien);
-                    gameScreen.getAliens().removeValue(alien, true);
-                    gameScreen.getFighterLasers().removeValue(fighterLaser, true);
-
+                    laserHitsAlien(alien, fighterLaser);
                 }
             }
         }
@@ -66,9 +65,16 @@ public class CollisionHandler {
      *
      * @param asteroid the asteroid which has just been hit
      */
-    private void laserHitsAsteroid(Circle asteroid) {
+    private void laserHitsAsteroid(Asteroid asteroid, Rectangle fighterLaser) {
         AssetSet.asteroidExplosion.play(gameScreen.getConfigSet().getVolume());
         gameScreen.getExplosions().add(new Explosion(asteroid.x, asteroid.y, asteroid.radius * 2, asteroid.radius * 2));
+
+        gameScreen.getSpawner().attemptPowerUpSpawn(asteroid.x, asteroid.y);
+
+
+        gameScreen.getAsteroids().removeValue(asteroid, true);
+        gameScreen.getFighterLasers().removeValue(fighterLaser, true);
+
     }
 
     /**
@@ -77,15 +83,18 @@ public class CollisionHandler {
      * It plays an explosion sound, increases difficulty and adds an Explosion object to the explosions array to be rendered.
      * It also sets the alienDead, lastAlienTime and aliensMovetoRight attributes.
      *
-     * @param alien the alien ship which has just been hit
+     * @param alien        the alien ship which has just been hit
+     * @param fighterLaser
      */
-    private void laserHitsAlien(Rectangle alien) {
+    private void laserHitsAlien(Rectangle alien, Rectangle fighterLaser) {
         gameScreen.setScore(gameScreen.getScore() + 1);
         gameScreen.getConfigSet().increaseDifficulty();
         AssetSet.alienExplosion.play(gameScreen.getConfigSet().getVolume());
         gameScreen.getExplosions().add(new Explosion(alien.x + alien.width / 2, alien.y + alien.height / 2, alien.height, alien.width));
         gameScreen.getSpawner().setAlienDead(true);
         gameScreen.getSpawner().setLastAlienTime(TimeUtils.millis());
+        gameScreen.getAliens().removeValue(alien, true);
+        gameScreen.getFighterLasers().removeValue(fighterLaser, true);
     }
 
     /**
