@@ -20,7 +20,7 @@ public class ConfigSet {
 
     // fighter
     private int fighterSize = 120;
-    private int fighterSpeed = 800;
+    private int fighterSpeed = 1200;
     private int fighterLaserSize = 80;
     private int fighterLaserSpeed = 800;
     private double fighterShotsPerSecond = 2; // Godmode: 4
@@ -52,6 +52,12 @@ public class ConfigSet {
         increaseAlienRateOfFire();
         increaseAsteroidSpeed();
         System.out.println("Difficulty Increased");
+    }
+
+    public void resetDifficulty() {
+        setAlienSpeed(200);
+        setAlienShotsPerSecond(0.5f);
+        setAsteroidSpeed(100);
     }
 
     /**
@@ -92,7 +98,7 @@ public class ConfigSet {
      * Change fighter's rate of fire by a specified amount.
      * @param change the value by which the rate of fire is increased or decreased
      */
-    private void changeAlienRateOfFire(float change) {
+    private void changeAlienShotsPerSecond(float change) {
         if (alienShotsPerSecond + change >= 0) {
             alienShotsPerSecond += change;
             System.out.println(alienShotsPerSecond);
@@ -103,14 +109,14 @@ public class ConfigSet {
      * Increase the rate of fire of the alien.
      */
     public void increaseAlienRateOfFire() {
-        changeAlienRateOfFire(0.1f);
+        changeAlienShotsPerSecond(0.1f);
     }
 
     /**
      * Decrease the rate of fire of the alien.
      */
     public void decreaseAlienRateOfFire() {
-        changeAlienRateOfFire(-0.1f);
+        changeAlienShotsPerSecond(-0.1f);
     }
 
     /**

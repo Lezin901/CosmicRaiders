@@ -77,9 +77,9 @@ public class MovementHandler {
             }
             //move right or left
             if (aliensMoveToRight) {
-                alien.x += gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // alien speed
+                alien.x += gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // TODO alien speed - is deltaTime a Problem???
             } else {
-                alien.x -= gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // alien speed
+                alien.x -= gameScreen.getConfigSet().getAlienSpeed() * Gdx.graphics.getDeltaTime(); // TODO alien speed - is deltaTime a Problem???
             }
         }
         //randomly change direction

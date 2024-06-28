@@ -111,6 +111,7 @@ public class CollisionHandler {
             fighterExplosion.setCreationTime(TimeUtils.millis() + 5000);
             gameScreen.getExplosions().add(fighterExplosion);
             gameScreen.setFighter(null);
+            gameScreen.getConfigSet().resetDifficulty();
         }
 
     }

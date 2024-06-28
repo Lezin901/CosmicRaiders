@@ -58,7 +58,7 @@ public class ControlSet {
 
         // setting movement boundaries
         if(fighter.y < 0) fighter.y = 0;
-        if(fighter.y > gameScreen.getConfigSet().getResolutionY() *2/4 - gameScreen.getConfigSet().getFighterSize()) fighter.y = gameScreen.getConfigSet().getResolutionY() *2/4 - gameScreen.getConfigSet().getFighterSize();
+        if(fighter.y > gameScreen.getConfigSet().getResolutionY() *3/4 - gameScreen.getConfigSet().getFighterSize()) fighter.y = gameScreen.getConfigSet().getResolutionY() *3/4 - gameScreen.getConfigSet().getFighterSize();
     }
 
     /**
