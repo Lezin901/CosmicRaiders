@@ -29,9 +29,7 @@ public class CollisionHandler {
         }
         for (PowerUp powerUp : gameScreen.getPowerUps()) {
             if (Intersector.overlaps(powerUp, fighter)) {
-                gameScreen.setActivePowerUp(powerUp);
-                gameScreen.getPowerUps().removeValue(powerUp, true);
-                gameScreen.getConfigSet().setFighterShotsPerSecond(5);
+                gameScreen.getPowerUpHandler().activatePowerUp(powerUp);
             }
         }
         for (Rectangle alienLaser : gameScreen.getAlienLasers()) {
@@ -72,7 +70,6 @@ public class CollisionHandler {
         gameScreen.getExplosions().add(new Explosion(asteroid.x, asteroid.y, asteroid.radius * 2, asteroid.radius * 2));
 
         gameScreen.getSpawner().attemptPowerUpSpawn(asteroid.x, asteroid.y);
-
 
         gameScreen.getAsteroids().removeValue(asteroid, true);
         gameScreen.getFighterLasers().removeValue(fighterLaser, true);
