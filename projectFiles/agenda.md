@@ -38,4 +38,3 @@ PowerUp-Ideen:
 - PowerUp-Handler-Klasse
   - Gültigkeitszeit von PowerUp verwalten
   - Aufruf von Config-Methoden um Effekte zu verwalten
-  - 
