@@ -78,14 +78,14 @@ public class ConfigSet {
      * Add 50 to the speed of all asteroids.
      */
     public void increaseAsteroidSpeed() {
-        changeAsteroidSpeed(50);
+        changeAsteroidSpeed(20);
     }
 
     /**
      * Subtract 50 from the speed of all asteroids.
      */
     public void decreaseAsteroidSpeed() {
-        changeAsteroidSpeed(-50);
+        changeAsteroidSpeed(-20);
     }
 
     /**
@@ -100,14 +100,14 @@ public class ConfigSet {
      * Increase the speed of the alien by 50.
      */
     public void increaseAlienSpeed() {
-        changeAlienSpeed(50);
+        changeAlienSpeed(20);
     }
 
     /**
      * Decrease the speed of the alien by 50.
      */
     public void decreaseAlienSpeed() {
-        changeAlienSpeed(-50);
+        changeAlienSpeed(-20);
     }
 
     /**
