@@ -5,9 +5,12 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.*;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
+
+import java.awt.*;
 
 /**
  * Includes the main game logic as well as most GUI elements of the game.
@@ -92,6 +95,9 @@ public class GameScreen implements Screen {
         batch = game.getBatch();
         configSet = game.getConfigSet();
 
+        // make sure the background is black
+        configSet.setBackgroundColor(Color.BLACK);
+
         // construct camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, configSet.getResolutionX(), configSet.getResolutionY());
@@ -154,7 +160,7 @@ public class GameScreen implements Screen {
         //SpriteBatch rendering code
         batch.begin();
         debug.showCoordinates();
-        painter.renderBackground(40,0,0);
+        painter.renderBackground(configSet.getBackgroundColor());
         painter.renderStarLayers(1);
         painter.renderObjects();
         painter.renderText();
@@ -175,6 +181,9 @@ public class GameScreen implements Screen {
 
         // fighter movement
         controlSet.handleControls();
+
+        // power ups
+        powerUpHandler.handlePowerUps();
 
 
         // collisions

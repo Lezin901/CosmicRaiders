@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
+import java.awt.*;
 import java.util.Date;
 
 /**
@@ -126,7 +127,7 @@ public class Painter {
         }
         for(Explosion explosion: gameScreen.getExplosions()) { // explosions
             batch.draw(AssetSet.asteroidExplosionImage, explosion.getX() - explosion.getWidth() / 2, explosion.getY() - explosion.getHeight() / 2, explosion.getWidth(), explosion.getHeight());
-            if(explosion.getCreationTime() < TimeUtils.millis() - 500) {
+            if(explosion.getCreationTime() + 500 < TimeUtils.millis()) {
                 gameScreen.getExplosions().removeValue(explosion, true);
             }
         }
@@ -137,7 +138,6 @@ public class Painter {
             batch.draw(AssetSet.laserGreenImage, alienLaser.x, alienLaser.y, alienLaser.width, alienLaser.height);
         }
         for (PowerUp powerUp : gameScreen.getPowerUps()) {
-            System.out.println("PowerUp gezeichnet...");
             batch.draw(AssetSet.powerUpImage,  powerUp.x - powerUp.radius, powerUp.y - powerUp.radius, powerUp.radius * 2, powerUp.radius * 2);
         }
 
@@ -154,10 +154,10 @@ public class Painter {
         this.scoreText = scoreText;
     }
 
-    public void renderBackground(float r, float g, float b) {
-        r = r/255;
-        g = g/255;
-        b = b/255;
+    public void renderBackground(Color color) {
+        float r = color.getRed()/255f;
+        float g = color.getGreen()/255f;
+        float b = color.getBlue()/255f;
         ScreenUtils.clear(r, g, b, 1);
     }
 }
