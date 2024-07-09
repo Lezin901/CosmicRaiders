@@ -9,6 +9,7 @@ Demnächst:
 - Stottern verhindern durch DeltaTime
   - MovementHandler und Painter
   - DeltaTime durch Multiplikator ersetzen? (0.02d)
+- Web Deploy reparieren (Eigene Color-Klase?)
 
 Langfristig / Vielleicht:
 - Endgegner
