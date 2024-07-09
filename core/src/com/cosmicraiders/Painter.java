@@ -143,6 +143,9 @@ public class Painter {
 
     }
 
+    /**
+     * Draws the score and Godmode text on the screen.
+     */
     public void renderText() {
         gameScreen.getGame().getFont().draw(gameScreen.getGame().getBatch(), scoreText, 60, 80);
         if (gameScreen.getConfigSet().isGodMode() == true) {
@@ -154,6 +157,10 @@ public class Painter {
         this.scoreText = scoreText;
     }
 
+    /**
+     * Draws a background with a given color.
+     * @param color
+     */
     public void renderBackground(Color color) {
         float r = color.getRed()/255f;
         float g = color.getGreen()/255f;

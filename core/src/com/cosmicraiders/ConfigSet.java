@@ -57,6 +57,9 @@ public class ConfigSet {
         System.out.println("Difficulty Increased");
     }
 
+    /**
+     * Reset game difficulty to default values.
+     */
     public void resetDifficulty() {
         setAlienSpeed(200);
         setAlienShotsPerSecond(0.5f);
@@ -85,14 +88,24 @@ public class ConfigSet {
         changeAsteroidSpeed(-50);
     }
 
+    /**
+     * Change alien movement speed.
+     * @param change the value by which the speed is increased or decreased
+     */
     private void changeAlienSpeed(int change) {
         if (alienSpeed + change >= 0) alienSpeed += change;
     }
 
+    /**
+     * Increase the speed of the alien by 50.
+     */
     public void increaseAlienSpeed() {
         changeAlienSpeed(50);
     }
 
+    /**
+     * Decrease the speed of the alien by 50.
+     */
     public void decreaseAlienSpeed() {
         changeAlienSpeed(-50);
     }

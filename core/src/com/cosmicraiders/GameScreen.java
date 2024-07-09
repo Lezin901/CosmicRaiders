@@ -307,6 +307,10 @@ public class GameScreen implements Screen {
         return score;
     }
 
+    /**
+     * Set the score and update the score text.
+     * @param score
+     */
     public void setScore(int score) {
         this.score = score;
         painter.setScoreText("Score: " + score);

@@ -5,6 +5,10 @@ import com.badlogic.gdx.math.Rectangle;
 
 import java.awt.*;
 
+/**
+ * This class defines powerups. Subsequent powerup variants should inherit from this class.
+ * There is currently one only power up, it increases the fighter's shooting speed.
+ */
 public class PowerUp extends Circle {
     private long pickupTime;
     private long duration = 5000;
