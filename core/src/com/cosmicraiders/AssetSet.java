@@ -9,8 +9,11 @@ import com.badlogic.gdx.graphics.Texture;
  * This class saves textures, sounds and music as static attributes.
  */
 public class AssetSet {
-    public static Texture alienImage;
+
     public static Texture fighterImage;
+    public static Texture fighterRedImage;
+
+    public static Texture alienImage;
     public static Texture laserRedImage;
     public static Texture laserGreenImage;
     public static Texture asteroidImage;
@@ -49,8 +52,11 @@ public class AssetSet {
      * Load the drop sound effect and the background music.
      */
     public static void load() {
+
+        fighterImage = loadTexture("fighter/starFighter.png");
+        fighterRedImage = loadTexture("fighter/starFighterRed.png");
+
         alienImage = loadTexture("alien.png");
-        fighterImage = loadTexture("starFighter.png");
         laserRedImage = loadTexture("laserRed.png");
         laserGreenImage = loadTexture("laserGreen.png");
         asteroidImage = loadTexture("asteroid.png");
@@ -76,8 +82,9 @@ public class AssetSet {
      * Disposes of the sounds and music.
      */
     public static void dispose() {
-        alienImage.dispose();
         fighterImage.dispose();
+        fighterRedImage.dispose();
+        alienImage.dispose();
         laserRedImage.dispose();
         laserGreenImage.dispose();
         asteroidImage.dispose();

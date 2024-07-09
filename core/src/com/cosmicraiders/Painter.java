@@ -112,7 +112,13 @@ public class Painter {
     public void renderObjects() {
         // render all objects from Arrays into batch
         if (gameScreen.getFighter() != null) { // fighter
-            batch.draw(AssetSet.fighterImage, gameScreen.getFighter().x, gameScreen.getFighter().y, gameScreen.getFighter().width, gameScreen.getFighter().height);
+            if (gameScreen.getActivePowerUp() == null) {
+                batch.draw(AssetSet.fighterImage, gameScreen.getFighter().x, gameScreen.getFighter().y, gameScreen.getFighter().width, gameScreen.getFighter().height);
+            }
+            else {
+                batch.draw(AssetSet.fighterRedImage, gameScreen.getFighter().x, gameScreen.getFighter().y, gameScreen.getFighter().width, gameScreen.getFighter().height);
+            }
+
         }
         for(Rectangle laser: gameScreen.getFighterLasers()) { // fighter lasers
             batch.draw(AssetSet.laserRedImage, laser.x, laser.y, laser.width, laser.height);
