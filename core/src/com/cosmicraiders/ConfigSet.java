@@ -1,7 +1,5 @@
 package com.cosmicraiders;
 
-import java.awt.*;
-
 /**
  * This class saves general game settings as static attributes.
  * It serves to centralize these settings and make them more accessible.
@@ -19,7 +17,7 @@ public class ConfigSet {
     private int resolutionX = 1920;
     private int resolutionY = 1080;
     private int padding = resolutionX / 100;
-    private Color backgroundColor = new Color(0, 0, 0);
+    private CRColor backgroundColor = new CRColor(0, 0, 0);
 
     // fighter
     private int fighterSize = 120;
@@ -343,11 +341,11 @@ public class ConfigSet {
         return powerUpDiameter;
     }
 
-    public Color getBackgroundColor() {
+    public CRColor getBackgroundColor() {
         return backgroundColor;
     }
 
-    public void setBackgroundColor(Color backgroundColor) {
+    public void setBackgroundColor(CRColor backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 }

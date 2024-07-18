@@ -79,7 +79,7 @@ public class CollisionHandler {
     /**
      * Auxiliary method.
      * This method is called when a laser hits the alien ship.
-     * It plays an explosion sound, increases difficulty and adds an Explosion object to the explosions array to be rendered.
+     * It plays an explosion sound, increases difficulty (when score is low) and adds an Explosion object to the explosions array to be rendered.
      * It also sets the alienDead, lastAlienTime and aliensMovetoRight attributes.
      *
      * @param alien        the alien ship which has just been hit
@@ -87,7 +87,12 @@ public class CollisionHandler {
      */
     private void laserHitsAlien(Rectangle alien, Rectangle fighterLaser) {
         gameScreen.setScore(gameScreen.getScore() + 1);
-        gameScreen.getConfigSet().increaseDifficulty();
+
+        // don't change difficulty after score of 20
+        if (gameScreen.getScore() <= 20) {
+            gameScreen.getConfigSet().increaseDifficulty();
+        }
+
         AssetSet.alienExplosion.play(gameScreen.getConfigSet().getVolume());
         gameScreen.getExplosions().add(new Explosion(alien.x + alien.width / 2, alien.y + alien.height / 2, alien.height, alien.width));
         gameScreen.getSpawner().setAlienDead(true);

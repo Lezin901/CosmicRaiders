@@ -2,8 +2,6 @@ package com.cosmicraiders;
 
 import com.badlogic.gdx.utils.TimeUtils;
 
-import java.awt.*;
-
 /**
  * This class handles all power ups in the game.
  * It activates and deactivates them and sets the background color accordingly.
@@ -24,10 +22,11 @@ public class PowerUpHandler {
      */
     public void handlePowerUps() {
         if (gameScreen.getActivePowerUp() != null) {
+            // check if active powerUp has run out
             if (gameScreen.getActivePowerUp().getPickupTime() + gameScreen.getActivePowerUp().getDuration() < TimeUtils.millis()) {
                 gameScreen.setActivePowerUp(null);
                 gameScreen.getConfigSet().setFighterShotsPerSecond(1);
-                gameScreen.getConfigSet().setBackgroundColor(Color.BLACK);
+                gameScreen.getConfigSet().setBackgroundColor(new CRColor(0,0,0));
 
             }
         }

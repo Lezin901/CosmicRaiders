@@ -6,7 +6,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import java.awt.*;
 import java.util.Date;
 
 /**
@@ -167,10 +166,7 @@ public class Painter {
      * Draws a background with a given color.
      * @param color
      */
-    public void renderBackground(Color color) {
-        float r = color.getRed()/255f;
-        float g = color.getGreen()/255f;
-        float b = color.getBlue()/255f;
-        ScreenUtils.clear(r, g, b, 1);
+    public void renderBackground(CRColor color) {
+        ScreenUtils.clear(color.getRedFloat(), color.getGreenFloat(), color.getBlueFloat(), 1);
     }
 }

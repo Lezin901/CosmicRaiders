@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.math.Rectangle;
 
-import java.awt.*;
 
 /**
  * This class defines powerups. Subsequent powerup variants should inherit from this class.
@@ -13,7 +12,7 @@ import java.awt.*;
 public class PowerUp extends Circle {
     private long pickupTime;
     private long duration = 5000;
-    private Color backgroundColor = new Color(20, 0, 0);
+    private CRColor backgroundColor = new CRColor(20, 0, 0);
     private Texture fighterImage;
 
     public PowerUp() {
@@ -44,11 +43,11 @@ public class PowerUp extends Circle {
         this.duration = duration;
     }
 
-    public Color getBackgroundColor() {
+    public CRColor getBackgroundColor() {
         return backgroundColor;
     }
 
-    public void setBackgroundColor(Color backgroundColor) {
+    public void setBackgroundColor(CRColor backgroundColor) {
         this.backgroundColor = backgroundColor;
     }
 }

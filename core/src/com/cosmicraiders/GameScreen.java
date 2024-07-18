@@ -10,7 +10,6 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.TimeUtils;
 
-import java.awt.*;
 
 /**
  * Includes the main game logic as well as most GUI elements of the game.
@@ -96,7 +95,7 @@ public class GameScreen implements Screen {
         configSet = game.getConfigSet();
 
         // make sure the background is black
-        configSet.setBackgroundColor(Color.BLACK);
+        configSet.setBackgroundColor(new CRColor(0,0,0));
 
         // construct camera
         camera = new OrthographicCamera();
