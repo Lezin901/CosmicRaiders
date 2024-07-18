@@ -24,7 +24,7 @@ public class ConfigSet {
     private int fighterSpeed = 1200;
     private int fighterLaserSize = 80;
     private int fighterLaserSpeed = 800;
-    private double fighterShotsPerSecond = 1; // Godmode: 4
+    private double fighterShotsPerSecond = 1.5; // Godmode: 4
 
     // aliens
     private int alienSize = 80;
@@ -52,7 +52,7 @@ public class ConfigSet {
         increaseAlienSpeed();
         increaseAlienRateOfFire();
         increaseAsteroidSpeed();
-        System.out.println("Difficulty Increased");
+//        System.out.println("Difficulty Increased");
     }
 
     /**
@@ -115,7 +115,6 @@ public class ConfigSet {
     private void changeAlienShotsPerSecond(float change) {
         if (alienShotsPerSecond + change >= 0) {
             alienShotsPerSecond += change;
-            System.out.println(alienShotsPerSecond);
         }
     }
 
@@ -241,7 +240,7 @@ public class ConfigSet {
         return fighterShotsPerSecond;
     }
 
-    public void setFighterShotsPerSecond(int fighterShotsPerSecond) {
+    public void setFighterShotsPerSecond(double fighterShotsPerSecond) {
         this.fighterShotsPerSecond = fighterShotsPerSecond;
     }
 
@@ -281,7 +280,7 @@ public class ConfigSet {
         return alienShotsPerSecond;
     }
 
-    public void setAlienShotsPerSecond(float alienShotsPerSecond) {
+    public void setAlienShotsPerSecond(double alienShotsPerSecond) {
         this.alienShotsPerSecond = alienShotsPerSecond;
     }
 

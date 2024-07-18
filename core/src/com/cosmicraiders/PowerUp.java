@@ -11,7 +11,7 @@ import com.badlogic.gdx.math.Rectangle;
  */
 public class PowerUp extends Circle {
     private long pickupTime;
-    private long duration = 5000;
+    private long duration = 4000;
     private CRColor backgroundColor = new CRColor(20, 0, 0);
     private Texture fighterImage;
 

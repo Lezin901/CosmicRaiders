@@ -88,8 +88,8 @@ public class CollisionHandler {
     private void laserHitsAlien(Rectangle alien, Rectangle fighterLaser) {
         gameScreen.setScore(gameScreen.getScore() + 1);
 
-        // don't change difficulty after score of 20
-        if (gameScreen.getScore() <= 20) {
+        // don't change difficulty after score of 14
+        if (gameScreen.getScore() <= 14) {
             gameScreen.getConfigSet().increaseDifficulty();
         }
 

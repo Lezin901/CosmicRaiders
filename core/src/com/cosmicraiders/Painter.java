@@ -24,7 +24,7 @@ public class Painter {
     public Painter(GameScreen gameScreen) {
         this.gameScreen = gameScreen;
         this.batch = gameScreen.getGame().getBatch();
-        System.out.println("Konstruktor von Painter aufgerufen ");
+
         // Initialize positions of the backgroundStarLayerImages
         for (int i = 0; i < backgroundStarLayerImages.length; i++) {
             for (int j = 0; j < backgroundStarLayerImages[i].length; j++) {

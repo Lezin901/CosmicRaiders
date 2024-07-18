@@ -25,7 +25,7 @@ public class PowerUpHandler {
             // check if active powerUp has run out
             if (gameScreen.getActivePowerUp().getPickupTime() + gameScreen.getActivePowerUp().getDuration() < TimeUtils.millis()) {
                 gameScreen.setActivePowerUp(null);
-                gameScreen.getConfigSet().setFighterShotsPerSecond(1);
+                gameScreen.getConfigSet().setFighterShotsPerSecond(1.5);
                 gameScreen.getConfigSet().setBackgroundColor(new CRColor(0,0,0));
 
             }
@@ -41,7 +41,7 @@ public class PowerUpHandler {
         gameScreen.setActivePowerUp(powerUp);
         gameScreen.getActivePowerUp().setPickupTime(TimeUtils.millis());
         gameScreen.getPowerUps().removeValue(powerUp, true);
-        gameScreen.getConfigSet().setFighterShotsPerSecond(5);
+        gameScreen.getConfigSet().setFighterShotsPerSecond(7);
         gameScreen.getConfigSet().setBackgroundColor(powerUp.getBackgroundColor());
     }
 }

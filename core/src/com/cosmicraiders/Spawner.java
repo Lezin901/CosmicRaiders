@@ -54,7 +54,6 @@ public class Spawner {
         }
         for (Rectangle alien : gameScreen.getAliens()) {
             if (TimeUtils.millis() - lastAlienShootTime > 1000 / (gameScreen.getConfigSet().getAlienShotsPerSecond())) {
-                System.out.println((gameScreen.getConfigSet().getAlienShotsPerSecond()));
                 spawnAlienLaser(alien.x, alien.y);
             }
         }
@@ -135,21 +134,19 @@ public class Spawner {
         ;
     }
 
+    /**
+     * Attempt  to spawn a powerUp with a predetermined chance.
+     * @param x x-Position of the destroyed asteroid
+     * @param y y-Position of the destroyed asteroid
+     */
     public void attemptPowerUpSpawn(float x, float y) {
-
-        System.out.println("PowerUpSpawn attempted.");
         float randomFloat = MathUtils.random(0.0f, 1.0f);
-        if (randomFloat <= 0.5) {
+        if (randomFloat <= 0.2) {
             PowerUp powerUp = new PowerUp();
             powerUp.radius = gameScreen.getConfigSet().getPowerUpDiameter() / 2;
             powerUp.x = x;
             powerUp.y = y;
             gameScreen.getPowerUps().add(powerUp);
-
-//            System.out.println("PowerUpArray: " + gameScreen.getPowerUps().toString());
-//            System.out.println("PowerUp erzeugt bei " + x + " " + y);
-//            System.out.println("PowerUp-Koordinaten bei " + powerUp.x + " " + powerUp.y);
-            System.out.println("Erstes PowerUp im Array: " + gameScreen.getPowerUps().get(0).x);
         }
     }
 
